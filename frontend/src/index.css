@@ -58,3 +58,14 @@ a.active p {
 }
 
 /* Search Form */
+
+@media screen and (max-width: 1200px) {
+    .swiper {
+        width: 340px;
+        height: 270px;
+    }
+
+    .swiper-wrapper {
+        margin-bottom: 30px;
+    }
+}

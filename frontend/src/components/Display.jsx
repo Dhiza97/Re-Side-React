@@ -16,9 +16,9 @@ import { Navigation, Autoplay } from "swiper/modules";
 const Display = () => {
   return (
     <div className="hero flex pt-10">
-      <div className="hero-content -p-[1rem] flex flex-col lg:flex-row justify-around">
+      <div className="hero-content px-4 flex flex-col lg:flex-row justify-between w-full lg:px-10">
         {/* Left */}
-        <div className="text-left">
+        <div className="text-left lg:w-1/2">
           <Heading text={"REAL ESTATE"} />
           <h1 className="text-5xl font-bold text-[#0b090a]">
             Find a perfect <br /> home you love..!
@@ -36,7 +36,7 @@ const Display = () => {
               disableOnInteraction: false,
             }}
             navigation={true}
-            modules={[Navigation]}
+            modules={[Navigation, Autoplay]}
             className="mySwiper md:max-w-[550px] sm:max-w-[340px]"
           >
             <SwiperSlide>
@@ -52,7 +52,7 @@ const Display = () => {
         </div>
 
         {/* Right */}
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mt-10">
+        <div className="card bg-base-100 w-full lg:w-1/3 max-w-sm shrink-0 shadow-2xl mt-10 lg:mt-0">
           <div className="flex items-center justify-around border border-b-gray-500 py-8">
             <p className="text-primaryColor">For Sale</p>
             <p>For Rent</p>
