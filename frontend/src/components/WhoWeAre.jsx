@@ -13,13 +13,12 @@ const WhoWeAre = () => {
         </p>
         <p className=" text-sm mt-3 text-[#808080]">
           Empowering clients to find their ideal properties, our real estate
-          platform specializes in personalized assistance. With a keen
-          understanding of market dynamics, we streamline the process of
+          platform specializes in personalized assistance. We streamline the process of
           locating suitable real estate options for individuals.
         </p>
 
-        <div className="flex flex-col gap-5 mt-5">
-          <div className="flex items-center justify-center p-5 bg-white shadow-lg rounded-full w-[450px] gap-4">
+        <div className="flex flex-col gap-5 mt-10">
+          <div className="flex items-center justify-center p-5 bg-white shadow-lg rounded-3xl w-[450px] gap-4">
             <img className="w-10" src={assets.icon_smart_home} alt="" />
             <div>
               <p className="text-[#4361ee] mb-2">Finding the right location</p>
@@ -27,7 +26,7 @@ const WhoWeAre = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center p-5 bg-white shadow-lg rounded-full w-[450px] gap-4">
+          <div className="flex items-center justify-center p-5 bg-white shadow-lg rounded-3xl w-[450px] gap-4">
             <img className="w-10" src={assets.icon_user_octagon} alt="" />
             <div>
               <p className="text-[#4361ee] mb-2">Budget friendly</p>
