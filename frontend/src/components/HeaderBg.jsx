@@ -4,7 +4,7 @@ import Display2 from "./Display2";
 
 const HeaderBg = () => {
   return (
-    <div className="display-bg">
+    <div className="display-bg h-screen">
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
         <Display />
         <Display2 />

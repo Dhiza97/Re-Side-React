@@ -4,14 +4,14 @@ import { assets } from "../assets/assets";
 
 const WhoWeAre = () => {
   return (
-    <div className="flex gap-9 my-20">
+    <div className="flex items-center gap-9 h-screen">
       <div className="w-1/2">
         <Heading text={"WHO ARE WE"} />
         <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
           Assisting individuals in locating <br />
           the appropriate real estate.
         </p>
-        <p className=" text-sm mt-3 text-[#808080]">
+        <p className="text-sm mt-3 text-[#808080]">
           Empowering clients to find their ideal properties, our real estate
           platform specializes in personalized assistance. We streamline the process of
           locating suitable real estate options for individuals.

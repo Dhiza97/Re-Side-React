@@ -25,6 +25,7 @@ import house_15 from './house_15.jpg'
 import house_16 from './house_16.png'
 import hs_2 from './hs_2.jpg'
 import icon_bathroom from './icon_bathroom.png'
+import icon_bed from './icon_bed.png'
 import icon_facebook from './icon_facebook.png'
 import icon_fire from './icon_fire.png'
 import icon_hamburger from './icon_hamburger.png'
@@ -92,6 +93,7 @@ export const assets = {
     house_16,
     hs_2,
     icon_bathroom,
+    icon_bed,
     icon_facebook,
     icon_fire,
     icon_hamburger,
