@@ -3,6 +3,7 @@ import HeaderBg from "../components/HeaderBg";
 import Trustees from "../components/Trustees";
 import WhoWeAre from "../components/WhoWeAre";
 import Latest from "../components/Latest";
+import Services from "../components/Services";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <WhoWeAre />
         <Latest />
       </div>
+      <Services />
     </>
   );
 };
