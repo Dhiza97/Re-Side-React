@@ -4,7 +4,7 @@ import { assets } from "../assets/assets";
 
 const WhoWeAre = () => {
   return (
-    <div className="flex items-center gap-9 h-screen">
+    <div className="flex items-center gap-9 py-28">
       <div className="w-1/2">
         <Heading text={"WHO ARE WE"} />
         <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">

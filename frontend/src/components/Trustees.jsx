@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 
 const Trustees = () => {
   return (
-    <div className='my-16 text-center'>
+    <div className='my-16 text-center overflow-x-scroll'>
       <img className='w-20' src={assets.ellipse_1} alt="" />
       <p>Trusted by 100+ Companies across the globe!</p>
       <div className='flex items-center justify-around gap-10 my-9'>

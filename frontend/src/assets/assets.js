@@ -36,6 +36,9 @@ import icon_setting from './icon_setting.png'
 import icon_smart_home from './icon_smart_home.png'
 import icon_user_circle from './icon_user_circle.png'
 import icon_user_octagon from './icon_user_octagon.png'
+import icon_search_white from './icon_search_white.png'
+import icon_home_white from './icon_home_white.png'
+import icon_bed_white from './icon_bed_white.png'
 import log from './log.jpg'
 import logitech from './logitech.png'
 import logo_blue from './logo_blue.png'
@@ -104,6 +107,9 @@ export const assets = {
     icon_smart_home,
     icon_user_circle,
     icon_user_octagon,
+    icon_search_white,
+    icon_home_white,
+    icon_bed_white,
     log,
     logitech,
     logo_blue,

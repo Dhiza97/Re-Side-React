@@ -8,9 +8,9 @@ import Badge from "./Badge";
 const Latest = () => {
   const { currency } = useContext(AppContext);
   return (
-    <div className="h-screen">
+    <div className="py-28">
       <div>
-        <div className="flex justify-between items-center">
+        <div className="flex sm:flex-col justify-between items-center">
           <div>
             <Heading text={"CHECKOUT OUR NEW"} />
             <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
