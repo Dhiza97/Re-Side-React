@@ -69,3 +69,15 @@ a.active p {
         margin-bottom: 30px;
     }
 }
+
+/* Team images */
+.team-img {
+  margin-bottom: 1rem;
+  background-color: #d9d9d9;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.400000006) -0%, rgba(0, 0, 0, 0.400000006) 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 12rem 4rem 4rem 4rem;
+  flex-shrink: 0;
+}
