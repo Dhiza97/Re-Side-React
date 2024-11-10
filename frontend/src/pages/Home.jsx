@@ -8,6 +8,7 @@ import PropertiesCount from "../components/PropertiesCount";
 import OurTeam from "../components/OurTeam";
 import Blog from "../components/Blog";
 import Testimonial from "../components/Testimonial";
+import Agent from "../components/Agent";
 
 const Home = () => {
   return (
@@ -26,6 +27,7 @@ const Home = () => {
       <Blog />
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
         <Testimonial />
+        <Agent />
       </div>
     </>
   );
