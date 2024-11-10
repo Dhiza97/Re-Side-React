@@ -10,7 +10,7 @@ const Latest = () => {
   return (
     <div className="py-28">
       <div>
-        <div className="flex sm:flex-col justify-between items-center">
+        <div className="flex justify-between items-center">
           <div>
             <Heading text={"CHECKOUT OUR NEW"} />
             <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
