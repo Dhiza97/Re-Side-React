@@ -33,6 +33,15 @@ a.active p {
   margin-bottom: 16px;
 }
 
+.heading-nocolor {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.291rem;
+  white-space: nowrap;
+  margin-bottom: 16px;
+}
+
 /* Slide */
 .swiper {
     width: 550px;

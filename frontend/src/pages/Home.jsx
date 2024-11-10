@@ -6,6 +6,7 @@ import Latest from "../components/Latest";
 import Services from "../components/Services";
 import PropertiesCount from "../components/PropertiesCount";
 import OurTeam from "../components/OurTeam";
+import Blog from "../components/Blog";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
         <PropertiesCount />
         <OurTeam />
       </div>
+      <Blog />
     </>
   );
 };
