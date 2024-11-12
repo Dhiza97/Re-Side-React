@@ -26,8 +26,8 @@ const Testimonial = () => {
         <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
           Look What Our <br /> Customers Say!
         </p>
-        <p className="text-xs mt-3 leading-5">
-          Explore the testimonials of our delighted customers and see what they
+        <p className="text-sm mt-3 leading-5">
+          Explore the testimonials of our delighted customers and see what they <br />
           have to say about their experience with us!
         </p>
         <div className="flex gap-8 mt-5">

@@ -66,9 +66,7 @@ a.active p {
   object-fit: cover;
 }
 
-/* Search Form */
-
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
     .swiper {
         width: 340px;
         height: 270px;
@@ -77,7 +75,7 @@ a.active p {
     .swiper-wrapper {
         margin-bottom: 30px;
     }
-}
+} */
 
 /* Team images */
 .team-img {

@@ -29,6 +29,7 @@ import icon_right_arrow from './icon_right_arrow.png'
 import icon_left_arrow from './icon_left_arrow.png'
 import icon_bathroom from './icon_bathroom.png'
 import icon_bed from './icon_bed.png'
+import icon_blue_arrow from './icon_blue_arrow.png'
 import icon_facebook from './icon_facebook.png'
 import icon_fire from './icon_fire.png'
 import icon_hamburger from './icon_hamburger.png'
@@ -42,6 +43,8 @@ import icon_user_octagon from './icon_user_octagon.png'
 import icon_search_white from './icon_search_white.png'
 import icon_home_white from './icon_home_white.png'
 import icon_bed_white from './icon_bed_white.png'
+import icon_phone from './icon_phone.png'
+import icon_mail from './icon_mail.png'
 import log from './log.jpg'
 import logitech from './logitech.png'
 import logo_blue from './logo_blue.png'
@@ -103,6 +106,7 @@ export const assets = {
     icon_left_arrow,
     icon_bathroom,
     icon_bed,
+    icon_blue_arrow,
     icon_facebook,
     icon_fire,
     icon_hamburger,
@@ -116,6 +120,8 @@ export const assets = {
     icon_search_white,
     icon_home_white,
     icon_bed_white,
+    icon_phone,
+    icon_mail,
     log,
     logitech,
     logo_blue,

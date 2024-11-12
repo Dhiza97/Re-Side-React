@@ -9,6 +9,7 @@ import OurTeam from "../components/OurTeam";
 import Blog from "../components/Blog";
 import Testimonial from "../components/Testimonial";
 import Agent from "../components/Agent";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -29,6 +30,7 @@ const Home = () => {
         <Testimonial />
         <Agent />
       </div>
+      <Footer />
     </>
   );
 };
