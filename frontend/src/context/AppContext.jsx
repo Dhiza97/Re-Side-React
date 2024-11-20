@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { properties } from "../assets/assets";
 
 
 export const AppContext = createContext()
@@ -11,7 +12,8 @@ const AppContextProvider = (props) => {
 
     const value = {
         currency,
-        navigate
+        navigate,
+        properties,
     }
 
     return (

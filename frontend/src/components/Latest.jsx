@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import Heading from "./Heading";
 import Button from "./Button";
-import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
-import Badge from "./Badge";
+import { assets } from "../assets/assets";
 
 const Latest = () => {
-  const { currency } = useContext(AppContext);
+  const { currency, properties } = useContext(AppContext);
+
   return (
     <div className="py-28">
       <div>
+        {/* Header Section */}
         <div className="flex justify-between items-center">
           <div>
             <Heading text={"CHECKOUT OUR NEW"} />
@@ -29,101 +30,45 @@ const Latest = () => {
           </div>
         </div>
 
-        <div className="mt-5">
-          {/* Map products */}
-          <div className="flex gap-9">
-            <div>
-              <div className="relative">
+        {/* Properties Section */}
+        <div className="mt-5 overflow-x-auto">
+          <div className="flex gap-6">
+            {/* Display only the first 6 properties */}
+            {properties.slice(0, 6).map((property, index) => (
+              <div
+                key={index}
+                className="property-card min-w-[300px] md:min-w-[400px] border rounded-lg p-4 bg-white shadow"
+              >
                 <img
-                  className="w-60 h-60 rounded-3xl"
-                  src={assets.house_1}
-                  alt=""
+                  className="property-photo w-full h-48 object-cover rounded-lg"
+                  src={property.photos[0]}
+                  alt={property.propertyName}
                 />
-                <Badge text={'Sale'} />
-              </div>
-
-              <div className="mt-2 flex flex-col gap-2">
-                <p className="font-semibold">{currency} 500,000</p>
-                <p className="text-base">Tranquil Haven in the Woods</p>
-                <p className="text-xs font-light text-[#808080]">
-                  103 Wright CourtBurien, WA 98168
-                </p>
-
-                <div className="flex gap-2">
-                  <div className="flex gap-2">
-                    <img className="w-5" src={assets.icon_bed} alt="" />
-                    <p className="text-xs">4 Beds</p>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <img className="w-4" src={assets.icon_bathroom} alt="" />
-                    <p className="text-xs">3 Bath</p>
+                <div className="mt-2 flex flex-col gap-2">
+                  <p className="font-semibold">
+                    {currency} {property.price.toLocaleString()}
+                  </p>
+                  <p className="text-base">{property.propertyName}</p>
+                  <p className="text-xs font-light text-[#808080]">
+                    {property.address}, {property.city}, {property.state}
+                  </p>
+                  <div className="flex gap-4">
+                    <div className="flex gap-2 items-center">
+                      <img className="w-5" src={assets.icon_bed} alt="Bed Icon" />
+                      <p className="text-xs">{property.bedroom} Beds</p>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <img
+                        className="w-4"
+                        src={assets.icon_bathroom}
+                        alt="Bath Icon"
+                      />
+                      <p className="text-xs">{property.bathroom} Baths</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div>
-            <div className="relative">
-                <img
-                  className="w-60 h-60 rounded-3xl"
-                  src={assets.house_4}
-                  alt=""
-                />
-                <Badge text={'Rent'} />
-              </div>
-
-              <div className="mt-2 flex flex-col gap-2">
-                <p className="font-semibold">{currency} 500,000</p>
-                <p className="text-base">Tranquil Haven in the Woods</p>
-                <p className="text-xs font-light text-[#808080]">
-                  103 Wright CourtBurien, WA 98168
-                </p>
-
-                <div className="flex gap-2">
-                  <div className="flex gap-2">
-                    <img className="w-5" src={assets.icon_bed} alt="" />
-                    <p className="text-xs">4 Beds</p>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <img className="w-4" src={assets.icon_bathroom} alt="" />
-                    <p className="text-xs">3 Bath</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-            <div className="relative">
-                <img
-                  className="w-60 h-60 rounded-3xl"
-                  src={assets.house_8}
-                  alt=""
-                />
-                <Badge text={'Sale'} />
-              </div>
-
-              <div className="mt-2 flex flex-col gap-2">
-                <p className="font-semibold">{currency} 500,000</p>
-                <p className="text-base">Tranquil Haven in the Woods</p>
-                <p className="text-xs font-light text-[#808080]">
-                  103 Wright CourtBurien, WA 98168
-                </p>
-
-                <div className="flex gap-2">
-                  <div className="flex gap-2">
-                    <img className="w-5" src={assets.icon_bed} alt="" />
-                    <p className="text-xs">4 Beds</p>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <img className="w-4" src={assets.icon_bathroom} alt="" />
-                    <p className="text-xs">3 Bath</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
