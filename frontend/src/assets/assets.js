@@ -154,6 +154,7 @@ export const assets = {
 
 export const properties = [
   {
+    _id: "prop1",
     propertyName: "Luxury Duplex",
     propertyType: "House",
     purchaseType: "sale",
@@ -168,6 +169,7 @@ export const properties = [
     bathroom: 6,
   },
   {
+    _id: "prop2",
     propertyName: "Modern Apartment",
     propertyType: "Apartment",
     purchaseType: "rent",
@@ -183,6 +185,7 @@ export const properties = [
     bathroom: 4,
   },
   {
+    _id: "prop3",
     propertyName: "Ocean View Condo",
     propertyType: "Condo",
     purchaseType: "sale",
@@ -197,6 +200,7 @@ export const properties = [
     bathroom: 3,
   },
   {
+    _id: "prop4",
     propertyName: "Affordable Bungalow",
     propertyType: "House",
     purchaseType: "sale",
@@ -211,6 +215,7 @@ export const properties = [
     bathroom: 2,
   },
   {
+    _id: "prop5",
     propertyName: "Executive Penthouse",
     propertyType: "Apartment",
     purchaseType: "rent",
@@ -225,6 +230,7 @@ export const properties = [
     bathroom: 5,
   },
   {
+    _id: "prop6",
     propertyName: "Cozy Condo",
     propertyType: "Condo",
     purchaseType: "sale",
@@ -239,6 +245,7 @@ export const properties = [
     bathroom: 2,
   },
   {
+    _id: "prop7",
     propertyName: "Family Bungalow",
     propertyType: "House",
     purchaseType: "rent",
@@ -253,6 +260,7 @@ export const properties = [
     bathroom: 3,
   },
   {
+    _id: "prop8",
     propertyName: "Stylish Loft",
     propertyType: "Apartment",
     purchaseType: "sale",
@@ -267,6 +275,7 @@ export const properties = [
     bathroom: 2,
   },
   {
+    _id: "prop9",
     propertyName: "Quiet Townhouse",
     propertyType: "Condo",
     purchaseType: "rent",
@@ -281,6 +290,7 @@ export const properties = [
     bathroom: 3,
   },
   {
+    _id: "prop10",
     propertyName: "Classic Detached House",
     propertyType: "House",
     purchaseType: "sale",
@@ -295,6 +305,7 @@ export const properties = [
     bathroom: 5,
   },
   {
+    _id: "prop11",
     propertyName: "Modern Studio",
     propertyType: "Apartment",
     purchaseType: "rent",
@@ -309,6 +320,7 @@ export const properties = [
     bathroom: 1,
   },
   {
+    _id: "prop12",
     propertyName: "Spacious Duplex",
     propertyType: "House",
     purchaseType: "sale",
@@ -323,6 +335,7 @@ export const properties = [
     bathroom: 6,
   },
   {
+    _id: "prop13",
     propertyName: "Luxury Beachfront Condo",
     propertyType: "Condo",
     purchaseType: "sale",
@@ -337,6 +350,7 @@ export const properties = [
     bathroom: 4,
   },
   {
+    _id: "prop14",
     propertyName: "Elegant Villa",
     propertyType: "House",
     purchaseType: "sale",

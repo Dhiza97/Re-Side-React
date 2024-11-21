@@ -1,11 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 const PropertyCard = ({ properties, currency }) => {
   return (
     <div className="property-list grid grid-cols-1 md:grid-cols-3 gap-4">
       {properties.map((property, index) => (
-        <div key={index} className="property-card shadow p-2">
+        <Link 
+          key={index} 
+          to={`/property/${property._id}`} // Navigate to the property details page
+          className="property-card shadow p-2 block"
+        >
           <div className="relative">
             <img
               className="property-photo w-full h-48 object-cover"
@@ -54,7 +59,7 @@ const PropertyCard = ({ properties, currency }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

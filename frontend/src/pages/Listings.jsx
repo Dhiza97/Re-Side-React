@@ -7,10 +7,13 @@ const Listings = ({currency}) => {
   const { properties } = useContext(AppContext);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   // Filter handler
   const handleFilter = (type) => {
     setActiveFilter(type);
+    setCurrentPage(1); // Reset currentPage to 1 when filter changes
     if (type === "All") {
       setFilteredProperties(properties);
     } else {
@@ -20,6 +23,21 @@ const Listings = ({currency}) => {
       );
       setFilteredProperties(filtered);
     }
+  };
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+
+  // Get the items to display on the current page
+  const paginatedItems = filteredProperties.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -46,10 +64,29 @@ const Listings = ({currency}) => {
       {/* Properties Section */}
       <div className="mt-5">
         {filteredProperties.length > 0 ? (
-          <PropertyCard properties={filteredProperties} currency={currency} />
+          <PropertyCard properties={paginatedItems} currency={currency} />
         ) : (
           <p className="text-gray-500">No properties available.</p>
         )}
+      </div>
+
+      {/* Pagination controls */}
+      <div className="text-center my-4 z-20">
+        <div className="join">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={`join-item btn hover:text-white ${
+                currentPage === index + 1
+                  ? "btn-active text-white bg-primaryColor"
+                  : "text-primaryColor bg-white"
+              }`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
