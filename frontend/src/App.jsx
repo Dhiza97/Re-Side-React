@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/property/:propertyId" element={<Property />} />
-          <Route path="/account-type" element={<AccType />} />
+          <Route path="/login" element={<AccType />} />
           <Route path="/user-signin" element={<UserSignin />} />
           <Route path="/agent-signin" element={<AgentSignin />} />
         </Routes>

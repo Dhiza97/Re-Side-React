@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between font-medium px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] shadow-lg">
-      <Link>
+      <Link to={'/'}>
         <img src={assets.logo_blue} className="w-16" alt="" />
       </Link>
 
@@ -40,7 +40,7 @@ const Navbar = () => {
             src={assets.icon_user_circle}
             alt=""
           />
-          <p>Login/Register</p>
+          <p className="hidden md:flex">Login/Register</p>
           {/* Dropdown Menu */}
           {token && (
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10">
@@ -80,7 +80,7 @@ const Navbar = () => {
           <NavLink
             onClick={() => setVisible(false)}
             className="py-2 pl-6 border"
-            to="/collection"
+            to="/listings"
           >
             LISTINGS
           </NavLink>
