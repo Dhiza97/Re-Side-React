@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import PropertyCard from "../components/PropertyCard";
 import { AppContext } from "../context/AppContext";
 
-const Listings = () => {
+const Listings = ({currency}) => {
   const { properties } = useContext(AppContext);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
@@ -14,16 +14,14 @@ const Listings = () => {
     if (type === "All") {
       setFilteredProperties(properties);
     } else {
-      setFilteredProperties(
-        properties.filter(
-          (property) =>
-            property.purchaseType.toLowerCase() === type.toLowerCase()
-        )
+      const filtered = properties.filter(
+        (property) =>
+          property.purchaseType.trim().toLowerCase() === type.trim().toLowerCase()
       );
+      setFilteredProperties(filtered);
     }
   };
 
-  // Sync filteredProperties with properties when properties change
   useEffect(() => {
     setFilteredProperties(properties);
   }, [properties]);
@@ -48,7 +46,7 @@ const Listings = () => {
       {/* Properties Section */}
       <div className="mt-5">
         {filteredProperties.length > 0 ? (
-          <PropertyCard properties={filteredProperties} />
+          <PropertyCard properties={filteredProperties} currency={currency} />
         ) : (
           <p className="text-gray-500">No properties available.</p>
         )}

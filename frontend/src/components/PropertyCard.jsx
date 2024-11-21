@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import React from "react";
 import { assets } from "../assets/assets";
 
-const PropertyCard = () => {
-  const { currency, properties } = useContext(AppContext);
-
+const PropertyCard = ({ properties, currency }) => {
   return (
     <div className="property-list grid grid-cols-1 md:grid-cols-3 gap-4">
       {properties.map((property, index) => (
