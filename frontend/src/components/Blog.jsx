@@ -12,8 +12,10 @@ const Blog = () => {
         </p>
       </div>
 
-      <div className="flex justify-between items-center gap-16 mt-16">
-        <div className="w-80">
+      {/* Using responsive flexbox: column on mobile, row on larger screens */}
+      <div className="mt-16 flex flex-col md:flex-row justify-between gap-16">
+        {/* Blog Post 1 */}
+        <div className="w-full md:w-80">
           <div className="overflow-hidden relative">
             <img
               className="rounded-3xl h-full object-cover object-center"
@@ -41,7 +43,8 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="w-80">
+        {/* Blog Post 2 */}
+        <div className="w-full md:w-80">
           <div className="overflow-hidden relative">
             <img
               className="rounded-3xl h-full object-cover object-center"
@@ -71,7 +74,8 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="w-80">
+        {/* Blog Post 3 */}
+        <div className="w-full md:w-80">
           <div className="overflow-hidden relative">
             <img
               className="rounded-3xl h-full object-cover object-center"

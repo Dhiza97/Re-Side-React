@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import Button from "./Button";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
 
 const Latest = () => {
   const { currency, properties } = useContext(AppContext);
@@ -11,7 +12,7 @@ const Latest = () => {
     <div className="py-28">
       <div>
         {/* Header Section */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col lg:flex-row justify-between items-center">
           <div>
             <Heading text={"CHECKOUT OUR NEW"} />
             <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
@@ -23,10 +24,11 @@ const Latest = () => {
             </p>
           </div>
 
-          <div className="flex justify-between gap-7">
-            <Button text={"All"} />
-            <Button text={"Sell"} />
-            <Button text={"Rent"} />
+          <div className="mt-5 lg:mt-0">
+            {/* Button: View All */}
+            <Link to="/listings">
+              <Button text={"View All"} className="whitespace-nowrap" />
+            </Link>
           </div>
         </div>
 
@@ -35,8 +37,9 @@ const Latest = () => {
           <div className="flex gap-6">
             {/* Display only the first 6 properties */}
             {properties.slice(0, 6).map((property, index) => (
-              <div
+              <Link
                 key={index}
+                to={`/property/${property._id}`} // Navigate to the property details page
                 className="property-card min-w-[300px] md:min-w-[400px] border rounded-lg p-4 bg-white shadow"
               >
                 <img
@@ -67,7 +70,7 @@ const Latest = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

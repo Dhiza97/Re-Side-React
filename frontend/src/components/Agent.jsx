@@ -3,20 +3,25 @@ import { assets } from "../assets/assets";
 
 const Agent = () => {
   return (
-    <div className="relative flex items-center justify-between bg-primaryColor w-full rounded-3xl my-20">
-      <img className="w-[25.8rem] -mt-16" src={assets.agent} alt="" />
+    <div className="relative flex flex-col-reverse sm:flex-row sm:items-center bg-primaryColor w-full rounded-3xl my-20 px-4 sm:px-8">
+      <img
+        className="w-full sm:w-[15.8rem] sm:mr-16 sm:-mt-8 sm:mb-0 mb-0"
+        src={assets.agent}
+        alt="Agent"
+      />
 
-      <div className="flex justify-between gap-20">
-        <div className="text-white">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between sm:gap-60 w-full sm:w-auto sm:ml-16 py-20 sm:py-0">
+        <div className="text-white mb-6 sm:mb-0  pb-10 sm:p-0">
           <p className="text-3xl font-medium mb-3">Become an Agent.</p>
           <p className="text-xs">
-            Take the next step in your career and <br /> become an agent with us
-            today.
+            Take the next step in your career and <br /> become an agent with us today.
           </p>
         </div>
-      </div>
 
-      <button className="bg-white text-primaryColor rounded-3xl p-4 mr-16">Register Now</button>
+        <button className="bg-white text-primaryColor rounded-full p-4 w-full sm:w-auto sm:mr-16">
+          Register Now
+        </button>
+      </div>
     </div>
   );
 };

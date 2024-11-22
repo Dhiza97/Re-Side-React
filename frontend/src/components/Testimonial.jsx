@@ -19,15 +19,16 @@ const Testimonial = () => {
   const nextRef = useRef(null);
 
   return (
-    <div className="py-40 flex">
+    <div className="hidden py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-16 lg:px-32 sm:flex flex-col lg:flex-row gap-10">
       {/* Left */}
-      <div className="w-1/2">
+      <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
         <Heading text={"TESTIMONIALS"} />
-        <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
+        <p className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
           Look What Our <br /> Customers Say!
         </p>
-        <p className="text-sm mt-3 leading-5">
-          Explore the testimonials of our delighted customers and see what they <br />
+        <p className="text-sm sm:text-base mt-3 leading-5">
+          Explore the testimonials of our delighted customers and see what they{" "}
+          <br />
           have to say about their experience with us!
         </p>
         <div className="flex gap-8 mt-5">
@@ -47,8 +48,8 @@ const Testimonial = () => {
         </div>
       </div>
 
-      {/* Right */}
-      <div className="w-1/2">
+      {/* Right (Swiper) */}
+      <div className="w-full lg:w-1/2 sm:w-full">
         <Swiper
           direction={"vertical"}
           modules={[Navigation, Scrollbar]}

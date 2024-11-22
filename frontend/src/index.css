@@ -44,9 +44,9 @@ a.active p {
 
 /* Slide */
 .swiper {
-    width: 550px;
-    height: 370px;
-    border-radius: 50px;
+  width: 550px;
+  height: 370px;
+  border-radius: 50px;
 }
 
 .swiper-slide {
@@ -66,22 +66,15 @@ a.active p {
   object-fit: cover;
 }
 
-/* @media screen and (max-width: 1200px) {
-    .swiper {
-        width: 340px;
-        height: 270px;
-    }
-
-    .swiper-wrapper {
-        margin-bottom: 30px;
-    }
-} */
-
 /* Team images */
 .team-img {
   margin-bottom: 1rem;
   background-color: #d9d9d9;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.400000006) -0%, rgba(0, 0, 0, 0.400000006) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.400000006) -0%,
+    rgba(0, 0, 0, 0.400000006) 100%
+  );
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
