@@ -1,19 +1,21 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Listings from "./pages/Listings";
 import About from "./pages/About";
 import Faq from "./pages/Faq";
 import Property from "./pages/Property";
-import AccType from "./pages/AccType";
-import UserSignin from "./pages/UserSignin";
-import AgentSignin from "./pages/AgentSignin";
 import Navbar from "./components/Navbar";
+import Signin from "./pages/Signin";
+import Footer from "./components/Footer";
 
 const App = () => {
+  const location = useLocation(); // Get the current location
+  const hideFooterRoutes = ["/login"]; // Define routes where footer should not appear
+
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,11 +23,10 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/property/:propertyId" element={<Property />} />
-          <Route path="/login" element={<AccType />} />
-          <Route path="/user-signin" element={<UserSignin />} />
-          <Route path="/agent-signin" element={<AgentSignin />} />
+          <Route path="/login" element={<Signin />} />
         </Routes>
       </div>
+      {!hideFooterRoutes.includes(location.pathname) && <Footer />}
     </>
   );
 };

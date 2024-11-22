@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between font-medium px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] shadow-lg">
-      <Link to={'/'}>
+      <Link to={"/"}>
         <img src={assets.logo_blue} className="w-16" alt="" />
       </Link>
 
@@ -33,14 +33,16 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center gap-6">
-        <div className="group relative flex gap-3 cursor-pointer">
-          <img
-            onClick={() => (token ? null : navigate("/login"))}
-            className="w-6 cursor-pointer"
-            src={assets.icon_user_circle}
-            alt=""
-          />
-          <p className="hidden md:flex">Login/Register</p>
+        <div className="group relative cursor-pointer">
+          <div onClick={() => (token ? null : navigate("/login"))} className="flex gap-3 cursor-pointer">
+            <img
+              className="w-6 cursor-pointer"
+              src={assets.icon_user_circle}
+              alt=""
+            />
+            <p className="hidden md:flex">Login/Register</p>
+          </div>
+
           {/* Dropdown Menu */}
           {token && (
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10">
