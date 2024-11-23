@@ -1,54 +1,61 @@
 import mongoose from "mongoose";
 
-const propertySchema = new mongoose.Schema({
+const propertySchema = new mongoose.Schema(
+  {
     propertyName: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     propertyType: {
-        type: String,
-        enum: ['House', 'Apartment', 'Condo']
+      type: String,
+      enum: ["Duplex", "Bungalow", "Condo", "penthhouse", "apartment"],
     },
     purchaseType: {
-        type: String,
-        enum: ['rent', 'sale']
+      type: String,
+      enum: ["rent", "sale"],
     },
     status: {
-        type: String,
-        enum: ['pending', 'approved', 'rejected'],
-        default: 'pending'
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
     },
     address: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     city: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     state: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
-    photos: [
-        String
-    ],
+    image: {
+      type: Array,
+      required: true,
+    },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     bedroom: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     bathroom: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
-}, {
-    timestamps: true
-})
+  },
+  {
+    timestamps: true,
+  }
+);
+const Property = mongoose.model("Property", propertySchema)
+
+export default Property;

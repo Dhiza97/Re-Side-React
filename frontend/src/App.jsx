@@ -13,7 +13,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const location = useLocation(); // Get the current location
-  const hideFooterRoutes = ["/login", "/register"]; // Define routes where footer should not appear
+  const hideFooterRoutes = ["/login", "/register", "/dashboard"]; // Define routes where footer should not appear
 
   return (
     <>
