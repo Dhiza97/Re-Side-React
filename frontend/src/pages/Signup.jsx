@@ -135,7 +135,7 @@ const Signup = () => {
                   type="text"
                   id="agentName"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your name"
+                  placeholder="Enter your full name"
                 />
               </div>
               <div>
@@ -143,13 +143,13 @@ const Signup = () => {
                   htmlFor="agentId"
                   className="block text-gray-700 font-normal"
                 >
-                  Agent ID
+                  Phone Number
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="agentId"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your Agent ID"
+                  placeholder="Enter your Phone Number"
                 />
               </div>
               <div>

@@ -28,11 +28,11 @@ const Footer = () => {
           <NavLink to={"/"} className="link link-hover">
             Home
           </NavLink>
-          <NavLink to={"/about"} className="link link-hover">
-            About
-          </NavLink>
           <NavLink to={"/listings"} className="link link-hover">
             Listings
+          </NavLink>
+          <NavLink to={"/about"} className="link link-hover">
+            About
           </NavLink>
           <NavLink to={"/services"} className="link link-hover">
             Services
@@ -45,19 +45,22 @@ const Footer = () => {
         <nav className="hidden md:flex flex-col">
           <p className="text-base font-medium mb-9">Discovery</p>
           <NavLink to={"/"} className="link link-hover">
-            Abuja
+            Nigeria
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            Lagos
+            USA
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            Kaduna
+            Ghana
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            Port-Harcourt
+            United Kingdom
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            Imo
+            China
+          </NavLink>
+          <NavLink to={"/"} className="link link-hover">
+            South Africa
           </NavLink>
         </nav>
 
