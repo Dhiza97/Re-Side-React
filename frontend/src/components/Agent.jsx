@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const Agent = () => {
   return (
-    <div className="relative flex flex-col-reverse sm:flex-row sm:items-center bg-primaryColor w-full rounded-3xl my-20 px-4 sm:px-8">
+    <div className="relative flex flex-col-reverse sm:flex-row sm:items-center bg-primaryColor w-full rounded-3xl my-32 px-4 sm:px-8">
       <img
         className="w-full sm:w-[15.8rem] sm:mr-16 sm:-mt-8 sm:mb-0 mb-0"
         src={assets.agent}
@@ -18,7 +18,7 @@ const Agent = () => {
           </p>
         </div>
 
-        <button className="bg-white text-primaryColor rounded-full p-4 w-full sm:w-auto sm:mr-16">
+        <button className="bg-white text-primaryColor rounded-full p-4 w-full sm:w-auto sm:mr-16 whitespace-nowrap">
           Register Now
         </button>
       </div>

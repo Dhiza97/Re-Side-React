@@ -8,10 +8,11 @@ import Property from "./pages/Property";
 import Navbar from "./components/Navbar";
 import Signin from "./pages/Signin";
 import Footer from "./components/Footer";
+import Signup from "./pages/Signup";
 
 const App = () => {
   const location = useLocation(); // Get the current location
-  const hideFooterRoutes = ["/login"]; // Define routes where footer should not appear
+  const hideFooterRoutes = ["/login", "/register"]; // Define routes where footer should not appear
 
   return (
     <>
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/faq" element={<Faq />} />
           <Route path="/property/:propertyId" element={<Property />} />
           <Route path="/login" element={<Signin />} />
+          <Route path="/register" element={<Signup />} />
         </Routes>
       </div>
       {!hideFooterRoutes.includes(location.pathname) && <Footer />}
