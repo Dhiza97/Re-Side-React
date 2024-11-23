@@ -56,6 +56,9 @@ const Footer = () => {
           <NavLink to={"/"} className="link link-hover">
             Port-Harcourt
           </NavLink>
+          <NavLink to={"/"} className="link link-hover">
+            Imo
+          </NavLink>
         </nav>
 
         <nav className="text-center sm:text-left flex flex-col sm:justify-between items-center sm:items-start">

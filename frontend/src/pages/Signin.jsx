@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
   const [activeTab, setActiveTab] = useState("Client"); // Manage which tab is active
@@ -89,6 +90,9 @@ const Signin = () => {
               >
                 Sign In as Client
               </button>
+              <Link to={'/register'}>
+                <p className="text-sm mt-5 underline cursor-pointer">Create an account</p>
+              </Link>
             </form>
           ) : (
             <form className="space-y-4">
@@ -131,6 +135,9 @@ const Signin = () => {
               >
                 Sign In as Agent
               </button>
+              <Link to={'/register'}>
+                <p className="text-sm mt-5 underline cursor-pointer">Create an account</p>
+              </Link>
             </form>
           )}
         </div>
