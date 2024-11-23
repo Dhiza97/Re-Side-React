@@ -4,6 +4,40 @@ import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [activeTab, setActiveTab] = useState("Client"); // Manage which tab is active
+  const [currentStep, setCurrentStep] = useState(1); // Track current form step
+
+  const totalSteps = 3; // Number of steps in the form
+
+  // Function to handle navigation between steps
+  const handleNext = () => {
+    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
+  };
+
+  const handlePrevious = () => {
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
+  };
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted");
+  };
+
+  // Common render function for input fields
+  const renderInputField = (label, id, type, placeholder, required = false) => (
+    <div>
+      <label htmlFor={id} className="block text-gray-700 font-normal">
+        {label}
+      </label>
+      <input
+        type={type}
+        id={id}
+        className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
+        placeholder={placeholder}
+        required={required}
+      />
+    </div>
+  );
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -30,7 +64,10 @@ const Signup = () => {
                 ? "tab-active text-primaryColor [--tab-bg:skyblue]"
                 : ""
             }`}
-            onClick={() => setActiveTab("Client")}
+            onClick={() => {
+              setActiveTab("Client");
+              setCurrentStep(1);
+            }}
           >
             Client
           </button>
@@ -41,162 +78,172 @@ const Signup = () => {
                 ? "tab-active text-primaryColor [--tab-bg:skyblue]"
                 : ""
             }`}
-            onClick={() => setActiveTab("Agent")}
+            onClick={() => {
+              setActiveTab("Agent");
+              setCurrentStep(1);
+            }}
           >
             Agent
           </button>
         </div>
 
         {/* Forms */}
-        <div>
+        <form onSubmit={handleSubmit}>
           {activeTab === "Client" ? (
-            <form className="space-y-4">
-              <div>
-                <label
-                  htmlFor="fullName"
-                  className="block text-gray-700 font-normal"
-                >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="fullName"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your full name"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 font-normal"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-gray-700 font-normal"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Create a password"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-gray-700 font-normal"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Confirm your password"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-primaryColor text-white py-3 rounded-md font-medium hover:bg-blue-700"
-              >
-                Sign Up as Client
-              </button>
-
-              <p className="text-sm mt-5">
-                Already have an account?{" "}
-                <Link className="underline cursor-pointer" to={"/login"}>
-                  Sign In
-                </Link>
-              </p>
-            </form>
+            <>
+              {currentStep === 1 && (
+                <>
+                  {renderInputField(
+                    "First Name",
+                    "firstName",
+                    "text",
+                    "Enter your first name",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Last Name",
+                    "lastName",
+                    "text",
+                    "Enter your last name",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Email",
+                    "email",
+                    "email",
+                    "Enter your email",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Phone",
+                    "phone",
+                    "number",
+                    "Enter your phone number"
+                  )}
+                </>
+              )}
+              {currentStep === 2 && (
+                <>
+                   <br />
+                  {renderInputField(
+                    "Address",
+                    "address",
+                    "text",
+                    "Enter your address"
+                  )} <br />
+                  {renderInputField("City", "city", "text", "Enter your city")} <br />
+                  {renderInputField("State", "state", "text", "Enter your state")} <br />
+                  {renderInputField("Country", "country", "text", "Enter your country")}
+                </>
+              )}
+              {currentStep === 3 && (
+                <>
+                  {renderInputField(
+                    "Password",
+                    "password",
+                    "password",
+                    "Create a password",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Confirm Password",
+                    "confirmPassword",
+                    "password",
+                    "Confirm your password",
+                    true
+                  )}
+                </>
+              )}
+            </>
           ) : (
-            <form className="space-y-4">
-              <div>
-                <label
-                  htmlFor="agentName"
-                  className="block text-gray-700 font-normal"
-                >
-                  Agent Name
-                </label>
-                <input
-                  type="text"
-                  id="agentName"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your full name"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="agentId"
-                  className="block text-gray-700 font-normal"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="number"
-                  id="agentId"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your Phone Number"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 font-normal"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-gray-700 font-normal"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Create a password"
-                />
-              </div>
+            <>
+              {currentStep === 1 && (
+                <>
+                  {renderInputField(
+                    "First Name",
+                    "firstName",
+                    "text",
+                    "Enter your first name",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Last Name",
+                    "lastName",
+                    "text",
+                    "Enter your last name",
+                    true
+                  )}
+                </>
+              )}
+              {currentStep === 2 && (
+                <>
+                  {renderInputField(
+                    "Email",
+                    "email",
+                    "email",
+                    "Enter your email",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Phone",
+                    "phone",
+                    "number",
+                    "Enter your phone number",
+                    true
+                  )}
+                </>
+              )}
+              {currentStep === 3 && (
+                <>
+                  {renderInputField(
+                    "Password",
+                    "password",
+                    "password",
+                    "Create a password",
+                    true
+                  )} <br />
+                  {renderInputField(
+                    "Confirm Password",
+                    "confirmPassword",
+                    "password",
+                    "Confirm your password",
+                    true
+                  )}
+                </>
+              )}
+            </>
+          )}
 
+          {/* Navigation Buttons */}
+          <div className="flex justify-between mt-6">
+            <button
+              type="button"
+              className={`py-2 px-4 bg-gray-300 text-gray-700 rounded-md ${
+                currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={handlePrevious}
+              disabled={currentStep === 1}
+            >
+              Previous
+            </button>
+            {currentStep < totalSteps ? (
+              <button
+                type="button"
+                className="py-2 px-4 bg-primaryColor text-white rounded-md"
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            ) : (
               <button
                 type="submit"
-                className="w-full bg-primaryColor text-white py-3 rounded-md font-medium hover:bg-blue-700"
+                className="py-2 px-4 bg-primaryColor text-white rounded-md"
               >
-                Sign Up as Agent
+                Submit
               </button>
-
-              <p className="text-sm mt-5">
-                Already have an account?{" "}
-                <Link className="underline cursor-pointer" to={"/login"}>
-                  Sign In
-                </Link>
-              </p>
-            </form>
-          )}
-        </div>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
