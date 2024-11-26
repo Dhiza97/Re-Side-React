@@ -5,18 +5,18 @@ import Sidebar from "./agent/Sidebar";
 
 const AgentLayout = () => {
   return (
-    <div className="agent-dashboard">
+    <div className="agent-dashboard h-screen flex flex-col">
       {/* Navbar */}
-      <div className="hidden z-50 md:w-full">
+      <div className="hidden z-50 sm:block w-full">
         <AgentNavbar />
       </div>
 
       {/* Layout for sidebar and content */}
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-grow md:flex-row h-full">
         {/* Sidebar */}
         <Sidebar />
         {/* Main Content */}
-        <div className="main-content flex-grow p-4 md:ml-[18%]">
+        <div className="main-content flex-grow p-4 pt-14 overflow-auto">
           <Outlet /> {/* Render nested routes here */}
         </div>
       </div>

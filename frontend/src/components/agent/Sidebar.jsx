@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { GrClose } from "react-icons/gr";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
+import { CiLogout } from "react-icons/ci";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ const Sidebar = () => {
       <div
         className={`fixed top-0 left-0 w-[75%] max-w-xs h-full bg-white border-r-2 shadow-lg transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:relative md:translate-x-0 md:w-[18%] transition-transform duration-300 z-40`}
+        } md:relative md:translate-x-0 md:w-[105%] transition-transform duration-300 z-40 flex flex-col items-stretch`}
       >
         {/* Logo for mobile */}
         <div className="md:hidden flex justify-center mt-4">
@@ -37,8 +38,8 @@ const Sidebar = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-4 pt-6 pl-[20%] text-[15px]">
-          {/* Links */}
+        {/* Navigation Links */}
+        <div className="flex flex-col gap-4 pt-6 px-6 text-[15px] text-nowrap flex-1">
           <NavLink
             to="/dashboard"
             end
@@ -89,13 +90,27 @@ const Sidebar = () => {
           </NavLink>
         </div>
 
-        {/* Logout button (only on mobile) */}
-        <div className="md:hidden flex justify-center mt-auto mb-4">
+        {/* Logout button for desktop */}
+        <div className="hidden md:block pb-4">
           <button
-            onClick={() => setToken("")}  // Update token clearing logic if needed
-            className="bg-gray-600 text-white px-5 py-2 rounded-full text-xs"
+            onClick={() => setToken("")}
+            className="flex gap-3 border border-gray-300 px-3 py-2 rounded-l w-full bg-white hover:bg-gray-100 transition"
           >
-            Logout
+            <p className="text-red-600 flex justify-between items-center gap-4">
+              Logout <span><CiLogout /></span>
+            </p>
+          </button>
+        </div>
+
+        {/* Logout button for mobile */}
+        <div className="md:hidden pb-4">
+          <button
+            onClick={() => setToken("")}
+            className="flex gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l w-[80%] mx-auto bg-white hover:bg-gray-100 transition"
+          >
+            <p className="text-red-600 flex justify-between items-center gap-4">
+              Logout <span><CiLogout /></span>
+            </p>
           </button>
         </div>
       </div>
