@@ -16,7 +16,7 @@ const AgentLayout = () => {
         {/* Sidebar */}
         <Sidebar />
         {/* Main Content */}
-        <div className="main-content flex-grow p-4 pt-14 overflow-auto">
+        <div className="main-content flex-grow p-4 pt-14 md:pt-5 overflow-auto">
           <Outlet /> {/* Render nested routes here */}
         </div>
       </div>

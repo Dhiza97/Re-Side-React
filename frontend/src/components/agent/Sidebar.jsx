@@ -91,7 +91,7 @@ const Sidebar = () => {
         </div>
 
         {/* Logout button for desktop */}
-        <div className="hidden md:block pb-4">
+        <div className="hidden pb-4">
           <button
             onClick={() => setToken("")}
             className="flex gap-3 border border-gray-300 px-3 py-2 rounded-l w-full bg-white hover:bg-gray-100 transition"
