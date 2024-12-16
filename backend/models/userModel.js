@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       required: [true, "can't be blank"],
     },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Property",
+      },
+    ],
   },
   {
     timestamps: true,
