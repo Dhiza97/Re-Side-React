@@ -19,7 +19,7 @@ const About = () => {
       </section>
 
       {/* Introduction Section */}
-      <section className="py-12 px-5 md:px-20">
+      <section className="py-20 px-5 md:px-20">
         <div className="text-center space-y-5">
           <h2 className="text-3xl font-semibold text-[#0b090a]">Who We Are</h2>
           <p className="text-gray-600 text-sm md:text-base leading-relaxed">
@@ -33,7 +33,7 @@ const About = () => {
       </section>
 
       {/* Accordion Section */}
-      <section className="py-12 px-5 md:px-20">
+      <section className="py-20 px-5 md:px-20">
         <h2 className="text-2xl font-semibold text-center mb-8">
           Frequently Asked Questions
         </h2>
@@ -78,55 +78,25 @@ const About = () => {
       </section>
 
       {/* Statistics Section */}
-      <section className="bg-[#f5f5f5] py-12 px-5 md:px-20">
+      <section className="bg-[#f5f5f5] py-20 px-5 md:px-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
           <div>
-            <h3 className="text-4xl font-bold text-[#4361ee]">10,000+</h3>
+            <h3 className="text-4xl font-bold text-primaryColor">10,000+</h3>
             <p className="text-gray-600 mt-2">Properties Listed</p>
           </div>
           <div>
-            <h3 className="text-4xl font-bold text-[#4361ee]">5,000+</h3>
+            <h3 className="text-4xl font-bold text-primaryColor">5,000+</h3>
             <p className="text-gray-600 mt-2">Happy Clients</p>
           </div>
           <div>
-            <h3 className="text-4xl font-bold text-[#4361ee]">20+</h3>
+            <h3 className="text-4xl font-bold text-primaryColor">20+</h3>
             <p className="text-gray-600 mt-2">Years of Experience</p>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-12 px-5 md:px-20">
-        <h2 className="text-2xl font-semibold text-center mb-8">
-          What Our Clients Say
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="p-6 bg-white shadow-lg rounded-lg">
-            <p className="text-gray-600">
-              "This team helped me find my dream home in no time! Their
-              professionalism and dedication are unmatched."
-            </p>
-            <h4 className="mt-4 font-bold text-[#4361ee]">- John Doe</h4>
-          </div>
-          <div className="p-6 bg-white shadow-lg rounded-lg">
-            <p className="text-gray-600">
-              "I was new to real estate, but their guidance made the entire
-              process smooth and enjoyable. Highly recommended!"
-            </p>
-            <h4 className="mt-4 font-bold text-[#4361ee]">- Jane Smith</h4>
-          </div>
-          <div className="p-6 bg-white shadow-lg rounded-lg">
-            <p className="text-gray-600">
-              "Amazing experience! Their platform is user-friendly, and their
-              agents are incredibly helpful."
-            </p>
-            <h4 className="mt-4 font-bold text-[#4361ee]">- Michael Brown</h4>
-          </div>
-        </div>
-      </section>
-
       {/* Call-to-Action Section */}
-      <section className="bg-[#4361ee] text-white py-12 px-5 md:px-20">
+      <section className="bg-primaryColor text-white py-20 px-5 md:px-20">
         <div className="text-center space-y-5">
           <h2 className="text-2xl md:text-3xl font-bold">
             Ready to Find Your Dream Home?
@@ -136,8 +106,8 @@ const About = () => {
             find the perfect property tailored to your needs.
           </p>
 
-          <Link to={'/'}>
-            <button className="px-6 py-3 mt-4 bg-white text-[#4361ee] font-bold rounded-full shadow-md hover:bg-gray-100">
+          <Link to={'/register'}>
+            <button className="px-6 py-3 mt-4 bg-white text-primaryColor font-semibold rounded-full shadow-md hover:bg-gray-100">
               Get Started
             </button>
           </Link>
