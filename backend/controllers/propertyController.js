@@ -15,4 +15,7 @@ const singleProperty = async (req, res) => {}
 // Function for Property List
 const propertyList = async (req, res) => {}
 
-export { addProperty, updateProperty, deleteProperty, singleProperty, propertyList }
+// Function for Tour Booking
+const tourBooking = async (req, res) => {}
+
+export { addProperty, updateProperty, deleteProperty, singleProperty, propertyList, tourBooking }

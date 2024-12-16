@@ -1,21 +1,29 @@
 import express from 'express';
-import { addProperty, updateProperty, deleteProperty, singleProperty, propertyList } from '../controllers/propertyController.js'
+import { addProperty, updateProperty, deleteProperty, singleProperty, propertyList, tourBooking } from '../controllers/propertyController.js'
 
 const propertyRouter = express.Router();
 
+// Dashboard Route
+propertyRouter.get('/dashboard', (req, res) => {
+    res.send('Agent Dashboard Route')
+})
+
 // Add Property Route
-propertyRouter.post('/add', addProperty);
+propertyRouter.post('/dashboard/add', addProperty);
 
 // Update Property Route
-propertyRouter.post('/update', updateProperty);
+propertyRouter.post('/dashboard/update', updateProperty);
 
 // Delete Property Route
-propertyRouter.post('/delete', deleteProperty);
+propertyRouter.post('/dashboard/delete', deleteProperty);
 
 // Single Property Route
 propertyRouter.post('/single', singleProperty);
 
 // Property List Route
-propertyRouter.get('/list', propertyList);
+propertyRouter.get('/dashboard/list', propertyList);
+
+// Tour Booking Route
+propertyRouter.post('/dashboard/tour/booking', tourBooking);
 
 export default propertyRouter;
