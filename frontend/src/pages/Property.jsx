@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { IoIosExit } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 
 const Property = () => {
   const { propertyId } = useParams();
   const { properties, currency } = useContext(AppContext);
+  const [liked, setLiked] = useState(false);
 
   // Find the selected property
   const property = properties.find((p) => p._id === propertyId);
@@ -18,6 +20,10 @@ const Property = () => {
   if (!property) {
     return <p className="text-center text-gray-500">Property not found.</p>;
   }
+
+  const toggleLike = () => {
+    setLiked((prev) => !prev); // Toggle the liked state
+  };
 
   return (
     <div className="border-t-2 pt-10 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] transition-opacity ease-in duration-500 opacity-100">
@@ -62,9 +68,24 @@ const Property = () => {
           <p className="mt-2 text-xl text-primaryColor">
             {property.city}, {property.state}
           </p>
-          <p className="mt-5 text-3xl font-medium text-primaryColor">{currency}
-            {property.price.toLocaleString()}
-          </p>
+
+          <div className="flex justify-between items-center mt-5">
+            <div>
+              <p className="text-3xl font-medium text-primaryColor">
+                {currency}
+                {property.price.toLocaleString()}
+              </p>
+            </div>
+            {/* Heart Icon */}
+            <div onClick={toggleLike} className="cursor-pointer text-3xl">
+              {liked ? (
+                <IoIosHeart className="text-primaryColor" /> // Filled heart
+              ) : (
+                <IoIosHeartEmpty className="text-primaryColor" /> // Outlined heart
+              )}
+            </div>
+          </div>
+
           <p className="mt-5 text-gray-500">
             {property.description || "No description available."}
           </p>
