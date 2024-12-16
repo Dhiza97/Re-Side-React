@@ -16,6 +16,7 @@ import Add from "./pages/agent/Add";
 import List from "./pages/agent/List";
 import TourBookings from "./pages/agent/TourBookings";
 import AgentDashboard from "./pages/agent/AgentDashboard"; // Import AgentDashboard
+import WishList from "./pages/WishList";
 
 const App = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/property/:propertyId" element={<Property />} />
           <Route path="/login" element={<Signin />} />
           <Route path="/register" element={<Signup />} />
+          <Route path="/wishlist" element={<WishList />} />
 
           {/* Protected Agent Routes */}
           <Route path="/dashboard" element={<AgentLayout />}>
