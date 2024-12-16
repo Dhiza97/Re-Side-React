@@ -1,9 +1,35 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
 
 const Signin = () => {
-  const [activeTab, setActiveTab] = useState("Client"); // Manage which tab is active
+  const {navigate, backendUrl} = useContext(AppContext)
+  const [activeTab, setActiveTab] = useState("Client");
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url =
+        activeTab === "Agent" ? `${backendUrl}/api/agent/login` : `${backendUrl}/api/user/login`;
+
+      const res = await axios.post(url, formData);
+      alert("Login successful!");
+      console.log(res.data);
+
+      // Redirect after successful login
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err.response.data);
+      alert(err.response.data.message || "Login failed");
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -50,7 +76,7 @@ const Signin = () => {
         {/* Forms */}
         <div>
           {activeTab === "Client" ? (
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label
                   htmlFor="email"
@@ -61,6 +87,7 @@ const Signin = () => {
                 <input
                   type="email"
                   id="email"
+                  onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
                   placeholder="Enter your email"
                 />
@@ -75,6 +102,7 @@ const Signin = () => {
                 <input
                   type="password"
                   id="password"
+                  onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
                   placeholder="Enter your password"
                 />
@@ -95,7 +123,7 @@ const Signin = () => {
               </Link>
             </form>
           ) : (
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label
                   htmlFor="email"
@@ -106,6 +134,7 @@ const Signin = () => {
                 <input
                   type="text"
                   id="email"
+                  onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
                   placeholder="Enter your Agent ID"
                 />
@@ -120,6 +149,7 @@ const Signin = () => {
                 <input
                   type="password"
                   id="password"
+                  onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
                   placeholder="Enter your password"
                 />

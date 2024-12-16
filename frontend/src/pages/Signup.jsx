@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Signup = () => {
+  const { navigate, backendUrl } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Client");
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
@@ -23,11 +26,29 @@ const Signup = () => {
 
   // Function to handle input changes
   const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      return toast.error("Passwords do not match!");
+    }
+
+    try {
+      const url =
+        activeTab === "Agent" ? `${backendUrl}/api/agent/register` : `${backendUrl}/api/user/register`;
+
+      const res = await axios.post(url, formData);
+      toast.success("Registration successful!");
+      console.log(res.data);
+
+      // Redirect after successful registration
+      navigate("/login");
+    } catch (err) {
+      console.error(err.response.data);
+      toast.error(err.response.data.message || "Registration failed");
+    }
   };
 
   const handleNext = () => {
@@ -36,11 +57,6 @@ const Signup = () => {
 
   const handlePrevious = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted", formData);
   };
 
   const renderInputField = (label, id, type, placeholder, required = false) => (
@@ -67,12 +83,21 @@ const Signup = () => {
           <img className="w-20" src={assets.logo_blue} alt="Logo" />
         </div>
 
-        <h1 className="text-2xl text-center font-semibold text-gray-800 mb-6">Sign Up</h1>
+        <h1 className="text-2xl text-center font-semibold text-gray-800 mb-6">
+          Sign Up
+        </h1>
 
-        <div role="tablist" className="tabs tabs-lifted flex justify-center mb-6">
+        <div
+          role="tablist"
+          className="tabs tabs-lifted flex justify-center mb-6"
+        >
           <button
             role="tab"
-            className={`tab px-6 py-2 text-lg font-light rounded-md ${activeTab === "Client" ? "tab-active text-primaryColor [--tab-bg:skyblue]" : ""}`}
+            className={`tab px-6 py-2 text-lg font-light rounded-md ${
+              activeTab === "Client"
+                ? "tab-active text-primaryColor [--tab-bg:skyblue]"
+                : ""
+            }`}
             onClick={() => {
               setActiveTab("Client");
               setCurrentStep(1);
@@ -82,7 +107,11 @@ const Signup = () => {
           </button>
           <button
             role="tab"
-            className={`tab px-6 py-2 text-lg font-light rounded-md ${activeTab === "Agent" ? "tab-active text-primaryColor [--tab-bg:skyblue]" : ""}`}
+            className={`tab px-6 py-2 text-lg font-light rounded-md ${
+              activeTab === "Agent"
+                ? "tab-active text-primaryColor [--tab-bg:skyblue]"
+                : ""
+            }`}
             onClick={() => {
               setActiveTab("Agent");
               setCurrentStep(1);
@@ -97,32 +126,82 @@ const Signup = () => {
             <>
               {currentStep === 1 && (
                 <>
-                  {renderInputField("First Name", "firstName", "text", "Enter your first name", true)}
+                  {renderInputField(
+                    "First Name",
+                    "firstName",
+                    "text",
+                    "Enter your first name",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Last Name", "lastName", "text", "Enter your last name", true)}
+                  {renderInputField(
+                    "Last Name",
+                    "lastName",
+                    "text",
+                    "Enter your last name",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Email", "email", "email", "Enter your email", true)}
+                  {renderInputField(
+                    "Email",
+                    "email",
+                    "email",
+                    "Enter your email",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Phone", "phone", "number", "Enter your phone number")}
+                  {renderInputField(
+                    "Phone",
+                    "phone",
+                    "number",
+                    "Enter your phone number"
+                  )}
                 </>
               )}
               {currentStep === 2 && (
                 <>
                   <br />
-                  {renderInputField("Address", "address", "text", "Enter your address")}
+                  {renderInputField(
+                    "Address",
+                    "address",
+                    "text",
+                    "Enter your address"
+                  )}
                   <br />
                   {renderInputField("City", "city", "text", "Enter your city")}
                   <br />
-                  {renderInputField("State", "state", "text", "Enter your state")}
+                  {renderInputField(
+                    "State",
+                    "state",
+                    "text",
+                    "Enter your state"
+                  )}
                   <br />
-                  {renderInputField("Country", "country", "text", "Enter your country")}
+                  {renderInputField(
+                    "Country",
+                    "country",
+                    "text",
+                    "Enter your country"
+                  )}
                 </>
               )}
               {currentStep === 3 && (
                 <>
-                  {renderInputField("Password", "password", "password", "Create a password", true)}
+                  {renderInputField(
+                    "Password",
+                    "password",
+                    "password",
+                    "Create a password",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Confirm Password", "confirmPassword", "password", "Confirm your password", true)}
+                  {renderInputField(
+                    "Confirm Password",
+                    "confirmPassword",
+                    "password",
+                    "Confirm your password",
+                    true
+                  )}
                 </>
               )}
             </>
@@ -130,23 +209,59 @@ const Signup = () => {
             <>
               {currentStep === 1 && (
                 <>
-                  {renderInputField("First Name", "firstName", "text", "Enter your first name", true)}
+                  {renderInputField(
+                    "First Name",
+                    "firstName",
+                    "text",
+                    "Enter your first name",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Last Name", "lastName", "text", "Enter your last name", true)}
+                  {renderInputField(
+                    "Last Name",
+                    "lastName",
+                    "text",
+                    "Enter your last name",
+                    true
+                  )}
                 </>
               )}
               {currentStep === 2 && (
                 <>
-                  {renderInputField("Email", "email", "email", "Enter your email", true)}
+                  {renderInputField(
+                    "Email",
+                    "email",
+                    "email",
+                    "Enter your email",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Phone", "phone", "number", "Enter your phone number", true)}
+                  {renderInputField(
+                    "Phone",
+                    "phone",
+                    "number",
+                    "Enter your phone number",
+                    true
+                  )}
                 </>
               )}
               {currentStep === 3 && (
                 <>
-                  {renderInputField("Password", "password", "password", "Create a password", true)}
+                  {renderInputField(
+                    "Password",
+                    "password",
+                    "password",
+                    "Create a password",
+                    true
+                  )}
                   <br />
-                  {renderInputField("Confirm Password", "confirmPassword", "password", "Confirm your password", true)}
+                  {renderInputField(
+                    "Confirm Password",
+                    "confirmPassword",
+                    "password",
+                    "Confirm your password",
+                    true
+                  )}
                 </>
               )}
             </>
@@ -155,7 +270,9 @@ const Signup = () => {
           <div className="flex justify-between mt-6">
             <button
               type="button"
-              className={`py-2 px-4 bg-gray-300 text-gray-700 rounded-md ${currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`py-2 px-4 bg-gray-300 text-gray-700 rounded-md ${
+                currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               onClick={handlePrevious}
               disabled={currentStep === 1}
             >
