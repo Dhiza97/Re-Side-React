@@ -3,6 +3,8 @@ import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const Signin = () => {
   const {navigate, backendUrl} = useContext(AppContext)
@@ -18,16 +20,28 @@ const Signin = () => {
     try {
       const url =
         activeTab === "Agent" ? `${backendUrl}/api/agent/login` : `${backendUrl}/api/user/login`;
-
+  
       const res = await axios.post(url, formData);
-      alert("Login successful!");
-      console.log(res.data);
-
-      // Redirect after successful login
-      navigate("/dashboard");
+      toast.success("Login successful!");
+      const { token } = res.data;
+  
+      // Decode the token to get the user's role
+      const decodedToken = jwtDecode(token);
+  
+      // Save the token in localStorage (optional)
+      localStorage.setItem("token", token);
+  
+      // Redirect based on role
+      if (decodedToken.role === "agent") {
+        navigate("/dashboard");
+      } else if (decodedToken.role === "client") {
+        navigate("/");
+      } else {
+        console.error("Unknown role");
+      }
     } catch (err) {
-      console.error(err.response.data);
-      alert(err.response.data.message || "Login failed");
+      console.error(err.response?.data);
+      toast.error(err.response?.data.message || "Login failed");
     }
   };
 

@@ -24,7 +24,7 @@ const agentSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "Agent",
+    default: "agent",
     required: true,
   },
   agentId: {
