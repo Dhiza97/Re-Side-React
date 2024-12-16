@@ -7,6 +7,7 @@ export const AppContext = createContext()
 
 const AppContextProvider = (props) => {
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
     const currency = "₦"
     const navigate = useNavigate();
 
@@ -14,6 +15,7 @@ const AppContextProvider = (props) => {
         currency,
         navigate,
         properties,
+        backendUrl,
     }
 
     return (
