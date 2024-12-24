@@ -15,7 +15,6 @@ import ScrollToTop from "./components/ScrollToTop";
 
 import AgentLayout from "./components/AgentLayout";
 import Add from "./pages/agent/Add";
-import List from "./pages/agent/List";
 import TourBookings from "./pages/agent/TourBookings";
 import AgentDashboard from "./pages/agent/AgentDashboard";
 import WishList from "./pages/WishList";
@@ -74,7 +73,6 @@ const App = () => {
 
             {/* Additional Nested Routes */}
             <Route path="add" element={<Add />} />
-            <Route path="list" element={<List />} />
             <Route path="bookings" element={<TourBookings />} />
           </Route>
         </Routes>
