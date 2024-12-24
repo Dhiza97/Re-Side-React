@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
 const Signin = () => {
-  const {navigate, backendUrl} = useContext(AppContext)
+  const { navigate, backendUrl, setToken } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Client");
   const [formData, setFormData] = useState({ email: "", password: "" });
 
@@ -19,19 +19,27 @@ const Signin = () => {
     e.preventDefault();
     try {
       const url =
-        activeTab === "Agent" ? `${backendUrl}/api/agent/login` : `${backendUrl}/api/user/login`;
-  
+        activeTab === "Agent"
+          ? `${backendUrl}/api/agent/login`
+          : `${backendUrl}/api/user/login`;
+
+      console.log("Submitting to URL:", url);
+      console.log("Form Data:", formData);
+
       const res = await axios.post(url, formData);
+      console.log("Response:", res);
+
       toast.success("Login successful!");
       const { token } = res.data;
-  
-      // Decode the token to get the user's role
-      const decodedToken = jwtDecode(token);
-  
-      // Save the token in localStorage (optional)
+
+      // Save the token in localStorage and context
       localStorage.setItem("token", token);
-  
+      setToken(token);
+
       // Redirect based on role
+      const decodedToken = jwtDecode(token);
+      console.log("Decoded Token:", decodedToken);
+
       if (decodedToken.role === "agent") {
         navigate("/dashboard");
       } else if (decodedToken.role === "client") {
@@ -40,8 +48,19 @@ const Signin = () => {
         console.error("Unknown role");
       }
     } catch (err) {
-      console.error(err.response?.data);
-      toast.error(err.response?.data.message || "Login failed");
+      console.error("Error:", err);
+      if (err.response) {
+        console.error("Error Response Data:", err.response.data);
+        console.error("Error Response Status:", err.response.status);
+        console.error("Error Response Headers:", err.response.headers);
+        toast.error(err.response.data.message || "Login failed");
+      } else if (err.request) {
+        console.error("Error Request:", err.request);
+        toast.error("No response received from server");
+      } else {
+        console.error("Error Message:", err.message);
+        toast.error("An error occurred during login");
+      }
     }
   };
 
@@ -132,8 +151,10 @@ const Signin = () => {
               >
                 Sign In as Client
               </button>
-              <Link to={'/register'}>
-                <p className="text-sm mt-5 underline cursor-pointer">Create an account</p>
+              <Link to={"/register"}>
+                <p className="text-sm mt-5 underline cursor-pointer">
+                  Create an account
+                </p>
               </Link>
             </form>
           ) : (
@@ -179,8 +200,10 @@ const Signin = () => {
               >
                 Sign In as Agent
               </button>
-              <Link to={'/register'}>
-                <p className="text-sm mt-5 underline cursor-pointer">Create an account</p>
+              <Link to={"/register"}>
+                <p className="text-sm mt-5 underline cursor-pointer">
+                  Create an account
+                </p>
               </Link>
             </form>
           )}
