@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { GrClose } from "react-icons/gr";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
+import { AppContext } from "../../context/AppContext";
 
 const Sidebar = () => {
+  const { setToken, navigate } = useContext(AppContext)
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = () => {
+    setToken("");
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
 
   // Toggle the sidebar
   const toggleSidebar = () => {
@@ -63,18 +71,6 @@ const Sidebar = () => {
             }
           >
             <p>Add Items</p>
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/list"
-            onClick={toggleSidebar}
-            className={({ isActive }) =>
-              `flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l ${
-                isActive ? "bg-gray-200 text-blue-600 font-semibold" : ""
-              }`
-            }
-          >
-            <p>List Items</p>
           </NavLink>
 
           <NavLink
