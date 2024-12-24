@@ -52,7 +52,7 @@ const Navbar = () => {
           {/* Dropdown Menu */}
           {token && (
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10">
-              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-white text-gray-500 rounded text-base text-nowrap font-normal">
+              <div className="flex flex-col gap-2 w-40 py-3 px-5 bg-white text-gray-500 rounded text-base text-nowrap font-normal">
                 <NavLink to='/profile' className="cursor-pointer hover:text-black">My Profile</NavLink>
                 <NavLink to='/my-tour-bookings' className="cursor-pointer hover:text-black">Tour Bookings</NavLink>
                 <NavLink to='/wish-list' className="cursor-pointer hover:text-black">Wish List</NavLink>
