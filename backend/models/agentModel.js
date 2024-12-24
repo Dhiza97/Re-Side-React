@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import crypto from "crypto"; // For generating random agent IDs
 
 const agentSchema = new mongoose.Schema({
   firstName: {
@@ -43,7 +42,8 @@ agentSchema.pre("save", function (next) {
   if (!this.isModified("password")) return next();
 
   // Generate AgentID
-  this.agentId = crypto.randomBytes(8).toString("hex"); // Generate a random 16-character hex string
+  const randomNumbers = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+  this.agentId = `AG${randomNumbers}`;
 
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);

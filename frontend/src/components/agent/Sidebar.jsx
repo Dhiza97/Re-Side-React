@@ -86,22 +86,10 @@ const Sidebar = () => {
           </NavLink>
         </div>
 
-        {/* Logout button for desktop */}
-        <div className="hidden pb-4">
-          <button
-            onClick={() => setToken("")}
-            className="flex gap-3 border border-gray-300 px-3 py-2 rounded-l w-full bg-white hover:bg-gray-100 transition"
-          >
-            <p className="text-red-600 flex justify-between items-center gap-4">
-              Logout <span><CiLogout /></span>
-            </p>
-          </button>
-        </div>
-
         {/* Logout button for mobile */}
         <div className="md:hidden pb-4">
           <button
-            onClick={() => setToken("")}
+            onClick={handleLogout}
             className="flex gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l w-[80%] mx-auto bg-white hover:bg-gray-100 transition"
           >
             <p className="text-red-600 flex justify-between items-center gap-4">

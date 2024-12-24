@@ -38,6 +38,12 @@ const userSchema = new mongoose.Schema(
     country: {
       type: String,
     },
+    gender: { 
+      type: String 
+    },
+    dob: { 
+      type: Date 
+    },
     password: {
       type: String,
       minlength: 6,
