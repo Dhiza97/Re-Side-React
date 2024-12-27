@@ -8,7 +8,7 @@ const propertySchema = new mongoose.Schema(
     },
     propertyType: {
       type: String,
-      enum: ["Duplex", "Bungalow", "Condo", "penthhouse", "apartment"],
+      enum: ["duplex", "bungalow", "condo", "penthhouse", "apartment"],
     },
     purchaseType: {
       type: String,
@@ -51,11 +51,15 @@ const propertySchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    date: { 
+      type: Number, 
+      require: true 
+    },
   },
   {
     timestamps: true,
   }
 );
-const Property = mongoose.model("Property", propertySchema)
+const Property = mongoose.model("Property", propertySchema);
 
 export default Property;

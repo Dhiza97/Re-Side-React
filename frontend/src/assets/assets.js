@@ -72,6 +72,7 @@ import team_1 from "./team_1.png";
 import team_2 from "./team_2.png";
 import team_3 from "./team_3.png";
 import team_4 from "./team_4.jpg";
+import upload from "./upload.png";
 import vector_dollar from "./vector_dollar.png";
 
 export const assets = {
@@ -149,6 +150,7 @@ export const assets = {
   team_2,
   team_3,
   team_4,
+  upload,
   vector_dollar,
 };
 

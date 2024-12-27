@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 // Middleware to verify JWT and check roles
 export const authenticate = (req, res, next) => {
   try {
-    const token = req.header('Authorization');
+    const token = req.header('Authorization').replace('Bearer ', '');
 
     // Check if token exists
     if (!token) {
