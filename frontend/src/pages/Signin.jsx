@@ -23,9 +23,6 @@ const Signin = () => {
           ? `${backendUrl}/api/agent/login`
           : `${backendUrl}/api/user/login`;
 
-      console.log("Submitting to URL:", url);
-      console.log("Form Data:", formData);
-
       const res = await axios.post(url, formData);
       console.log("Response:", res);
 
@@ -38,7 +35,6 @@ const Signin = () => {
 
       // Redirect based on role
       const decodedToken = jwtDecode(token);
-      console.log("Decoded Token:", decodedToken);
 
       if (decodedToken.role === "agent") {
         navigate("/dashboard");
