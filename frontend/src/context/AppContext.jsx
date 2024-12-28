@@ -10,6 +10,7 @@ const AppContextProvider = (props) => {
   const currency = "₦";
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [properties, setProperties] = useState([]);
 
   // Create Axios instance
   const api = axios.create({
@@ -46,6 +47,23 @@ const AppContextProvider = (props) => {
 
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
+
+  // Fetch properties from the backend
+  const fetchProperties = async () => {
+    try {
+      const response = await api.get("/api/property/dashboard/list");
+      setProperties(response.data.properties); // Update state with fetched properties
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+    }
+  };
+
+  // Fetch properties on component mount
+  useEffect(() => {
+    if (token) {
+      fetchProperties();
+    }
+  }, [token]);
 
   // Logout function
   const logout = () => {
