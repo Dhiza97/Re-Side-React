@@ -55,6 +55,11 @@ const propertySchema = new mongoose.Schema(
       type: Number, 
       require: true 
     },
+    agent: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "Agent",
+      required: true 
+    },
   },
   {
     timestamps: true,

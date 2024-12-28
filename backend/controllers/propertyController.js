@@ -52,6 +52,7 @@ const addProperty = async (req, res) => {
       bathroom,
       image: imagesUrl,
       date: Date.now(),
+      agent: req.user.id,
     };
 
     console.log(propertyData);
@@ -150,7 +151,7 @@ const deleteProperty = async (req, res) => {
 // Function for Single Property
 const singleProperty = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id);
+    const property = await Property.findById(req.params.id).populate("agent", "name email phone");
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
     }
@@ -163,7 +164,7 @@ const singleProperty = async (req, res) => {
 // Function for Property List
 const propertyList = async (req, res) => {
   try {
-    const properties = await Property.find();
+    const properties = await Property.find().populate("agent", "name email phone");
     res.status(200).json({ properties });
   } catch (error) {
     res.status(400).json({ message: "Error fetching properties", error });
