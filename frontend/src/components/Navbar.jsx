@@ -6,6 +6,11 @@ import { AppContext } from "../context/AppContext";
 const Navbar = () => {
   const { navigate, token, logout } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleLoginClick = () => {
+    if (!token) navigate("/login");
+  };
 
   return (
     <div className="flex items-center justify-between font-medium px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] shadow-lg">
@@ -33,10 +38,14 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center gap-6">
-        <div className="group relative cursor-pointer">
+        <div
+          className="group relative cursor-pointer"
+          onMouseEnter={() => setDropdownVisible(true)}
+          onMouseLeave={() => setDropdownVisible(false)}
+        >
           <div
-            onClick={() => (token ? null : navigate("/login"))}
-            onTouchStart={() => (token ? null : navigate("/login"))}
+            onClick={handleLoginClick}
+            onTouchStart={handleLoginClick}
             className="flex gap-3 cursor-pointer"
           >
             <img
@@ -50,12 +59,27 @@ const Navbar = () => {
           </div>
 
           {/* Dropdown Menu */}
-          {token && (
+          {token && dropdownVisible && (
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10">
               <div className="flex flex-col gap-2 w-40 py-3 px-5 bg-white text-gray-500 rounded text-base text-nowrap font-normal">
-                <NavLink to='/profile' className="cursor-pointer hover:text-black">My Profile</NavLink>
-                <NavLink to='/my-tour-bookings' className="cursor-pointer hover:text-black">Tour Bookings</NavLink>
-                <NavLink to='/wish-list' className="cursor-pointer hover:text-black">Wish List</NavLink>
+                <NavLink
+                  to="/profile"
+                  className="cursor-pointer hover:text-black"
+                >
+                  My Profile
+                </NavLink>
+                <NavLink
+                  to="/my-tour-bookings"
+                  className="cursor-pointer hover:text-black"
+                >
+                  Tour Bookings
+                </NavLink>
+                <NavLink
+                  to="/wish-list"
+                  className="cursor-pointer hover:text-black"
+                >
+                  Wish List
+                </NavLink>
                 <p
                   className="cursor-pointer hover:text-black text-base"
                   onClick={logout}
@@ -85,34 +109,16 @@ const Navbar = () => {
           <div onClick={() => setVisible(false)} className="p-4 cursor-pointer">
             <p className="text-4xl font-light">x</p>
           </div>
-          <NavLink
-            onClick={() => setVisible(false)}
-            className="py-2 pl-6 border"
-            to="/"
-          >
-            HOME
-          </NavLink>
-          <NavLink
-            onClick={() => setVisible(false)}
-            className="py-2 pl-6 border"
-            to="/listings"
-          >
-            LISTINGS
-          </NavLink>
-          <NavLink
-            onClick={() => setVisible(false)}
-            className="py-2 pl-6 border"
-            to="/about"
-          >
-            ABOUT
-          </NavLink>
-          <NavLink
-            onClick={() => setVisible(false)}
-            className="py-2 pl-6 border"
-            to="/services"
-          >
-            SERVICES
-          </NavLink>
+          {["home", "listings", "about", "services"].map((item) => (
+            <NavLink
+              key={item}
+              onClick={() => setVisible(false)}
+              className="py-2 pl-6 border"
+              to={`/${item}`}
+            >
+              {item.toUpperCase()}
+            </NavLink>
+          ))}
         </div>
       </div>
     </div>
