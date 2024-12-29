@@ -7,14 +7,8 @@ import { CiLogout } from "react-icons/ci";
 import { AppContext } from "../../context/AppContext";
 
 const Sidebar = () => {
-  const { setToken, navigate } = useContext(AppContext)
+  const { setToken, navigate, agent, logout } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleLogout = () => {
-    setToken("");
-    localStorage.removeItem("token");
-    navigate("/login");
-  }
 
   // Toggle the sidebar
   const toggleSidebar = () => {
@@ -38,12 +32,19 @@ const Sidebar = () => {
         } md:relative md:translate-x-0 md:w-[105%] transition-transform duration-300 z-40 flex flex-col items-stretch`}
       >
         {/* Logo for mobile */}
-        <div className="md:hidden flex justify-center mt-4">
+        <div className="md:hidden flex flex-col items-center justify-center mt-4">
           <img
             className="w-[max(30%,80px)]"
             src={assets.logo_blue}
             alt="Logo"
           />
+
+          <p className="text-base">
+            Welcome,{" "}
+            <span className="text-primaryColor">
+              Agent {agent?.firstName || "Agent"}
+            </span>
+          </p>
         </div>
 
         {/* Navigation Links */}
@@ -89,11 +90,14 @@ const Sidebar = () => {
         {/* Logout button for mobile */}
         <div className="md:hidden pb-4">
           <button
-            onClick={handleLogout}
+            onClick={logout}
             className="flex gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l w-[80%] mx-auto bg-white hover:bg-gray-100 transition"
           >
             <p className="text-red-600 flex justify-between items-center gap-4">
-              Logout <span><CiLogout /></span>
+              Logout{" "}
+              <span>
+                <CiLogout />
+              </span>
             </p>
           </button>
         </div>

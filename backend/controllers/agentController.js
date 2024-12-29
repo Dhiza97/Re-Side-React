@@ -47,9 +47,11 @@ export const loginAgent = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: agent._id, role: agent.role }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: agent._id, role: agent.role, firstName: agent.firstName }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: "1h" }
+    );
 
     res.status(200).json({ message: "Login successful", token });
   } catch (err) {

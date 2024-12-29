@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import { properties } from "../assets/assets";
 
 export const AppContext = createContext();
 
@@ -10,6 +10,7 @@ const AppContextProvider = (props) => {
   const currency = "₦";
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [agent, setAgent] = useState(null);
   const [properties, setProperties] = useState([]);
 
   // Create Axios instance
@@ -33,8 +34,23 @@ const AppContextProvider = (props) => {
   useEffect(() => {
     if (token) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      try {
+        // Decode the token to extract agent details
+        const decoded = jwtDecode(token);
+        console.log("Decoded Token:", decoded);
+        setAgent({
+          id: decoded.id,
+          role: decoded.role,
+          firstName: decoded.firstName,
+        });
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        setAgent(null);
+      }
     } else {
       delete api.defaults.headers.common["Authorization"];
+      setAgent(null);
     }
   }, [token]);
 
@@ -52,7 +68,7 @@ const AppContextProvider = (props) => {
   const fetchProperties = async () => {
     try {
       const response = await api.get("/api/property/dashboard/list");
-      setProperties(response.data.properties); // Update state with fetched properties
+      setProperties(response.data.properties);
     } catch (error) {
       console.error("Error fetching properties:", error);
     }
@@ -73,6 +89,7 @@ const AppContextProvider = (props) => {
   };
 
   const value = {
+    agent,
     currency,
     navigate,
     properties,
