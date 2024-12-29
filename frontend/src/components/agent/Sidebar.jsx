@@ -7,7 +7,7 @@ import { CiLogout } from "react-icons/ci";
 import { AppContext } from "../../context/AppContext";
 
 const Sidebar = () => {
-  const { setToken, navigate, agent, logout } = useContext(AppContext);
+  const { agent, logout } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
 
   // Toggle the sidebar
