@@ -5,17 +5,34 @@ import { AppContext } from "../../context/AppContext";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
 import { AiOutlineSchedule } from "react-icons/ai";
+import EditModal from "../../components/agent/EditModal";
 
 const AgentDashboard = () => {
-  const { properties, currency } = useContext(AppContext);
+  const { properties, currency, api } = useContext(AppContext);
   const [totalLikes, setTotalLikes] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(67);
+  const [selectedProperty, setSelectedProperty] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // Calculate total likes for the agent's properties
-    const likes = properties.reduce((acc, property) => acc + (property.likes || 0), 0);
+    const likes = properties.reduce(
+      (acc, property) => acc + (property.likes || 0),
+      0
+    );
     setTotalLikes(likes);
   }, [properties]);
+
+  const editProperty = (property) => {
+    setSelectedProperty(property);
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      document.getElementById("my_modal_4").showModal();
+    }
+  }, [showModal]);
 
   return (
     <div className="container mx-auto p-4">
@@ -47,35 +64,53 @@ const AgentDashboard = () => {
 
       <div className="overflow-x-auto mt-10">
         <table className="table table-zebra">
-
           <thead>
             <tr>
               <th className="border border-gray-300 px-4 py-2"></th>
-              <th className="border border-gray-300 px-4 py-2">Property Name</th>
-              <th className="border border-gray-300 px-4 py-2">Property Type</th>
-              <th className="border border-gray-300 px-4 py-2">Purchase Type</th>
+              <th className="border border-gray-300 px-4 py-2">
+                Property Name
+              </th>
+              <th className="border border-gray-300 px-4 py-2">
+                Property Type
+              </th>
+              <th className="border border-gray-300 px-4 py-2">
+                Purchase Type
+              </th>
               <th className="border border-gray-300 px-4 py-2">Price</th>
               <th className="border border-gray-300 px-4 py-2">Status</th>
               <th className="border border-gray-300 px-4 py-2">Action</th>
             </tr>
           </thead>
-          
+
           <tbody>
             {properties.map((property, index) => {
               return (
                 <tr key={property._id} className="">
                   <th>{index + 1}</th>
-                  <td className="border border-gray-300 px-4 py-2">{property.propertyName}</td>
-                  <td className="border border-gray-300 px-4 py-2">{property.propertyType}</td>
-                  <td className="border border-gray-300 px-4 py-2">{property.purchaseType}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {property.propertyName}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {property.propertyType}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {property.purchaseType}
+                  </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {currency}
                     {property.price.toLocaleString()}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">{property.status}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {property.status}
+                  </td>
                   <td className="flex gap-4 text-lg border border-gray-300">
-                    <FiEdit className="cursor-pointer text-primaryColor" />
-                    <RiDeleteBin5Line className="cursor-pointer text-red-600" />
+                    <p onClick={() => editProperty(property)}>
+                      <FiEdit className="cursor-pointer text-primaryColor" />
+                    </p>
+
+                    <p>
+                      <RiDeleteBin5Line className="cursor-pointer text-red-600" />
+                    </p>
                   </td>
                 </tr>
               );
@@ -83,6 +118,14 @@ const AgentDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Edit Modal */}
+      {showModal && selectedProperty && (
+        <EditModal
+          property={selectedProperty}
+          setShowModal={setShowModal}
+        />
+      )}
     </div>
   );
 };

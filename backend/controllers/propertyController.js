@@ -85,9 +85,12 @@ const updateProperty = async (req, res) => {
       description,
       bedroom,
       bathroom,
+      removedImages, // This should come from the frontend, listing indices of images to remove
     } = req.body;
+
     const propertyId = req.params.id;
 
+    // Find the property
     const property = await Property.findById(propertyId);
 
     if (!property) {
@@ -96,45 +99,53 @@ const updateProperty = async (req, res) => {
         .json({ success: false, message: "Property not found" });
     }
 
-    // Update fields
-    property.propertyName = propertyName;
-    property.propertyType = propertyType;
-    property.purchaseType = purchaseType;
-    property.status = status;
-    property.address = address;
-    property.city = city;
-    property.state = state;
-    property.price = price;
-    property.description = description;
-    property.bedroom = bedroom;
-    property.bathroom = bathroom;
-    // For images
-    const imageFields = ["image1", "image2", "image3", "image4"];
-    const uploadedImages = [];
+    // Update basic fields
+    property.propertyName = propertyName || property.propertyName;
+    property.propertyType = propertyType || property.propertyType;
+    property.purchaseType = purchaseType || property.purchaseType;
+    property.status = status || property.status;
+    property.address = address || property.address;
+    property.city = city || property.city;
+    property.state = state || property.state;
+    property.price = price || property.price;
+    property.description = description || property.description;
+    property.bedroom = bedroom || property.bedroom;
+    property.bathroom = bathroom || property.bathroom;
 
-    // Check each image field and upload new ones if provided
+    // Handle image updates
+    const imageFields = ["image1", "image2", "image3", "image4"];
+    const uploadedImages = [...property.image]; // Clone existing images
+
+    // Remove images if specified
+    if (removedImages) {
+      removedImages.forEach((index) => {
+        uploadedImages[index] = null; // Mark for removal
+      });
+    }
+
+    // Upload new images if provided
     for (let i = 0; i < imageFields.length; i++) {
       if (req.files[imageFields[i]]) {
         const result = await cloudinary.uploader.upload(
           req.files[imageFields[i]][0].path,
           { resource_type: "image" }
         );
-        uploadedImages[i] = result.secure_url;
-      } else if (removedImages.includes(i.toString())) {
-        uploadedImages[i] = null; // Remove the image
-      } else {
-        uploadedImages[i] = product.image[i]; // Keep existing image if no new one is uploaded or removed
+        uploadedImages[i] = result.secure_url; // Replace or add the new image
       }
     }
 
-    product.image = uploadedImages.filter(Boolean);
+    // Filter out null values (removed images)
+    property.image = uploadedImages.filter(Boolean);
 
-    await product.save();
+    // Save updated property
+    await property.save();
 
-    res.json({ success: true, message: "Product updated successfully" });
+    res.json({ success: true, message: "Property updated successfully" });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
+    console.error(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error updating property", error });
   }
 };
 

@@ -5,9 +5,6 @@ import { AppContext } from "../../context/AppContext";
 const AgentNavbar = () => {
   const { agent, logout } = useContext(AppContext);
 
-  console.log("Agent in Navbar:", agent);
-  console.log(`Agent Name: ${agent?.firstName}`);
-
   return (
     <div className="flex items-center py-2 px-[4%] justify-between bg-white shadow-md z-50 sticky top-0">
       <div className="flex items-center gap-4">

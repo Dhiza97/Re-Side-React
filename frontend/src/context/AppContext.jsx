@@ -38,7 +38,6 @@ const AppContextProvider = (props) => {
       try {
         // Decode the token to extract agent details
         const decoded = jwtDecode(token);
-        console.log("Decoded Token:", decoded);
         setAgent({
           id: decoded.id,
           role: decoded.role,
