@@ -63,7 +63,7 @@ const addProperty = async (req, res) => {
 
     console.log("Property added successfully");
 
-    res.json({ success: true, message: "Property added successfully" });
+    res.json({ success: true, message: "Property added" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Error adding property", error });
@@ -140,7 +140,7 @@ const updateProperty = async (req, res) => {
     // Save updated property
     await property.save();
 
-    res.json({ success: true, message: "Property updated successfully" });
+    res.json({ success: true, message: "Updated Successfully" });
   } catch (error) {
     console.error(error);
     res

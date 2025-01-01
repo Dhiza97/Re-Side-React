@@ -8,7 +8,7 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import EditModal from "../../components/agent/EditModal";
 
 const AgentDashboard = () => {
-  const { properties, currency, api } = useContext(AppContext);
+  const { properties, setProperties, currency, api } = useContext(AppContext);
   const [totalLikes, setTotalLikes] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(67);
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -26,6 +26,14 @@ const AgentDashboard = () => {
   const editProperty = (property) => {
     setSelectedProperty(property);
     setShowModal(true);
+  };
+
+  const updatePropertyInState = (updatedProperty) => {
+    setProperties((prevProperties) =>
+      prevProperties.map((property) =>
+        property._id === updatedProperty._id ? updatedProperty : property
+      )
+    );
   };
 
   useEffect(() => {

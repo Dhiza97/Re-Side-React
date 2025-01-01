@@ -3,95 +3,94 @@ import { AppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
 
-const EditModal = ({ id, setShowModal }) => {
-  const { navigate, properties, api } = useContext(AppContext);
+const EditModal = ({ property, setShowModal }) => {
+  const { api } = useContext(AppContext);
+  const [propertyData, setPropertyData] = useState({
+    propertyName: "",
+    propertyType: "",
+    purchaseType: "",
+    status: "",
+    address: "",
+    city: "",
+    state: "",
+    price: "",
+    description: "",
+    bedroom: "",
+    bathroom: "",
+    image: [],
+  });
 
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [image3, setImage3] = useState(null);
-  const [image4, setImage4] = useState(null);
-
-  const [propertyName, setPropertyName] = useState("");
-  const [propertyType, setPropertyType] = useState("");
-  const [purchaseType, setPurchaseType] = useState("");
-  const [status, setStatus] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [bedroom, setBedroom] = useState("");
-  const [bathroom, setBathroom] = useState("");
   const [removedImages, setRemovedImages] = useState([]);
 
+  // Fetch property data and populate form
   useEffect(() => {
-    const property = properties.find((property) => property._id === id);
     if (property) {
-      setPropertyName(property.propertyName || "");
-      setPropertyType(property.propertyType || "");
-      setPurchaseType(property.purchaseType || "");
-      setStatus(property.status || "");
-      setAddress(property.address || "");
-      setCity(property.city || "");
-      setState(property.state || "");
-      setPrice(property.price || "");
-      setDescription(property.description || "");
-      setBedroom(property.bedroom || "");
-      setBathroom(property.bathroom || "");
-      setImage1(property.image?.[0] || null);
-      setImage2(property.image?.[1] || null);
-      setImage3(property.image?.[2] || null);
-      setImage4(property.image?.[3] || null);
+      setPropertyData({
+        propertyName: property.propertyName || "",
+        propertyType: property.propertyType || "",
+        purchaseType: property.purchaseType || "",
+        status: property.status || "",
+        address: property.address || "",
+        city: property.city || "",
+        state: property.state || "",
+        price: property.price || "",
+        description: property.description || "",
+        bedroom: property.bedroom || "",
+        bathroom: property.bathroom || "",
+        image: property.image || [],
+      });
     }
-  }, [id, properties]);
+  }, [property]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPropertyData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (idx, file) => {
+    const updatedImages = [...propertyData.image];
+    updatedImages[idx] = file;
+    setPropertyData((prev) => ({
+      ...prev,
+      image: updatedImages,
+    }));
+  };
 
   const handleRemoveImage = (idx) => {
-    setRemovedImages([...removedImages, idx]);
-    if (idx === 0) setImage1(null);
-    if (idx === 1) setImage2(null);
-    if (idx === 2) setImage3(null);
-    if (idx === 3) setImage4(null);
+    setRemovedImages((prev) => [...prev, idx]);
+    setPropertyData((prev) => ({
+      ...prev,
+      image: prev.image.filter((_, index) => index !== idx),
+    }));
   };
 
   const closeModal = () => {
-    if (setShowModal) setShowModal(false);
-    document.getElementById("my_modal_4").close();
+    setShowModal(false);
   };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
     try {
       const formData = new FormData();
-      formData.append("propertyName", propertyName);
-      formData.append("propertyType", propertyType);
-      formData.append("purchaseType", purchaseType);
-      formData.append("status", status);
-      formData.append("address", address);
-      formData.append("city", city);
-      formData.append("state", state);
-      formData.append("price", price);
-      formData.append("description", description);
-      formData.append("bedroom", bedroom);
-      formData.append("bathroom", bathroom);
+      Object.keys(propertyData).forEach((key) => {
+        if (key === "image") {
+          propertyData.image.forEach((img, idx) => {
+            if (img instanceof File) {
+              formData.append(`image${idx + 1}`, img);
+            }
+          });
+        } else {
+          formData.append(key, propertyData[key]);
+        }
+      });
 
-      // Append images
-      image1 instanceof File
-        ? formData.append("image1", image1)
-        : image1 && formData.append("image1", image1);
-      image2 instanceof File
-        ? formData.append("image2", image2)
-        : image2 && formData.append("image2", image2);
-      image3 instanceof File
-        ? formData.append("image3", image3)
-        : image3 && formData.append("image3", image3);
-      image4 instanceof File
-        ? formData.append("image4", image4)
-        : image4 && formData.append("image4", image4);
-
-      const response = await api.put(`/api/dashboard/update/${id}`, formData, {
-        headers: {
+      const response = await api.put(`/api/property/dashboard/update/${property._id}`, formData, {
+        headers: { 
           "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
       });
 
@@ -132,8 +131,8 @@ const EditModal = ({ id, setShowModal }) => {
             <input
               type="text"
               name="propertyName"
-              value={propertyName}
-              onChange={(e) => setPropertyName(e.target.value)}
+              value={propertyData.propertyName}
+              onChange={handleInputChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -149,8 +148,8 @@ const EditModal = ({ id, setShowModal }) => {
               </label>
               <select
                 name="propertyType"
-                value={propertyType}
-                onChange={(e) => setPropertyType(e.target.value)}
+                value={propertyData.propertyType}
+                onChange={handleInputChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               >
@@ -174,8 +173,8 @@ const EditModal = ({ id, setShowModal }) => {
               </label>
               <select
                 name="purchaseType"
-                value={purchaseType} // Set the value prop to the state variable
-                onChange={(e) => setPurchaseType(e.target.value)}
+                value={propertyData.purchaseType}
+                onChange={handleInputChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               >
@@ -198,8 +197,8 @@ const EditModal = ({ id, setShowModal }) => {
             <input
               type="text"
               name="address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={propertyData.address}
+              onChange={handleInputChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -216,8 +215,8 @@ const EditModal = ({ id, setShowModal }) => {
               <input
                 type="text"
                 name="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                value={propertyData.city}
+                onChange={handleInputChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -232,8 +231,8 @@ const EditModal = ({ id, setShowModal }) => {
               <input
                 type="text"
                 name="state"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
+                value={propertyData.state}
+                onChange={handleInputChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -250,8 +249,8 @@ const EditModal = ({ id, setShowModal }) => {
             <input
               type="number"
               name="price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              value={propertyData.price}
+              onChange={handleInputChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -259,18 +258,14 @@ const EditModal = ({ id, setShowModal }) => {
 
           {/* Images */}
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-base font-bold mb-2"
-              htmlFor="images"
-            >
+            <label className="block text-gray-700 text-base font-bold mb-2">
               Upload Images
             </label>
             <div>
-              <p className="mb-2">Upload Image</p>
               <div className="flex gap-2">
-                {[image1, image2, image3, image4].map((image, idx) => (
+                {propertyData.image.map((image, idx) => (
                   <div key={idx}>
-                    <label htmlFor={`image${idx + 1}`}>
+                    <label htmlFor={`image${idx}`}>
                       <img
                         className="w-20 cursor-pointer"
                         src={
@@ -281,26 +276,21 @@ const EditModal = ({ id, setShowModal }) => {
                         alt=""
                       />
                       <input
-                        onChange={(e) => {
-                          if (idx === 0) setImage1(e.target.files[0]);
-                          if (idx === 1) setImage2(e.target.files[0]);
-                          if (idx === 2) setImage3(e.target.files[0]);
-                          if (idx === 3) setImage4(e.target.files[0]);
-                        }}
                         type="file"
-                        id={`image${idx + 1}`}
+                        id={`image${idx}`}
+                        onChange={(e) =>
+                          handleImageChange(idx, e.target.files[0])
+                        }
                         hidden
                       />
                     </label>
-                    {image && (
-                      <button
-                        type="button"
-                        className="btn btn-error mt-2 text-red-600"
-                        onClick={() => handleRemoveImage(idx)}
-                      >
-                        Remove
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      className="btn btn-error mt-2 text-red-600"
+                      onClick={() => handleRemoveImage(idx)}
+                    >
+                      Remove
+                    </button>
                   </div>
                 ))}
               </div>
@@ -316,8 +306,13 @@ const EditModal = ({ id, setShowModal }) => {
             </label>
             <textarea
               name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={propertyData.description || ""}
+              onChange={(e) =>
+                setPropertyData({
+                  ...propertyData,
+                  description: e.target.value,
+                })
+              }
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -334,8 +329,10 @@ const EditModal = ({ id, setShowModal }) => {
               <input
                 type="number"
                 name="bedroom"
-                value={bedroom}
-                onChange={(e) => setBedroom(e.target.value)}
+                value={propertyData.bedroom || ""}
+                onChange={(e) =>
+                  setPropertyData({ ...propertyData, bedroom: e.target.value })
+                }
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -350,8 +347,10 @@ const EditModal = ({ id, setShowModal }) => {
               <input
                 type="number"
                 name="bathroom"
-                value={bathroom}
-                onChange={(e) => setBathroom(e.target.value)}
+                value={propertyData.bathroom || ""}
+                onChange={(e) =>
+                  setPropertyData({ ...propertyData, bathroom: e.target.value })
+                }
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />

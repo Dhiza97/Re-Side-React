@@ -32,26 +32,26 @@ const AppContextProvider = (props) => {
 
   // Attach the token to the Axios instance for all requests
   useEffect(() => {
-    if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      try {
-        // Decode the token to extract agent details
-        const decoded = jwtDecode(token);
-        setAgent({
-          id: decoded.id,
-          role: decoded.role,
-          firstName: decoded.firstName,
-        });
-      } catch (error) {
-        console.error("Error decoding token:", error);
-        setAgent(null);
-      }
-    } else {
-      delete api.defaults.headers.common["Authorization"];
+    try {
+      // Decode the token to extract agent details
+      const decoded = jwtDecode(token);
+      setAgent({
+        id: decoded.id,
+        role: decoded.role,
+        firstName: decoded.firstName,
+      });
+    } catch (error) {
+      console.error("Error decoding token:", error);
       setAgent(null);
     }
-  }, [token]);
+  } else {
+    delete api.defaults.headers.common["Authorization"];
+    setAgent(null);
+  }
+}, [token]);
 
   // Sync token state with localStorage changes
   useEffect(() => {
