@@ -99,17 +99,36 @@ const AgentDashboard = () => {
                     {property.propertyName}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {property.propertyType}
+                    {property.propertyType
+                      .toLowerCase()
+                      .split(" ")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {property.purchaseType}
+                    {property.purchaseType
+                      .toLowerCase()
+                      .split(" ")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {currency}
                     {property.price.toLocaleString()}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {property.status}
+                    {property.status
+                      .toLowerCase()
+                      .split(" ")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")
+                    }
                   </td>
                   <td className="flex gap-4 text-lg border border-gray-300">
                     <p onClick={() => editProperty(property)}>
@@ -129,10 +148,7 @@ const AgentDashboard = () => {
 
       {/* Edit Modal */}
       {showModal && selectedProperty && (
-        <EditModal
-          property={selectedProperty}
-          setShowModal={setShowModal}
-        />
+        <EditModal property={selectedProperty} setShowModal={setShowModal} />
       )}
     </div>
   );
