@@ -73,7 +73,7 @@ const addProperty = async (req, res) => {
 // Function for Update Property
 const updateProperty = async (req, res) => {
   try {
-    const {
+    const { 
       propertyName,
       propertyType,
       purchaseType,
@@ -85,21 +85,37 @@ const updateProperty = async (req, res) => {
       description,
       bedroom,
       bathroom,
-      removedImages, // This should come from the frontend, listing indices of images to remove
+      removedImages // Array of image URLs to remove
     } = req.body;
 
-    const propertyId = req.params.id;
-
-    // Find the property
-    const property = await Property.findById(propertyId);
-
+    const property = await Property.findById(req.params.id);
     if (!property) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Property not found" });
+      return res.status(404).json({ success: false, message: "Property not found" });
     }
 
-    // Update basic fields
+    // Remove Images from Cloudinary
+    if (removedImages && removedImages.length > 0) {
+      for (const image of removedImages) {
+        const publicId = image.split("/").pop().split(".")[0]; // Extract public_id from URL
+        await cloudinary.uploader.destroy(publicId);
+      }
+      // Filter out removed images from property.image
+      property.image = property.image.filter((img) => !removedImages.includes(img));
+    }
+
+    // Upload New Images to Cloudinary
+    if (req.files) {
+      const uploadedImages = [];
+      for (const key in req.files) {
+        const result = await cloudinary.uploader.upload(req.files[key].tempFilePath, {
+          folder: "properties",
+        });
+        uploadedImages.push(result.secure_url);
+      }
+      property.image.push(...uploadedImages);
+    }
+
+    // Update Other Fields
     property.propertyName = propertyName || property.propertyName;
     property.propertyType = propertyType || property.propertyType;
     property.purchaseType = purchaseType || property.purchaseType;
@@ -112,40 +128,12 @@ const updateProperty = async (req, res) => {
     property.bedroom = bedroom || property.bedroom;
     property.bathroom = bathroom || property.bathroom;
 
-    // Handle image updates
-    const imageFields = ["image1", "image2", "image3", "image4"];
-    const uploadedImages = [...property.image]; // Clone existing images
-
-    // Remove images if specified
-    if (removedImages) {
-      removedImages.forEach((index) => {
-        uploadedImages[index] = null; // Mark for removal
-      });
-    }
-
-    // Upload new images if provided
-    for (let i = 0; i < imageFields.length; i++) {
-      if (req.files[imageFields[i]]) {
-        const result = await cloudinary.uploader.upload(
-          req.files[imageFields[i]][0].path,
-          { resource_type: "image" }
-        );
-        uploadedImages[i] = result.secure_url; // Replace or add the new image
-      }
-    }
-
-    // Filter out null values (removed images)
-    property.image = uploadedImages.filter(Boolean);
-
-    // Save updated property
     await property.save();
 
-    res.json({ success: true, message: "Updated Successfully" });
+    res.status(200).json({ success: true, message: "Updated successfully", property });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ success: false, message: "Error updating property", error });
+    res.status(500).json({ success: false, message: "Failed to update property" });
   }
 };
 

@@ -87,10 +87,13 @@ const EditModal = ({ property, setShowModal }) => {
         }
       });
 
+      // Append removed images
+      formData.append("removedImages", JSON.stringify(removedImages));
+  
       const response = await api.put(`/api/property/dashboard/update/${property._id}`, formData, {
-        headers: { 
+        headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -259,41 +262,56 @@ const EditModal = ({ property, setShowModal }) => {
           {/* Images */}
           <div className="mb-4">
             <label className="block text-gray-700 text-base font-bold mb-2">
-              Upload Images
+              Property Images
             </label>
-            <div>
-              <div className="flex gap-2">
-                {propertyData.image.map((image, idx) => (
-                  <div key={idx}>
-                    <label htmlFor={`image${idx}`}>
-                      <img
-                        className="w-20 cursor-pointer"
-                        src={
-                          image instanceof File
-                            ? URL.createObjectURL(image)
-                            : image || assets.upload
-                        }
-                        alt=""
-                      />
-                      <input
-                        type="file"
-                        id={`image${idx}`}
-                        onChange={(e) =>
-                          handleImageChange(idx, e.target.files[0])
-                        }
-                        hidden
-                      />
-                    </label>
-                    <button
-                      type="button"
-                      className="btn btn-error mt-2 text-red-600"
-                      onClick={() => handleRemoveImage(idx)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-wrap gap-4">
+              {propertyData.image.map((image, idx) => (
+                <div key={idx} className="relative">
+                  <label htmlFor={`image${idx}`}>
+                    <img
+                      className="w-20 h-20 cursor-pointer object-cover border border-gray-300 rounded"
+                      src={
+                        image instanceof File
+                          ? URL.createObjectURL(image)
+                          : image || assets.upload
+                      }
+                      alt="Property"
+                    />
+                    <input
+                      type="file"
+                      id={`image${idx}`}
+                      onChange={(e) =>
+                        handleImageChange(idx, e.target.files[0])
+                      }
+                      hidden
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="absolute top-0 right-0 bg-red-600 text-white text-xs p-1 rounded"
+                    onClick={() => handleRemoveImage(idx)}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+              {/* Add New Image */}
+              <label className="w-20 h-20 flex items-center justify-center border border-dashed border-gray-300 rounded cursor-pointer">
+                <span className="text-gray-500">+</span>
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setPropertyData((prev) => ({
+                        ...prev,
+                        image: [...prev.image, file],
+                      }));
+                    }
+                  }}
+                  hidden
+                />
+              </label>
             </div>
           </div>
 
