@@ -3,8 +3,8 @@ import Button from "../components/Button";
 import PropertyCard from "../components/PropertyCard";
 import { AppContext } from "../context/AppContext";
 
-const Listings = ({currency}) => {
-  const { properties } = useContext(AppContext);
+const Listings = () => {
+  const { properties, currency } = useContext(AppContext);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,7 +13,7 @@ const Listings = ({currency}) => {
   // Filter handler
   const handleFilter = (type) => {
     setActiveFilter(type);
-    setCurrentPage(1); // Reset currentPage to 1 when filter changes
+    setCurrentPage(1);
     if (type === "All") {
       setFilteredProperties(properties);
     } else {
