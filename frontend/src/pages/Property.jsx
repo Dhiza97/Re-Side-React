@@ -1,29 +1,46 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { IoIosExit } from "react-icons/io";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import Loader from "../components/Loader";
 
 const Property = () => {
   const { propertyId } = useParams();
-  const { properties, currency } = useContext(AppContext);
+  const { allProperties, currency, loading, api, token } = useContext(AppContext);
   const [liked, setLiked] = useState(false);
 
   // Find the selected property
-  const property = properties.find((p) => p._id === propertyId);
+  const property = allProperties.find((p) => p._id === propertyId);
 
   // States for image switching
   const [selectedImage, setSelectedImage] = useState(
-    property?.photos?.[0] || ""
+    property?.image?.[0] || ""
   );
 
   if (!property) {
     return <p className="text-center text-gray-500">Property not found.</p>;
   }
 
-  const toggleLike = () => {
-    setLiked((prev) => !prev); // Toggle the liked state
+
+  const toggleLike = async () => {
+    try {
+      // Toggle the like state
+      setLiked((prev) => !prev);
+
+      // Send request to backend to update like status
+      await api.post("/api/user/like", { propertyId },
+        { headers: { Authorization: `Bearer ${token}`}}
+      );
+    } catch (error) {
+      console.error("Error liking property", error);
+      setLiked((prev) => !prev); // Revert if error occurs
+    }
   };
+
+  if (loading) {
+    return <Loader />
+  }
 
   return (
     <div className="border-t-2 pt-10 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] transition-opacity ease-in duration-500 opacity-100">
@@ -41,7 +58,7 @@ const Property = () => {
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           {/* Thumbnail Images */}
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll sm:justify-normal sm:w-[18.7%] w-full">
-            {property.photos.map((photo, index) => (
+            {property.image.map((photo, index) => (
               <img
                 onClick={() => setSelectedImage(photo)}
                 src={photo}

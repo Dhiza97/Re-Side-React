@@ -60,3 +60,32 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: "Error logging in", error: err });
   }
 };
+
+// Add or Remove Like
+export const toggleLike = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming you use JWT to identify the user
+    const propertyId = req.body.propertyId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the property is already liked
+    const index = user.likes.indexOf(propertyId);
+
+    if (index === -1) {
+      // Add property to likes
+      user.likes.push(propertyId);
+    } else {
+      // Remove property from likes
+      user.likes.splice(index, 1);
+    }
+
+    await user.save();
+    res.status(200).json({ message: "Added to wishlist", likes: user.likes });
+  } catch (err) {
+    res.status(500).json({ message: "Error toggling like", error: err });
+  }
+};
