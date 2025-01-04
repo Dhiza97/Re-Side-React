@@ -2,9 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import Button from "../components/Button";
 import PropertyCard from "../components/PropertyCard";
 import { AppContext } from "../context/AppContext";
+import Loader from "../components/Loader";
 
 const Listings = () => {
-  const { allProperties, currency } = useContext(AppContext);
+  const { allProperties, currency, loading } = useContext(AppContext);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +44,10 @@ const Listings = () => {
   useEffect(() => {
     setFilteredProperties(allProperties);
   }, [allProperties]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] py-10">

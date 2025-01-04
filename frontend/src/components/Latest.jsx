@@ -4,9 +4,14 @@ import Button from "./Button";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 const Latest = () => {
-  const { currency, properties } = useContext(AppContext);
+  const { currency, allProperties, loading } = useContext(AppContext);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="py-28">
@@ -36,15 +41,16 @@ const Latest = () => {
         <div className="mt-5 overflow-x-auto">
           <div className="flex gap-6">
             {/* Display only the first 6 properties */}
-            {properties.slice(0, 6).map((property, index) => (
-              <Link
+            {allProperties.length > 0 ? (
+              allProperties.slice(0, 6).map((property, index) => (
+                <Link
                 key={index}
                 to={`/property/${property._id}`} // Navigate to the property details page
                 className="property-card min-w-[300px] md:min-w-[400px] border rounded-lg p-4 bg-white shadow"
               >
                 <img
                   className="property-photo w-full h-48 object-cover rounded-lg"
-                  src={property.photos[0]}
+                  src={property.image[0]}
                   alt={property.propertyName}
                 />
                 <div className="mt-2 flex flex-col gap-2">
@@ -71,7 +77,10 @@ const Latest = () => {
                   </div>
                 </div>
               </Link>
-            ))}
+              ))
+            ) : (
+              <p className="text-gray-500">No properties available.</p>
+            )}
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const currency = "₦";
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [agent, setAgent] = useState(null);
   const [properties, setProperties] = useState([]);
@@ -45,6 +46,7 @@ const AppContextProvider = (props) => {
 
   // Fetch properties from the backend for Agent (no token required)
   const fetchDashboardProperties = async () => {
+    setLoading(true);
     try {
       const response = await api.get("/api/property/dashboard/list", {
         headers: { Authorization: `Bearer ${token}` },
@@ -57,6 +59,8 @@ const AppContextProvider = (props) => {
       } else {
         console.error("Error fetching properties:", error);
       }
+    } finally {
+      setLoading(false);
     }
   };  
 
@@ -67,12 +71,15 @@ const AppContextProvider = (props) => {
 
   // Fetch all properties from backend
   const fetchAllProperties = async () => {
+    setLoading(true);
     try {
       const response = await api.get("/api/property/list");
       console.log("Fetched properties:", response.data.properties);
       setAllProperties(response.data.properties);
     } catch (error) {
       console.error("Error fetching properties:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -91,6 +98,7 @@ const AppContextProvider = (props) => {
     agent,
     currency,
     navigate,
+    loading,
     properties,
     setProperties,
     allProperties,
