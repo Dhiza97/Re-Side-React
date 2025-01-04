@@ -8,11 +8,34 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import EditModal from "../../components/agent/EditModal";
 
 const AgentDashboard = () => {
-  const { properties, setProperties, currency, api } = useContext(AppContext);
+  const { properties, setProperties, currency, api, token } = useContext(AppContext);
   const [totalLikes, setTotalLikes] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(67);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  // Fetch properties explicitly on mount
+  useEffect(() => {
+    const fetchAgentProperties = async () => {
+      try {
+        if (token) {
+          const response = await api.get("/api/property/dashboard/list", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProperties(response.data.properties);
+        } else {
+          console.error("No token found");
+        }
+      } catch (error) {
+        console.error("Error fetching agent properties:", error);
+      }
+    };
+    
+
+    fetchAgentProperties();
+  }, [api, token, setProperties]);
 
   useEffect(() => {
     // Calculate total likes for the agent's properties
@@ -26,14 +49,6 @@ const AgentDashboard = () => {
   const editProperty = (property) => {
     setSelectedProperty(property);
     setShowModal(true);
-  };
-
-  const updatePropertyInState = (updatedProperty) => {
-    setProperties((prevProperties) =>
-      prevProperties.map((property) =>
-        property._id === updatedProperty._id ? updatedProperty : property
-      )
-    );
   };
 
   useEffect(() => {

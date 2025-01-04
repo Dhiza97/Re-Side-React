@@ -160,13 +160,24 @@ const singleProperty = async (req, res) => {
   }
 };
 
-// Function for Property List
+// Function for Agent Property List
 const propertyList = async (req, res) => {
   try {
     const properties = await Property.find({ agent: req.user.id }).populate("agent", "name email phone");
     res.status(200).json({ properties });
   } catch (error) {
     res.status(400).json({ message: "Error fetching properties", error });
+  }
+};
+
+// Function for All Property List
+const allPropertyList = async (req, res) => {
+  try {
+    const properties = await Property.find({}).populate("agent", "name email"); // Populate agent info if necessary
+    res.json({ success: true, properties });
+  } catch (error) {
+    console.error("Error fetching all properties:", error);
+    res.status(500).json({ success: false, message: "Error fetching properties", error });
   }
 };
 
@@ -192,5 +203,6 @@ export {
   deleteProperty,
   singleProperty,
   propertyList,
+  allPropertyList,
   tourBooking,
 };

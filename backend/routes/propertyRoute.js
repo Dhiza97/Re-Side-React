@@ -5,6 +5,7 @@ import {
   deleteProperty,
   singleProperty,
   propertyList,
+  allPropertyList,
   tourBooking,
 } from "../controllers/propertyController.js";
 import { authenticate, authorizeAgent } from "../middleware/auth.js";
@@ -56,12 +57,18 @@ propertyRouter.delete(
 // Single Property Route
 propertyRouter.get("/single/:id", authenticate, authorizeAgent, singleProperty);
 
-// Property List Route
+// Dashboard Property List Route
 propertyRouter.get(
   "/dashboard/list",
   authenticate,
   authorizeAgent,
   propertyList
+);
+
+// All Property List Route
+propertyRouter.get(
+  "/list",
+  allPropertyList
 );
 
 // Tour Booking Route

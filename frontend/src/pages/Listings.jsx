@@ -4,7 +4,7 @@ import PropertyCard from "../components/PropertyCard";
 import { AppContext } from "../context/AppContext";
 
 const Listings = () => {
-  const { properties, currency } = useContext(AppContext);
+  const { allProperties, currency } = useContext(AppContext);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,9 +15,9 @@ const Listings = () => {
     setActiveFilter(type);
     setCurrentPage(1);
     if (type === "All") {
-      setFilteredProperties(properties);
+      setFilteredProperties(allProperties);
     } else {
-      const filtered = properties.filter(
+      const filtered = allProperties.filter(
         (property) =>
           property.purchaseType.trim().toLowerCase() === type.trim().toLowerCase()
       );
@@ -41,8 +41,8 @@ const Listings = () => {
   };
 
   useEffect(() => {
-    setFilteredProperties(properties);
-  }, [properties]);
+    setFilteredProperties(allProperties);
+  }, [allProperties]);
 
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] py-10">
