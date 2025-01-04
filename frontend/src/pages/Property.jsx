@@ -22,7 +22,6 @@ const Property = () => {
     return <p className="text-center text-gray-500">Property not found.</p>;
   }
 
-
   const toggleLike = async () => {
     try {
       // Toggle the like state
