@@ -13,6 +13,9 @@ const Property = () => {
   const [liked, setLiked] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [property, setProperty] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
     const fetchPropertyAndLikeStatus = async () => {
@@ -139,22 +142,89 @@ const Property = () => {
         </div>
       </div>
 
-      {/* Description Section */}
+      {/* Agent Details Section  & Tour Booking */}
       <div className="mt-20 text-black">
         <div className="flex">
-          <b className="border px-5 py-3 text-sm">Description</b>
-          <p className="border px-5 py-3 text-sm">Reviews (0)</p>
+          <b className="border px-5 py-3 text-sm">Agent Info</b>
+          <b className="border px-5 py-3 text-sm">Book a Tour</b>
         </div>
-        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
-          <p>
-            Explore the best property options with our trusted listings.
-            Detailed descriptions, verified photos, and exact locations to help
-            you find your dream property.
-          </p>
-          <p>
-            Properties are updated regularly to ensure you get the most accurate
-            data and value for your money.
-          </p>
+
+        <div className="border px-6 py-6 text-sm text-gray-500">
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {/* Agent Info Section */}
+            <div>
+              <p>
+                <strong>Name:</strong>{" "}
+                {property?.agent?.firstName && property?.agent?.lastName
+                  ? `${property.agent.firstName} ${property.agent.lastName}`
+                  : "N/A"}
+              </p>
+              <p>
+                <strong>Contact:</strong>{" "}
+                <a
+                  href={`mailto:${property?.agent?.email}`}
+                  className="text-primaryColor underline"
+                >
+                  {property?.agent?.email || "N/A"}
+                </a>
+              </p>
+
+              <p>
+                <strong>Phone:</strong>{" "}
+                <a
+                  href={`tel:${property?.agent?.phone}`}
+                  className="text-primaryColor underline"
+                >
+                  {property?.agent?.phone || "N/A"}
+                </a>
+              </p>
+            </div>
+
+            {/* Book a Tour Section */}
+            <div className="border-l sm:pl-4 mt-4 font-medium text-gray-700">
+              <p>Booking slots</p>
+              <div className="flex gap-3 items-center w-full overflow-x-scroll mt-4">
+                {Array(7)
+                  .fill()
+                  .map((_, index) => (
+                    <div
+                      onClick={() => setSelectedDay(index)}
+                      className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
+                        selectedDay === index
+                          ? "bg-primary text-white"
+                          : "border border-gray-200"
+                      }`}
+                      key={index}
+                    >
+                      <p>{daysOfWeek[index % 7]}</p>
+                      <p>{new Date().getDate() + index}</p>
+                    </div>
+                  ))}
+              </div>
+
+              <div className="flex items-center gap-3 w-full overflow-x-scroll mt-4">
+                {Array(6)
+                  .fill()
+                  .map((_, index) => (
+                    <p
+                      onClick={() => setSelectedTime(`Time Slot ${index + 1}`)}
+                      className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
+                        selectedTime === `Time Slot ${index + 1}`
+                          ? "bg-primary text-white"
+                          : "text-gray-400 border border-gray-300"
+                      }`}
+                      key={index}
+                    >
+                      {`Time Slot ${index + 1}`}
+                    </p>
+                  ))}
+              </div>
+
+              <button className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6">
+                Book a Tour
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
