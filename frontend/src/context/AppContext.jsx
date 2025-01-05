@@ -74,7 +74,6 @@ const AppContextProvider = (props) => {
     setLoading(true);
     try {
       const response = await api.get("/api/property/list");
-      console.log("Fetched properties:", response.data.properties);
       setAllProperties(response.data.properties);
     } catch (error) {
       console.error("Error fetching properties:", error);
