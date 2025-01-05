@@ -150,7 +150,7 @@ const deleteProperty = async (req, res) => {
 // Function for Single Property
 const singleProperty = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id).populate("agent", "name email phone");
+    const property = await Property.findById(req.params.id).populate("agent", "firstName lastName email phone");
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
     }
@@ -173,7 +173,7 @@ const propertyList = async (req, res) => {
 // Function for All Property List
 const allPropertyList = async (req, res) => {
   try {
-    const properties = await Property.find({}).populate("agent", "name email"); // Populate agent info if necessary
+    const properties = await Property.find({}).populate("agent", "firstName lastName email phone");
     res.json({ success: true, properties });
   } catch (error) {
     console.error("Error fetching all properties:", error);
