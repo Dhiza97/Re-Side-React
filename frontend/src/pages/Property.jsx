@@ -4,41 +4,56 @@ import { AppContext } from "../context/AppContext";
 import { IoIosExit } from "react-icons/io";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const Property = () => {
   const { propertyId } = useParams();
-  const { allProperties, currency, loading, api, token } = useContext(AppContext);
+  const { allProperties, currency, loading, api, token } =
+    useContext(AppContext);
   const [liked, setLiked] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [property, setProperty] = useState(null);
 
-  // Find the selected property
-  const property = allProperties.find((p) => p._id === propertyId);
+  useEffect(() => {
+    const fetchPropertyAndLikeStatus = async () => {
+      try {
+        // Fetch property details
+        const foundProperty = allProperties.find((p) => p._id === propertyId);
+        setProperty(foundProperty);
+        setSelectedImage(foundProperty?.image?.[0] || "");
 
-  // States for image switching
-  const [selectedImage, setSelectedImage] = useState(
-    property?.image?.[0] || ""
-  );
+        // Fetch user liked properties
+        const response = await api.get("/api/user/likes", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-  if (!property) {
-    return <p className="text-center text-gray-500">Property not found.</p>;
-  }
+        const likedProperties = response.data.likes;
+        setLiked(likedProperties.includes(propertyId));
+      } catch (error) {
+        console.error("Error fetching like status or property details:", error);
+      }
+    };
+
+    fetchPropertyAndLikeStatus();
+  }, [propertyId, allProperties, api, token]);
 
   const toggleLike = async () => {
     try {
-      // Toggle the like state
       setLiked((prev) => !prev);
-
-      // Send request to backend to update like status
-      await api.post("/api/user/like", { propertyId },
-        { headers: { Authorization: `Bearer ${token}`}}
+      await api.post(
+        "/api/user/likes",
+        { propertyId },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
+      toast.success(liked ? "Removed from wishlist" : "Added to wishlist");
     } catch (error) {
-      console.error("Error liking property", error);
-      setLiked((prev) => !prev); // Revert if error occurs
+      console.error("Error toggling like:", error);
+      setLiked((prev) => !prev); // Revert the change on error
     }
   };
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
@@ -57,7 +72,7 @@ const Property = () => {
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           {/* Thumbnail Images */}
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll sm:justify-normal sm:w-[18.7%] w-full">
-            {property.image.map((photo, index) => (
+            {property?.image?.map((photo, index) => (
               <img
                 onClick={() => setSelectedImage(photo)}
                 src={photo}
@@ -72,24 +87,26 @@ const Property = () => {
           <div className="w-full sm:w-[80%]">
             <img
               className="w-full h-auto object-cover"
-              src={selectedImage}
-              alt={property.propertyName}
+              src={selectedImage || "fallback-image-url"} // Add a fallback image URL
+              alt={property?.propertyName || "Property Image"}
             />
           </div>
         </div>
 
         {/* Property Info Section */}
         <div className="flex-1">
-          <h1 className="font-medium text-2xl mt-2">{property.propertyName}</h1>
+          <h1 className="font-medium text-2xl mt-2">
+            {property?.propertyName || "Property Name"}
+          </h1>
           <p className="mt-2 text-xl text-primaryColor">
-            {property.city}, {property.state}
+            {property?.city || "City"}, {property?.state || "State"}
           </p>
 
           <div className="flex justify-between items-center mt-5">
             <div>
               <p className="text-3xl font-medium text-primaryColor">
                 {currency}
-                {property.price.toLocaleString()}
+                {property?.price?.toLocaleString() || "0"}
               </p>
             </div>
             {/* Heart Icon */}
@@ -103,27 +120,21 @@ const Property = () => {
           </div>
 
           <p className="mt-5 text-gray-500">
-            {property.description || "No description available."}
+            {property?.description || "No description available."}
           </p>
 
           {/* Property Details */}
           <div className="flex flex-col gap-4 my-8">
             <p className="text-lg">
-              <strong>Bedrooms:</strong> {property.bedroom}
+              <strong>Bedrooms:</strong> {property?.bedroom || "N/A"}
             </p>
             <p className="text-lg">
-              <strong>Bathrooms:</strong> {property.bathroom}
+              <strong>Bathrooms:</strong> {property?.bathroom || "N/A"}
             </p>
             <p className="text-lg">
-              <strong>Address:</strong> {property.address}, {property.city},{" "}
-              {property.state}
+              <strong>Address:</strong> {property?.address || "N/A"},{" "}
+              {property?.city || "N/A"}, {property?.state || "N/A"}
             </p>
-          </div>
-          <hr className="mt-8 sm:w-4/5" />
-          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
-            <p>100% Verified property details.</p>
-            <p>Schedule a visit to this property today!</p>
-            <p>Contact us for any additional queries.</p>
           </div>
         </div>
       </div>
