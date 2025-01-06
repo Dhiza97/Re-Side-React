@@ -3,9 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { AppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
+import Loader from "../../components/Loader";
 
 const Add = () => {
-  const { navigate, backendUrl, token } = useContext(AppContext);
+  const { navigate, backendUrl, token, loading, setLoading } = useContext(AppContext);
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
@@ -25,6 +26,7 @@ const Add = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const formData = new FormData();
@@ -76,12 +78,15 @@ const Add = () => {
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Error adding property");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl text-primaryColor mb-4">Add New Property</h1>
+      {loading && <Loader />}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg p-6"
@@ -341,7 +346,7 @@ const Add = () => {
             type="submit"
             className="bg-primaryColor hover:bg-blue-700 text-white font-normal py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Add Property
+            {loading ? "Adding..." : "Add Property"}
           </button>
         </div>
       </form>

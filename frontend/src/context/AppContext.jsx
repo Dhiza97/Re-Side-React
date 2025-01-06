@@ -130,6 +130,7 @@ const AppContextProvider = (props) => {
     currency,
     navigate,
     loading,
+    setLoading,
     properties,
     setProperties,
     allProperties,

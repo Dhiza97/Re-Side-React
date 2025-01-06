@@ -164,7 +164,7 @@ const singleProperty = async (req, res) => {
 // Function for Agent Property List
 const propertyList = async (req, res) => {
   try {
-    const properties = await Property.find({ agent: req.user.id }).populate("agent", "name email phone");
+    const properties = await Property.find({ agent: req.user.id }).populate("agent", "firstName lastName email phone likes");
     res.status(200).json({ properties });
   } catch (error) {
     res.status(400).json({ message: "Error fetching properties", error });
