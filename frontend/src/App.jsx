@@ -20,6 +20,7 @@ import AgentDashboard from "./pages/agent/AgentDashboard";
 import WishList from "./pages/WishList";
 import Profile from "./pages/Profile";
 import MyTourBookings from "./pages/MyTourBookings";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   const hideFooterRoutes = [
@@ -44,7 +45,14 @@ const App = () => {
           <Route path="/listings" element={<Listings />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/property/:propertyId" element={<Property />} />
+          <Route
+            path="/property/:propertyId"
+            element={
+              <ProtectedRoute>
+                <Property />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<Signin />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/wish-list" element={<WishList />} />

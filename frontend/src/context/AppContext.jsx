@@ -107,6 +107,10 @@ const AppContextProvider = (props) => {
     navigate("/login");
   };
 
+  const isAuthenticated = () => {
+    return !!token;
+  };
+
   const value = {
     agent,
     currency,
@@ -124,6 +128,7 @@ const AppContextProvider = (props) => {
     fetchDashboardProperties,
     fetchAllProperties,
     fetchLikedProperties,
+    isAuthenticated,
   };
 
   return (
