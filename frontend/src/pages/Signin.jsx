@@ -160,14 +160,14 @@ const Signin = () => {
                   htmlFor="email"
                   className="block text-gray-700 font-normal"
                 >
-                  Agent ID
+                  Agent Email Address
                 </label>
                 <input
                   type="text"
                   id="email"
                   onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-primaryColor"
-                  placeholder="Enter your Agent ID"
+                  placeholder="Enter your Email"
                 />
               </div>
               <div>
