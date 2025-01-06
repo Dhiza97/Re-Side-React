@@ -6,6 +6,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
 import { AiOutlineSchedule } from "react-icons/ai";
 import EditModal from "../../components/agent/EditModal";
+import { toast } from "react-toastify";
 
 const AgentDashboard = () => {
   const { properties, setProperties, currency, api, token } = useContext(AppContext);
@@ -50,6 +51,21 @@ const AgentDashboard = () => {
     setSelectedProperty(property);
     setShowModal(true);
   };
+
+  const deleteProperty = async (propertyId) => {
+    try {
+      await api.delete(`/api/property/dashboard/delete/${propertyId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setProperties(properties.filter((property) => property._id !== propertyId));
+      toast.success("Deleted successfully");
+    } catch (error) {
+      console.error("Error deleting property:", error);
+      toast.error("Failed to delete property");
+    }
+  }
 
   useEffect(() => {
     if (showModal) {
@@ -150,7 +166,7 @@ const AgentDashboard = () => {
                       <FiEdit className="cursor-pointer text-primaryColor" />
                     </p>
 
-                    <p>
+                    <p onClick={() => deleteProperty(property._id)}>
                       <RiDeleteBin5Line className="cursor-pointer text-red-600" />
                     </p>
                   </td>
