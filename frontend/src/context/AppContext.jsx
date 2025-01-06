@@ -32,6 +32,13 @@ const AppContextProvider = (props) => {
     }
   };
 
+   // Attach the token to Axios when it is available
+   useEffect(() => {
+    if (token) {
+      fetchAgentInfo();
+    }
+  }, [token]);
+
   // Attach the token to Axios when it is available
   useEffect(() => {
     if (token) {

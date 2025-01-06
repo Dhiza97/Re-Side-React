@@ -4,12 +4,18 @@ import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-  const { navigate, token, logout } = useContext(AppContext);
+  const { navigate, token, logout, fetchAllProperties } =
+    useContext(AppContext);
   const [visible, setVisible] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const handleLoginClick = () => {
     if (!token) navigate("/login");
+  };
+
+  const handleNavClick = (path) => {
+    fetchAllProperties();
+    navigate(path);
   };
 
   return (
@@ -19,11 +25,19 @@ const Navbar = () => {
       </Link>
 
       <ul className="hidden sm:flex gap-7 text-sm text-gray-700">
-        <NavLink to="/" className="flex flex-col items-center gap-1">
+        <NavLink
+          to="/"
+          className="flex flex-col items-center gap-1"
+          onClick={() => handleNavClick("/")}
+        >
           <p className="py-2 px-3">HOME</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
-        <NavLink to="/listings" className="flex flex-col items-center gap-1">
+        <NavLink
+          to="/listings"
+          className="flex flex-col items-center gap-1"
+          onClick={() => handleNavClick("/listings")}
+        >
           <p className="py-2 px-3">LISTINGS</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
@@ -112,7 +126,10 @@ const Navbar = () => {
           {["home", "listings", "about", "services"].map((item) => (
             <NavLink
               key={item}
-              onClick={() => setVisible(false)}
+              onClick={() => {
+                setVisible(false);
+                handleNavClick(`/${item}`);
+              }}
               className="py-2 pl-6 border"
               to={`/${item}`}
             >
