@@ -58,3 +58,16 @@ export const loginAgent = async (req, res) => {
     res.status(500).json({ message: "Error logging in", error: err });
   }
 };
+
+// Get agent info
+export const getAgentInfo = async (req, res) => {
+  try {
+    const agent = await Agent.findById(req.user.id).select("-password");
+    if (!agent) {
+      return res.status(404).json({ message: "Agent not found" });
+    }
+    res.status(200).json({ agent });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching agent info", error: err });
+  }
+};

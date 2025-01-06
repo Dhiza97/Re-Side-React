@@ -1,5 +1,6 @@
 import express from 'express';
-import { loginAgent, registerAgent } from '../controllers/agentController.js';
+import { getAgentInfo, loginAgent, registerAgent } from '../controllers/agentController.js';
+import { authenticate, authorizeAgent } from '../middleware/auth.js';
 
 const agentRouter = express.Router();
 
@@ -8,5 +9,8 @@ agentRouter.post('/register', registerAgent)
 
 // Sign In Agent Route
 agentRouter.post('/login', loginAgent)
+
+// Get Agent Info Route
+agentRouter.get('/me', authenticate, authorizeAgent, getAgentInfo);
 
 export default agentRouter;
