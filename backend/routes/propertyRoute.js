@@ -8,8 +8,13 @@ import {
   allPropertyList,
   getLikedProperties,
   tourBooking,
+  totalLikes,
 } from "../controllers/propertyController.js";
-import { authenticate, authorizeAgent, authorizeClient } from "../middleware/auth.js";
+import {
+  authenticate,
+  authorizeAgent,
+  authorizeClient,
+} from "../middleware/auth.js";
 import upload from "../middleware/upload.js";
 
 const propertyRouter = express.Router();
@@ -67,17 +72,17 @@ propertyRouter.get(
 );
 
 // All Property List Route
-propertyRouter.get(
-  "/list",
-  allPropertyList
-);
+propertyRouter.get("/list", allPropertyList);
 
 // Liked Properties Route
+propertyRouter.get("/liked", authenticate, authorizeClient, getLikedProperties);
+
+// Total likes Route
 propertyRouter.get(
-  "/liked",
+  "/dashboard/total-likes",
   authenticate,
-  authorizeClient,
-  getLikedProperties
+  authorizeAgent,
+  totalLikes
 );
 
 // Tour Booking Route

@@ -9,7 +9,8 @@ import EditModal from "../../components/agent/EditModal";
 import { toast } from "react-toastify";
 
 const AgentDashboard = () => {
-  const { properties, setProperties, currency, api, token } = useContext(AppContext);
+  const { properties, setProperties, currency, api, token } =
+    useContext(AppContext);
   const [totalLikes, setTotalLikes] = useState(0);
   const [totalAppointments, setTotalAppointments] = useState(67);
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -33,19 +34,27 @@ const AgentDashboard = () => {
         console.error("Error fetching agent properties:", error);
       }
     };
-    
 
     fetchAgentProperties();
   }, [api, token, setProperties]);
 
   useEffect(() => {
-    // Calculate total likes for the agent's properties
-    const likes = properties.reduce(
-      (acc, property) => acc + (property.likes || 0),
-      0
-    );
-    setTotalLikes(likes);
-  }, [properties]);
+    // Fetch total likes for the agent's properties
+    const fetchTotalLikes = async () => {
+      try {
+        const response = await api.get("/api/property/dashboard/total-likes", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setTotalLikes(response.data.totalLikes);
+      } catch (error) {
+        console.error("Error fetching total likes:", error);
+      }
+    };
+
+    fetchTotalLikes();
+  }, [api, token]);
 
   const editProperty = (property) => {
     setSelectedProperty(property);
@@ -58,14 +67,16 @@ const AgentDashboard = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      setProperties(properties.filter((property) => property._id !== propertyId));
+      });
+      setProperties(
+        properties.filter((property) => property._id !== propertyId)
+      );
       toast.success("Deleted successfully");
     } catch (error) {
       console.error("Error deleting property:", error);
       toast.error("Failed to delete property");
     }
-  }
+  };
 
   useEffect(() => {
     if (showModal) {
@@ -158,8 +169,7 @@ const AgentDashboard = () => {
                       .map(
                         (word) => word.charAt(0).toUpperCase() + word.slice(1)
                       )
-                      .join(" ")
-                    }
+                      .join(" ")}
                   </td>
                   <td className="flex gap-4 text-lg border border-gray-300">
                     <p onClick={() => editProperty(property)}>

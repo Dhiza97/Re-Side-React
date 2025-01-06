@@ -185,6 +185,7 @@ const allPropertyList = async (req, res) => {
   }
 };
 
+// Function for Get Liked Properties
 const getLikedProperties = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate("likes");
@@ -196,6 +197,18 @@ const getLikedProperties = async (req, res) => {
   } catch (error) {
     console.error("Error fetching liked properties:", error); // Add this line to log the error
     res.status(500).json({ message: "Error fetching liked properties", error });
+  }
+};
+
+// Function for total likes
+const totalLikes = async (req, res) => {
+  try {
+    const agentId = req.user.id;
+    const properties = await Property.find({ agent: agentId });
+    const totalLikes = properties.reduce((acc, property) => acc + property.likes, 0);
+    res.status(200).json({ totalLikes });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching total likes", error });
   }
 };
 
@@ -223,5 +236,6 @@ export {
   propertyList,
   allPropertyList,
   getLikedProperties,
+  totalLikes,
   tourBooking,
 };

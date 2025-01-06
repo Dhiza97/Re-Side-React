@@ -60,6 +60,10 @@ const propertySchema = new mongoose.Schema(
       ref: "Agent",
       required: true 
     },
+    likes: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
