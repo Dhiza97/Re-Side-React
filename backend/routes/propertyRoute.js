@@ -6,9 +6,10 @@ import {
   singleProperty,
   propertyList,
   allPropertyList,
+  getLikedProperties,
   tourBooking,
 } from "../controllers/propertyController.js";
-import { authenticate, authorizeAgent } from "../middleware/auth.js";
+import { authenticate, authorizeAgent, authorizeClient } from "../middleware/auth.js";
 import upload from "../middleware/upload.js";
 
 const propertyRouter = express.Router();
@@ -69,6 +70,14 @@ propertyRouter.get(
 propertyRouter.get(
   "/list",
   allPropertyList
+);
+
+// Liked Properties Route
+propertyRouter.get(
+  "/liked",
+  authenticate,
+  authorizeClient,
+  getLikedProperties
 );
 
 // Tour Booking Route

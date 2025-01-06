@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import Property from "../models/propertyModel.js";
+import User from "../models/userModel.js";
 
 // Function for Add Property
 const addProperty = async (req, res) => {
@@ -181,6 +182,20 @@ const allPropertyList = async (req, res) => {
   }
 };
 
+const getLikedProperties = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("likes");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const likedProperties = await Property.find({ _id: { $in: user.likes } });
+    res.status(200).json({ likedProperties });
+  } catch (error) {
+    console.error("Error fetching liked properties:", error); // Add this line to log the error
+    res.status(500).json({ message: "Error fetching liked properties", error });
+  }
+};
+
 // Function for Tour Booking
 const tourBooking = async (req, res) => {
   try {
@@ -204,5 +219,6 @@ export {
   singleProperty,
   propertyList,
   allPropertyList,
+  getLikedProperties,
   tourBooking,
 };

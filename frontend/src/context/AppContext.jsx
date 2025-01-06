@@ -86,6 +86,20 @@ const AppContextProvider = (props) => {
     fetchAllProperties();
   }, [])
 
+  const fetchLikedProperties = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/api/property/liked", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProperties(response.data.likedProperties);
+    } catch (error) {
+      console.error("Error fetching liked properties:", error);
+    } finally {
+      setLoading(false);
+    }
+  };  
+
   // Logout function
   const logout = () => {
     localStorage.removeItem("token");
@@ -108,7 +122,8 @@ const AppContextProvider = (props) => {
     api,
     logout,
     fetchDashboardProperties,
-    fetchAllProperties
+    fetchAllProperties,
+    fetchLikedProperties,
   };
 
   return (
