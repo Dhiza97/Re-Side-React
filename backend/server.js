@@ -6,6 +6,7 @@ import connectCloudinary from './config/cloudinary.js'
 import userRouter from './routes/userRoute.js'
 import agentRouter from './routes/agentRoute.js'
 import propertyRouter from './routes/propertyRoute.js'
+import bookingRouter from './routes/bookingRoute.js'
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ app.use(cors())
 app.use('/api/user', userRouter)
 app.use('/api/agent', agentRouter)
 app.use('/api/property', propertyRouter)
+app.use('/api/booking', bookingRouter)
 
 app.get('/', (req, res) => {
     res.send('Server is running...')
