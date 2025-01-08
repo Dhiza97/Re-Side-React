@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
+import Loader from "../Loader";
 
 const EditModal = ({ property, setShowModal }) => {
-  const { api } = useContext(AppContext);
+  const { api, loading, setLoading } = useContext(AppContext);
   const [propertyData, setPropertyData] = useState({
     propertyName: "",
     propertyType: "",
@@ -73,6 +74,7 @@ const EditModal = ({ property, setShowModal }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const formData = new FormData();
       Object.keys(propertyData).forEach((key) => {
@@ -106,6 +108,8 @@ const EditModal = ({ property, setShowModal }) => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to update property.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,6 +124,7 @@ const EditModal = ({ property, setShowModal }) => {
           </button>
         </div>
 
+        {loading && <Loader />}
         <form
           onSubmit={onSubmitHandler}
           className="bg-white shadow-md rounded-lg p-6"
@@ -380,7 +385,7 @@ const EditModal = ({ property, setShowModal }) => {
               type="submit"
               className="bg-primaryColor hover:bg-blue-700 text-white font-normal py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Update Property
+              {loading ? 'Updating...' : 'Update Property'}
             </button>
           </div>
         </form>

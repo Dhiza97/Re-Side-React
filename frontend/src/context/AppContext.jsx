@@ -27,12 +27,14 @@ const AppContextProvider = (props) => {
         const decoded = jwtDecode(token);
         if (decoded.exp * 1000 < Date.now()) {
           logout();
+        } else {
+          fetchAgentDetails();
         }
       } catch (error) {
         console.error("Invalid token:", error);
       }
     }
-  }, [token]);  
+  }, [token])
 
   // Sync token state with localStorage changes
   useEffect(() => {
@@ -43,6 +45,18 @@ const AppContextProvider = (props) => {
 
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
+
+  // Fetch agent details
+  const fetchAgentDetails = async () => {
+    try {
+      const response = await api.get("/api/agent/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setAgent(response.data.agent);
+    } catch (error) {
+      console.error("Error fetching agent details:", error);
+    }
+  };
 
   // Fetch properties from the backend for Agent (no token required)
   const fetchDashboardProperties = async () => {
@@ -99,6 +113,7 @@ const AppContextProvider = (props) => {
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
+    setAgent(null);
     navigate("/login");
   };
 

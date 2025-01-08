@@ -86,7 +86,7 @@ const updateProperty = async (req, res) => {
       description,
       bedroom,
       bathroom,
-      removedImages // Array of image URLs to remove
+      removedImages
     } = req.body;
 
     const property = await Property.findById(req.params.id);
@@ -94,26 +94,26 @@ const updateProperty = async (req, res) => {
       return res.status(404).json({ success: false, message: "Property not found" });
     }
 
-    // Remove Images from Cloudinary
-    if (removedImages && removedImages.length > 0) {
-      for (const image of removedImages) {
-        const publicId = image.split("/").pop().split(".")[0]; // Extract public_id from URL
-        await cloudinary.uploader.destroy(publicId);
-      }
-      // Filter out removed images from property.image
-      property.image = property.image.filter((img) => !removedImages.includes(img));
+    // Handle removed images
+    if (removedImages) {
+      const removedImagesArray = JSON.parse(removedImages);
+      removedImagesArray.forEach((idx) => {
+        const imageUrl = property.image[idx];
+        if (imageUrl) {
+          const publicId = imageUrl.split('/').pop().split('.')[0];
+          cloudinary.uploader.destroy(publicId);
+          property.image.splice(idx, 1);
+        }
+      });
     }
 
-    // Upload New Images to Cloudinary
+    // Handle new images
     if (req.files) {
-      const uploadedImages = [];
       for (const key in req.files) {
-        const result = await cloudinary.uploader.upload(req.files[key].tempFilePath, {
-          folder: "properties",
-        });
-        uploadedImages.push(result.secure_url);
+        const file = req.files[key][0];
+        const result = await cloudinary.uploader.upload(file.path);
+        property.image.push(result.secure_url);
       }
-      property.image.push(...uploadedImages);
     }
 
     // Update Other Fields
