@@ -64,11 +64,6 @@ const AppContextProvider = (props) => {
     }
   };  
 
-  // Fetch properties on component mount
-  useEffect(() => {
-    fetchDashboardProperties();
-  }, []);
-
   // Fetch all properties from backend
   const fetchAllProperties = async () => {
     setLoading(true);
