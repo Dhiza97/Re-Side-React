@@ -1,6 +1,5 @@
 import express from 'express';
 import { loginAgent, registerAgent } from '../controllers/agentController.js';
-import { authenticate, authorizeAgent, authorizeClient } from '../middleware/auth.js';
 
 const agentRouter = express.Router();
 

@@ -20,34 +20,15 @@ const AppContextProvider = (props) => {
     baseURL: backendUrl,
   });
 
-  // Fetch agent information
-  const fetchAgentInfo = async () => {
-    try {
-      const response = await api.get("/api/agent/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setAgent(response.data.agent);
-    } catch (error) {
-      console.error("Error fetching agent information:", error);
-    }
-  };
-
-   // Attach the token to Axios when it is available
-   useEffect(() => {
-    if (token) {
-      fetchAgentInfo();
-    }
-  }, [token]);
-
   // Attach the token to Axios when it is available
   useEffect(() => {
     if (token) {
+      console.log(token);
+      
       try {
         const decoded = jwtDecode(token);
         if (decoded.exp * 1000 < Date.now()) {
           logout();
-        } else {
-          fetchAgentInfo();
         }
       } catch (error) {
         console.error("Invalid token:", error);
