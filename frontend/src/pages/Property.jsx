@@ -250,7 +250,7 @@ const Property = () => {
                   <div
                     onClick={() => setSelectedDay(date)}
                     className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
-                      selectedDay === date
+                      selectedDay?.toDateString() === date.toDateString()
                         ? "bg-primary text-white"
                         : "border border-gray-200"
                     }`}
