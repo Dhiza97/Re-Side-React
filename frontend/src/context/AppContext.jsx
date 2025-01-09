@@ -107,7 +107,35 @@ const AppContextProvider = (props) => {
     } finally {
       setLoading(false);
     }
-  };  
+  };
+
+  const fetchClientBookings = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/api/booking/client", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProperties(response.data.bookings);
+    } catch (error) {
+      console.error("Error fetching client bookings:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAgentBookings = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/api/booking/agent", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProperties(response.data.bookings);
+    } catch (error) {
+      console.error("Error fetching agent bookings:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Logout function
   const logout = () => {
@@ -140,6 +168,8 @@ const AppContextProvider = (props) => {
     fetchAllProperties,
     fetchLikedProperties,
     isAuthenticated,
+    fetchClientBookings,
+    fetchAgentBookings,
   };
 
   return (

@@ -10,10 +10,11 @@ const bookingSchema = new mongoose.Schema({
   },
   date: { type: Date, required: true },
   timeSlot: { type: String, required: true },
+  status: { type: String, default: "pending" }, // Add status field
 });
 
 bookingSchema.index({ agent: 1, property: 1, date: 1, timeSlot: 1 }, { unique: true });
 
-const Booking = mongoose.model('Booking', bookingSchema)
+const Booking = mongoose.model('Booking', bookingSchema);
 
 export default Booking;

@@ -55,6 +55,20 @@ const Property = () => {
     }
   };
 
+  const bookTour = async () => {
+    try {
+      const response = await api.post(
+        "/api/booking/book",
+        { propertyId, date: selectedDay, timeSlot: selectedTime },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Tour booked successfully");
+    } catch (error) {
+      console.error("Error booking tour:", error);
+      toast.error("Error booking tour");
+    }
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -220,7 +234,7 @@ const Property = () => {
                   ))}
               </div>
 
-              <button className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6">
+              <button onClick={bookTour} className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6">
                 Book a Tour
               </button>
             </div>

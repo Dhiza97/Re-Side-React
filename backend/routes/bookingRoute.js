@@ -1,10 +1,19 @@
 import express from "express";
-import Booking from "../models/bookingModel.js";
+import { authenticate, authorizeClient, authorizeAgent } from "../middleware/auth.js";
+import { bookTour, getAgentBookings, getClientBookings, updateBookingStatus } from "../controllers/bookingController.js";
 
 const bookingRouter = express.Router();
 
-bookingRouter.post("/tour-booking", async (req, res) => {});
+// Book a tour
+bookingRouter.post("/book", authenticate, authorizeClient, bookTour);
 
-bookingRouter.get("/:propertyId", async (req, res) => {});
+// Update booking status
+bookingRouter.put("/update/:id", authenticate, authorizeAgent, updateBookingStatus);
+
+// Get client bookings
+bookingRouter.get("/client", authenticate, authorizeClient, getClientBookings);
+
+// Get agent bookings
+bookingRouter.get("/agent", authenticate, authorizeAgent, getAgentBookings);
 
 export default bookingRouter;
