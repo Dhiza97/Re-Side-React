@@ -41,7 +41,7 @@ const TourBookings = () => {
                 <div>
                 <p><strong>Property:</strong> {booking.property.propertyName}</p>
                 <p><strong>Client:</strong> {booking.client.firstName} {booking.client.lastName}</p>
-                <p><strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}</p>
+                <p><strong>Date:</strong> {new Date(booking.date).toDateString()}</p>
                 <p><strong>Time Slot:</strong> {booking.timeSlot}</p>
                 <p><strong>Status:</strong> {booking.status}</p>
                 <button onClick={() => updateBookingStatus(booking._id, "accepted")} className="bg-green-500 text-white px-4 py-2 rounded mr-2">Accept</button>

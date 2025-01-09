@@ -29,7 +29,7 @@ const MyTourBookings = () => {
               </p>
               <p>
                 <span className="font-medium">Date:</span>{" "}
-                {new Date(booking.date).toLocaleDateString()}
+                {new Date(booking.date).toDateString()}
               </p>
               <p>
                 <span className="font-medium">Time Slot:</span> {booking.timeSlot}
