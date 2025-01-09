@@ -12,6 +12,11 @@ export const bookTour = async (req, res) => {
       return res.status(404).json({ message: "Property not found" });
     }
 
+    const existingBooking = await Booking.findOne({ client: clientId, property: propertyId });
+    if (existingBooking) {
+      return res.status(400).json({ message: "You have already booked a tour for this property" });
+    }
+
     const booking = new Booking({
       client: clientId,
       agent: property.agent,
@@ -61,5 +66,16 @@ export const getAgentBookings = async (req, res) => {
     res.status(200).json({ bookings });
   } catch (error) {
     res.status(400).json({ message: "Error fetching agent bookings", error });
+  }
+};
+
+// Get booked slots for a property
+export const getBookedSlots = async (req, res) => {
+  try {
+    const { propertyId } = req.params;
+    const bookedSlots = await Booking.find({ property: propertyId }, 'date timeSlot');
+    res.status(200).json({ bookedSlots });
+  } catch (error) {
+    res.status(400).json({ message: "Error fetching booked slots", error });
   }
 };

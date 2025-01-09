@@ -15,6 +15,7 @@ const Property = () => {
   const [property, setProperty] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
+  const [bookedSlots, setBookedSlots] = useState([]);
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   useEffect(() => {
@@ -32,6 +33,12 @@ const Property = () => {
 
         const likedProperties = response.data.likes;
         setLiked(likedProperties.includes(propertyId));
+
+        // Fetch booked slots for the property
+        const bookingResponse = await api.get(
+          `/api/booking/property/${propertyId}`
+        );
+        setBookedSlots(bookingResponse.data.bookedSlots);
       } catch (error) {
         console.error("Error fetching like status or property details:", error);
       }
@@ -86,17 +93,28 @@ const Property = () => {
       start.setHours(hour, 0, 0);
       const end = new Date();
       end.setHours(hour + 2, 0, 0);
-      slots.push(
-        `${start.toLocaleTimeString([], {
+      slots.push({
+        time: `${start.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         })} - ${end.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
-        })}`
-      );
+        })}`,
+        start,
+        end,
+      });
     }
     return slots;
+  };
+
+  const isSlotBooked = (date, slot) => {
+    if (!date) return false;
+    return bookedSlots.some(
+      (booking) =>
+        new Date(booking.date).toDateString() === date.toDateString() &&
+        booking.timeSlot === slot.time
+    );
   };
 
   if (loading) {
@@ -247,15 +265,20 @@ const Property = () => {
               <div className="flex items-center gap-3 w-full overflow-x-scroll mt-4">
                 {getTimeSlots().map((slot, index) => (
                   <p
-                    onClick={() => setSelectedTime(slot)}
+                    onClick={() =>
+                      !isSlotBooked(selectedDay, slot) &&
+                      setSelectedTime(slot.time)
+                    }
                     className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
-                      selectedTime === slot
+                      selectedTime === slot.time
                         ? "bg-primary text-white"
+                        : isSlotBooked(selectedDay, slot)
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                         : "text-gray-400 border border-gray-300"
                     }`}
                     key={index}
                   >
-                    {slot}
+                    {slot.time}
                   </p>
                 ))}
               </div>
