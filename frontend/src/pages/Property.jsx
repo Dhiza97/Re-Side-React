@@ -69,6 +69,36 @@ const Property = () => {
     }
   };
 
+  const getNext7Days = () => {
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      days.push(date);
+    }
+    return days;
+  };
+
+  const getTimeSlots = () => {
+    const slots = [];
+    for (let hour = 8; hour < 20; hour += 2) {
+      const start = new Date();
+      start.setHours(hour, 0, 0);
+      const end = new Date();
+      end.setHours(hour + 2, 0, 0);
+      slots.push(
+        `${start.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })} - ${end.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}`
+      );
+    }
+    return slots;
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -198,43 +228,42 @@ const Property = () => {
             <div className="border-l sm:pl-4 mt-4 font-medium text-gray-700">
               <p>Booking slots</p>
               <div className="flex gap-3 items-center w-full overflow-x-scroll mt-4">
-                {Array(7)
-                  .fill()
-                  .map((_, index) => (
-                    <div
-                      onClick={() => setSelectedDay(index)}
-                      className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
-                        selectedDay === index
-                          ? "bg-primary text-white"
-                          : "border border-gray-200"
-                      }`}
-                      key={index}
-                    >
-                      <p>{daysOfWeek[index % 7]}</p>
-                      <p>{new Date().getDate() + index}</p>
-                    </div>
-                  ))}
+                {getNext7Days().map((date, index) => (
+                  <div
+                    onClick={() => setSelectedDay(date)}
+                    className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
+                      selectedDay === date
+                        ? "bg-primary text-white"
+                        : "border border-gray-200"
+                    }`}
+                    key={index}
+                  >
+                    <p>{daysOfWeek[date.getDay()]}</p>
+                    <p>{date.getDate()}</p>
+                  </div>
+                ))}
               </div>
 
               <div className="flex items-center gap-3 w-full overflow-x-scroll mt-4">
-                {Array(6)
-                  .fill()
-                  .map((_, index) => (
-                    <p
-                      onClick={() => setSelectedTime(`Time Slot ${index + 1}`)}
-                      className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
-                        selectedTime === `Time Slot ${index + 1}`
-                          ? "bg-primary text-white"
-                          : "text-gray-400 border border-gray-300"
-                      }`}
-                      key={index}
-                    >
-                      {`Time Slot ${index + 1}`}
-                    </p>
-                  ))}
+                {getTimeSlots().map((slot, index) => (
+                  <p
+                    onClick={() => setSelectedTime(slot)}
+                    className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
+                      selectedTime === slot
+                        ? "bg-primary text-white"
+                        : "text-gray-400 border border-gray-300"
+                    }`}
+                    key={index}
+                  >
+                    {slot}
+                  </p>
+                ))}
               </div>
 
-              <button onClick={bookTour} className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6">
+              <button
+                onClick={bookTour}
+                className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6"
+              >
                 Book a Tour
               </button>
             </div>
