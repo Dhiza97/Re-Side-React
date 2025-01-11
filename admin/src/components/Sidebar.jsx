@@ -10,7 +10,7 @@ const Sidebar = () => {
           to="/pending"
           className={({ isActive }) =>
             `p-2 rounded ${
-              isActive ? "bg-blue-500 text-white" : "hover:bg-blue-600"
+              isActive ? "bg-blue-600 text-white" : "hover:bg-blue-500"
             }`
           }
         >
@@ -20,7 +20,7 @@ const Sidebar = () => {
           to="/approved"
           className={({ isActive }) =>
             `p-2 rounded ${
-              isActive ? "bg-green-500 text-white" : "hover:bg-blue-600"
+              isActive ? "bg-blue-600 text-white" : "hover:bg-blue-500"
             }`
           }
         >
@@ -30,7 +30,7 @@ const Sidebar = () => {
           to="/rejected"
           className={({ isActive }) =>
             `p-2 rounded ${
-              isActive ? "bg-red-500 text-white" : "hover:bg-blue-600"
+              isActive ? "bg-blue-600 text-white" : "hover:bg-blue-500"
             }`
           }
         >
