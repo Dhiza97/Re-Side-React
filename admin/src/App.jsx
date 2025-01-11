@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Login from './components/Login';
-import Review from './pages/Review';
+import React, { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import Review from "./pages/Review";
+import Sidebar from "./components/Sidebar";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const currency = "₦";
@@ -26,10 +27,15 @@ const App = () => {
       ) : (
         <>
           <Navbar setToken={setToken} />
-          <div>
-            <Routes>
-              <Route path="/" element={<Review token={token} />} />
-            </Routes>
+          <div className="flex">
+            <aside className="w-64 bg-primaryColor p-4 hidden md:block">
+              <Sidebar />
+            </aside>
+            <div className="flex-grow">
+              <Routes>
+                <Route path="/:status" element={<Review token={token} />} />
+              </Routes>
+            </div>
           </div>
         </>
       )}

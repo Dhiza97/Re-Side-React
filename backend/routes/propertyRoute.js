@@ -11,6 +11,7 @@ import {
   totalLikes,
   getPendingProperties,
   updatePropertyStatus,
+  getPropertiesByStatus,
 } from "../controllers/propertyController.js";
 import {
   authenticate,
@@ -101,5 +102,8 @@ propertyRouter.get("/pending", adminAuth, getPendingProperties);
 
 // Update Property Status Route
 propertyRouter.put("/update-status/:id", adminAuth, updatePropertyStatus);
+
+// Fetch properties by status
+propertyRouter.get("/:status", adminAuth, getPropertiesByStatus)
 
 export default propertyRouter;

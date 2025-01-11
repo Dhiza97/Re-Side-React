@@ -257,6 +257,18 @@ const updatePropertyStatus = async (req, res) => {
   }
 };
 
+// Function to fetch properties by status
+const getPropertiesByStatus = async (req, res) => {
+  try {
+    const { status } = req.params;
+    const properties = await Property.find({ status }).populate("agent", "firstName lastName email phone");
+    res.status(200).json({ properties });
+  } catch (error) {
+    console.error("Error fetching properties by status:", error);
+    res.status(500).json({ message: "Error fetching properties", error });
+  }
+};
+
 export {
   addProperty,
   updateProperty,
@@ -269,4 +281,5 @@ export {
   tourBooking,
   getPendingProperties,
   updatePropertyStatus,
+  getPropertiesByStatus,
 };
