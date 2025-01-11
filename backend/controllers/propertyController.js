@@ -43,7 +43,7 @@ const addProperty = async (req, res) => {
       propertyName,
       propertyType,
       purchaseType,
-      status,
+      status: "pending",
       address,
       city,
       state,
@@ -177,7 +177,8 @@ const propertyList = async (req, res) => {
 // Function for All Property List
 const allPropertyList = async (req, res) => {
   try {
-    const properties = await Property.find({}).populate("agent", "firstName lastName email phone");
+    const properties = await Property.find({ status: "approved" })
+      .populate("agent", "firstName lastName email phone");
     res.json({ success: true, properties });
   } catch (error) {
     console.error("Error fetching all properties:", error);
@@ -228,6 +229,34 @@ const tourBooking = async (req, res) => {
   }
 };
 
+// Function for Get Pending Properties
+const getPendingProperties = async (req, res) => {
+  try {
+    const properties = await Property.find({ status: "pending" }).populate("agent", "firstName lastName email phone");
+    res.status(200).json({ properties });
+  } catch (error) {
+    console.error("Error fetching pending properties:", error);
+    res.status(500).json({ message: "Error fetching pending properties", error });
+  }
+};
+
+// Function for Update Property Status
+const updatePropertyStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+    property.status = status;
+    await property.save();
+    res.status(200).json({ message: "Property status updated successfully", property });
+  } catch (error) {
+    console.error("Error updating property status:", error);
+    res.status(500).json({ message: "Error updating property status", error });
+  }
+};
+
 export {
   addProperty,
   updateProperty,
@@ -238,4 +267,6 @@ export {
   getLikedProperties,
   totalLikes,
   tourBooking,
+  getPendingProperties,
+  updatePropertyStatus,
 };

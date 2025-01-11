@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  adminLogin,
   loginUser,
   registerUser,
   toggleLike,
@@ -33,5 +34,8 @@ userRouter.get("/likes", authenticate, authorizeClient, async (req, res) => {
       .json({ message: "Error fetching liked properties", error: err });
   }
 });
+
+// Admin Login Route
+userRouter.post("/admin", adminLogin)
 
 export default userRouter;

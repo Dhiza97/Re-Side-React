@@ -9,6 +9,8 @@ import {
   getLikedProperties,
   tourBooking,
   totalLikes,
+  getPendingProperties,
+  updatePropertyStatus,
 } from "../controllers/propertyController.js";
 import {
   authenticate,
@@ -16,6 +18,7 @@ import {
   authorizeClient,
 } from "../middleware/auth.js";
 import upload from "../middleware/upload.js";
+import adminAuth from "../middleware/adminAuth.js";
 
 const propertyRouter = express.Router();
 
@@ -92,5 +95,11 @@ propertyRouter.post(
   authorizeAgent,
   tourBooking
 );
+
+// Fetch Pending Properties Route
+propertyRouter.get("/pending", adminAuth, getPendingProperties);
+
+// Update Property Status Route
+propertyRouter.put("/update-status/:id", adminAuth, updatePropertyStatus);
 
 export default propertyRouter;

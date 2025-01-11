@@ -1,5 +1,5 @@
-import logo_blue from './logo_blue'
-import logo_white from './logo_white'
+import logo_blue from './logo_blue.png'
+import logo_white from './logo_white.png'
 
 export const assets = {
     logo_blue,
