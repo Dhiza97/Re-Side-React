@@ -18,9 +18,6 @@ const App = () => {
     localStorage.setItem("token", token);
   }, [token]);
 
-  // Console log token if login is successful
-  console.log(token);
-
   return (
     <div>
       <ToastContainer />
