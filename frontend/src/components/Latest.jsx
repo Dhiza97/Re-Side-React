@@ -9,6 +9,8 @@ import Loader from "./Loader";
 const Latest = () => {
   const { currency, allProperties, loading } = useContext(AppContext);
 
+  const sortedProperties = allProperties.slice().sort((a, b) => b._id.localeCompare(a._id));
+
   if (loading) {
     return <Loader />;
   }
@@ -41,8 +43,8 @@ const Latest = () => {
         <div className="mt-5 overflow-x-auto">
           <div className="flex gap-6">
             {/* Display only the first 6 properties */}
-            {allProperties.length > 0 ? (
-              allProperties.slice(0, 6).map((property, index) => (
+            {sortedProperties.length > 0 ? (
+              sortedProperties.slice(0, 6).map((property, index) => (
                 <Link
                 key={index}
                 to={`/property/${property._id}`} // Navigate to the property details page

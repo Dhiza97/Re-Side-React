@@ -45,22 +45,22 @@ const Footer = () => {
         <nav className="hidden md:flex flex-col">
           <p className="text-base font-medium mb-9">Discovery</p>
           <NavLink to={"/"} className="link link-hover">
-            Nigeria
+            Lagos
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            USA
+            Abuja
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            Ghana
+            Kaduna
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            United Kingdom
+            Imo
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            China
+            Oyo
           </NavLink>
           <NavLink to={"/"} className="link link-hover">
-            South Africa
+            Ogun
           </NavLink>
         </nav>
 
@@ -71,7 +71,7 @@ const Footer = () => {
           <div className="flex bg-white p-2 rounded-full justify-center sm:justify-start">
             <input
               className="focus:outline-none focus:ring-0 w-full"
-              type="text"
+              type="email"
               placeholder="Email Address"
               size={'30'}
             />

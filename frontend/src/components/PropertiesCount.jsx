@@ -75,7 +75,7 @@ const PropertiesCount = () => {
             />
             <div className="absolute bottom-2 left-2 text-white text-left">
               <p className="text-5xl opacity-70">{counts.abuja}</p>
-              <p>Nigeria, NG</p>
+              <p>Lagos, LAG</p>
             </div>
           </div>
           <div className="relative w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden">
@@ -86,7 +86,7 @@ const PropertiesCount = () => {
             />
             <div className="absolute bottom-2 left-2 text-white text-left">
               <p className="text-5xl opacity-70">{counts.kaduna}</p>
-              <p>China, CH</p>
+              <p>Abuja, ABJ</p>
             </div>
           </div>
           <div className="relative w-40 h-40 md:flex-1 md:h-64 rounded-3xl overflow-hidden">
@@ -97,7 +97,7 @@ const PropertiesCount = () => {
             />
             <div className="absolute bottom-2 left-2 text-white text-left">
               <p className="text-5xl opacity-70">{counts.imo}</p>
-              <p>America, USA</p>
+              <p>Kaduna, KD</p>
             </div>
           </div>
           <div className="relative w-40 h-40 md:hidden rounded-3xl overflow-hidden">
@@ -108,7 +108,7 @@ const PropertiesCount = () => {
             />
             <div className="absolute bottom-2 left-2 text-white text-left">
               <p className="text-5xl opacity-70">{counts.kogi}</p>
-              <p>United Kingdom, UK</p>
+              <p>Imo, IM</p>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ const PropertiesCount = () => {
             />
             <div className="absolute bottom-2 left-2 text-white text-left">
               <p className="text-5xl opacity-70">{counts.portHarcourt}</p>
-              <p>Ghana, GH</p>
+              <p>Oyo, OY</p>
             </div>
           </div>
           <div className="relative w-40 h-40 md:flex-1 md:h-64 rounded-3xl overflow-hidden">
@@ -132,7 +132,7 @@ const PropertiesCount = () => {
             />
             <div className="absolute bottom-2 left-2 text-white text-left">
               <p className="text-5xl opacity-70">{counts.lagos}</p>
-              <p>South Africa, SA</p>
+              <p>Ogun, OG</p>
             </div>
           </div>
         </div>
