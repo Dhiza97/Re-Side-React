@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "./Heading";
 import { assets } from "../assets/assets";
 import { CiSearch } from "react-icons/ci";
@@ -15,6 +15,19 @@ import { Navigation, Autoplay } from "swiper/modules";
 import Display2 from "./Display2";
 
 const Display = () => {
+  const words = ["Duplex", "Bungalow", "Condo", "Apartment"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Move to the next word, loop back to the first word when reaching the end
+      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 3000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [words.length]);
+
   return (
     <>
       <div className="hero flex pt-6 sm:pt-10">
@@ -23,7 +36,7 @@ const Display = () => {
           <div className="text-left sm:w-1/2 space-y-4">
             <Heading text={"REAL ESTATE"} />
             <h1 className="text-3xl sm:text-5xl font-bold text-[#0b090a] leading-snug">
-              Find a perfect <br /> home you love..!
+              Find a perfect <br /><span className="text-primaryColor">{words[currentWordIndex]}</span> you love..!
             </h1>
             <p className="py-4 sm:py-6 text-[#808080] text-xs sm:text-sm leading-relaxed">
               Explore our curated collection of premier properties, from urban{" "}
