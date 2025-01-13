@@ -125,7 +125,7 @@ const Property = () => {
     <div className="border-t-2 pt-10 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] transition-opacity ease-in duration-500 opacity-100">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-5 text-primaryColor">
-        <p className="text-2xl">Details</p>
+        <p className="text-2xl">DETAILS</p>
         <NavLink className="text-4xl" to={"/listings"}>
           <IoIosExit />
         </NavLink>
