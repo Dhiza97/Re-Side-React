@@ -89,11 +89,11 @@ const Navbar = () => {
                 <p
                   className="cursor-pointer hover:text-black text-base"
                   onClick={() => {
-                    logout;
+                    logout();
                     setDropdownVisible(false);
                   }}
                 >
-                  Logout
+                  LOGOUT
                 </p>
               </div>
             </div>
