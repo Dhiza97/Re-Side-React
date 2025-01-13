@@ -5,6 +5,7 @@ import { IoIosExit } from "react-icons/io";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const Property = () => {
   const { propertyId } = useParams();
@@ -134,7 +135,12 @@ const Property = () => {
       {/* Property Details Section */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row text-black">
         {/* Images Section */}
-        <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
+        <motion.div
+          initial={{ opacity: 0, x: "-100%" }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 2 }}
+          className="flex-1 flex flex-col-reverse gap-3 sm:flex-row"
+        >
           {/* Thumbnail Images */}
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll sm:justify-normal sm:w-[18.7%] w-full">
             {property?.image?.map((photo, index) => (
@@ -156,10 +162,15 @@ const Property = () => {
               alt={property?.propertyName || "Property Image"}
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Property Info Section */}
-        <div className="flex-1">
+        <motion.div
+          initial={{ opacity: 0, x: "100%" }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 2 }}
+          className="flex-1"
+        >
           <h1 className="font-medium text-2xl mt-2">
             {property?.propertyName || "Property Name"}
           </h1>
@@ -201,11 +212,16 @@ const Property = () => {
               {property?.city || "N/A"}, {property?.state || "N/A"}
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Agent Details Section  & Tour Booking */}
-      <div className="mt-20 text-black">
+      <motion.div
+        initial={{ opacity: 0, y: "-100%" }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 2 }}
+        className="mt-20 text-black"
+      >
         <div className="flex">
           <b className="border px-5 py-3 text-sm">Agent Info</b>
           <b className="border px-5 py-3 text-sm">Book a Tour</b>
@@ -293,7 +309,7 @@ const Property = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
