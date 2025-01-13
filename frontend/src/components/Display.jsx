@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Heading from "./Heading";
 import { assets } from "../assets/assets";
-import { CiSearch } from "react-icons/ci";
+import { motion } from 'framer-motion'
+import { fadeIn } from "../variants";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -33,7 +34,12 @@ const Display = () => {
       <div className="hero flex pt-6 sm:pt-10">
         <div className="hero-content flex flex-col sm:flex-row justify-between w-full gap-10">
           {/* Left */}
-          <div className="text-left sm:w-1/2 space-y-4">
+          <motion.div 
+          initial={{opacity: 0, translateX: "-100%"}}
+          whileInView={{opacity: 1, translateX: 0}}
+          transition={{duration: 2}}
+
+          className="text-left sm:w-1/2 space-y-4">
             <Heading text={"REAL ESTATE"} />
             <h1 className="text-3xl sm:text-5xl font-bold text-[#0b090a] leading-snug">
               Find a perfect <br />
@@ -53,10 +59,14 @@ const Display = () => {
               <br className="hidden sm:block" />
               retreats to serene countryside estates.
             </p>
-          </div>
+          </motion.div>
 
           {/* Right */}
-          <div>
+          <motion.div
+          initial={{opacity: 0, translateX: "100%"}}
+          whileInView={{opacity: 1, translateX: 0}}
+          transition={{duration: 2}}
+          >
           <Swiper
               loop={true}
               autoplay={{
@@ -77,7 +87,7 @@ const Display = () => {
                 <img src={assets.house_16} alt="House 3" />
               </SwiperSlide>
             </Swiper>
-          </div>
+          </motion.div>
         </div>
       </div>
 
