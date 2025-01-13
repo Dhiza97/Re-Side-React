@@ -25,17 +25,24 @@ const MyTourBookings = () => {
 
             <div className="flex flex-col gap-1">
               <p>
-                <span className="font-medium">Property:</span> {booking.property.propertyName}
+                <span className="font-medium">Property:</span>{" "}
+                {booking.property.propertyName}
               </p>
               <p>
                 <span className="font-medium">Date:</span>{" "}
                 {new Date(booking.date).toDateString()}
               </p>
               <p>
-                <span className="font-medium">Time Slot:</span> {booking.timeSlot}
+                <span className="font-medium">Time Slot:</span>{" "}
+                {booking.timeSlot}
               </p>
               <p>
-                <span className="font-medium">Status:</span> {booking.status}
+                <span className="font-medium">Status:</span>{" "}
+                {booking.status
+                  .toLowerCase()
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ")}
               </p>
             </div>
           </div>
