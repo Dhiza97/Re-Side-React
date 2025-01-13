@@ -1,10 +1,15 @@
 import React from "react";
-import Heading from "./Heading";
 import { assets } from "../assets/assets";
+import { motion } from "framer-motion";
 
 const Blog = () => {
   return (
-    <div className="bg-primaryColor py-20 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+    <motion.div
+      initial={{ opacity: 0, translateY: "-100%" }}
+      whileInView={{ opacity: 1, translateY: 0 }}
+      transition={{ duration: 2 }}
+      className="bg-primaryColor py-20 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]"
+    >
       <div className="text-white text-center">
         <p className="heading-nocolor text-white">WHAT’S TRENDING</p>
         <p className="text-4xl font-medium leading-[2.8rem]">
@@ -103,7 +108,7 @@ const Blog = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

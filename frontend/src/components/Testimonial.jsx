@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import Heading from "./Heading";
+import { motion } from "framer-motion";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,7 +20,12 @@ const Testimonial = () => {
   const nextRef = useRef(null);
 
   return (
-    <div className="hidden py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-16 lg:px-32 sm:flex flex-col lg:flex-row gap-10">
+    <motion.div
+      initial={{ opacity: 0, translateX: "-100%" }}
+      whileInView={{ opacity: 1, translateX: 0 }}
+      transition={{ duration: 2 }}
+      className="hidden py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-16 lg:px-32 sm:flex flex-col lg:flex-row gap-10"
+    >
       {/* Left */}
       <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
         <Heading text={"TESTIMONIALS"} />
@@ -263,7 +269,7 @@ const Testimonial = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

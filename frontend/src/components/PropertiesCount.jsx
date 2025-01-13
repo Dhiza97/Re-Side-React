@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import Heading from "./Heading";
+import { motion } from "framer-motion";
 
 const PropertiesCount = () => {
   // Define state for property counts
   const [counts, setCounts] = useState({
-    abuja: 26,
-    kaduna: 12,
-    imo: 16,
-    kogi: 21,
+    abuja: 6,
+    kaduna: 2,
+    imo: 6,
+    kogi: 1,
     portHarcourt: 6,
     lagos: 10,
   });
 
   useEffect(() => {
     // Function to generate random increment
-    const getRandomIncrement = () => Math.floor(Math.random() * 3) + 1; // 1 to 3
+    const getRandomIncrement = () => Math.floor(Math.random() * 3) + 1;
 
     // Start intervals for each count
     const abujaInterval = setInterval(() => {
-      setCounts((prev) => ({ ...prev, abuja: prev.abuja + getRandomIncrement() }));
-    }, Math.random() * 2000 + 1000); // Random speed between 1s and 3s
+      setCounts((prev) => ({
+        ...prev,
+        abuja: prev.abuja + getRandomIncrement(),
+      }));
+    }, Math.random() * 2000 + 1000);
 
     const kadunaInterval = setInterval(() => {
-      setCounts((prev) => ({ ...prev, kaduna: prev.kaduna + getRandomIncrement() }));
+      setCounts((prev) => ({
+        ...prev,
+        kaduna: prev.kaduna + getRandomIncrement(),
+      }));
     }, Math.random() * 2000 + 1000);
 
     const imoInterval = setInterval(() => {
@@ -31,15 +38,24 @@ const PropertiesCount = () => {
     }, Math.random() * 2000 + 1000);
 
     const kogiInterval = setInterval(() => {
-      setCounts((prev) => ({ ...prev, kogi: prev.kogi + getRandomIncrement() }));
+      setCounts((prev) => ({
+        ...prev,
+        kogi: prev.kogi + getRandomIncrement(),
+      }));
     }, Math.random() * 2000 + 1000);
 
     const portHarcourtInterval = setInterval(() => {
-      setCounts((prev) => ({ ...prev, portHarcourt: prev.portHarcourt + getRandomIncrement() }));
+      setCounts((prev) => ({
+        ...prev,
+        portHarcourt: prev.portHarcourt + getRandomIncrement(),
+      }));
     }, Math.random() * 2000 + 1000);
 
     const lagosInterval = setInterval(() => {
-      setCounts((prev) => ({ ...prev, lagos: prev.lagos + getRandomIncrement() }));
+      setCounts((prev) => ({
+        ...prev,
+        lagos: prev.lagos + getRandomIncrement(),
+      }));
     }, Math.random() * 2000 + 1000);
 
     // Cleanup intervals on component unmount
@@ -54,7 +70,13 @@ const PropertiesCount = () => {
   }, []);
 
   return (
-    <div className="my-16">
+    <motion.div
+      initial={{ opacity: 0, scale: 0 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 2 }}
+      style={{ overflowX: "auto" }}
+      className="my-16"
+    >
       <div className="flex items-center justify-center mb-16">
         <img className="w-12" src={assets.ellipse_1} alt="" />
       </div>
@@ -137,7 +159,7 @@ const PropertiesCount = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

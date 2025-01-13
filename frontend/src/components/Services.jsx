@@ -1,9 +1,15 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import { motion } from "framer-motion";
 
 const Services = () => {
   return (
-    <div className="bg-[#F2F2F2] py-20 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+    <motion.div
+      initial={{ opacity: 0, translateX: "-100%" }}
+      whileInView={{ opacity: 1, translateX: 0 }}
+      transition={{ duration: 2 }}
+      className="bg-[#F2F2F2] py-20 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]"
+    >
       <div className="text-center">
         <p className="text-lg text-[#2B2B2B] tracking-widest">OUR SERVICES</p>
         <p className="text-4xl font-medium text-[#0b090a] leading-[2.8rem]">
@@ -65,7 +71,7 @@ const Services = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
