@@ -36,15 +36,28 @@ const Display = () => {
           <div className="text-left sm:w-1/2 space-y-4">
             <Heading text={"REAL ESTATE"} />
             <h1 className="text-3xl sm:text-5xl font-bold text-[#0b090a] leading-snug">
-              Find a perfect <br /><span className="text-primaryColor">{words[currentWordIndex]}</span> you love..!
+              Find a perfect <br />
+              <span
+                className="text-primaryColor"
+                style={{
+                  textShadow:
+                    "0 0 8px #6bb8ff, 0 0 15px #6bb8ff, 0 0 20px #6bb8ff",
+                }}
+              >
+                {words[currentWordIndex]}
+              </span>{" "}
+              you love..!
             </h1>
             <p className="py-4 sm:py-6 text-[#808080] text-xs sm:text-sm leading-relaxed">
               Explore our curated collection of premier properties, from urban{" "}
               <br className="hidden sm:block" />
               retreats to serene countryside estates.
             </p>
+          </div>
 
-            <Swiper
+          {/* Right */}
+          <div>
+          <Swiper
               loop={true}
               autoplay={{
                 delay: 3000,
@@ -64,53 +77,6 @@ const Display = () => {
                 <img src={assets.house_16} alt="House 3" />
               </SwiperSlide>
             </Swiper>
-          </div>
-
-          {/* Right */}
-          <div className="card bg-base-100 w-full sm:w-3/4 lg:w-1/3 max-w-sm shrink-0 shadow-2xl mt-10 lg:mt-0 hidden sm:block">
-            <div className="flex items-center justify-around border border-b-gray-500 py-5 sm:py-8">
-              <p className="text-primaryColor">For Sale</p>
-              <p>For Rent</p>
-            </div>
-
-            <form className="card-body flex flex-col gap-4 sm:gap-6 py-6 sm:py-10">
-              <div className="form-control">
-                <input
-                  type="email"
-                  placeholder="Lagos, Abuja, etc"
-                  className="input bg-[#D4D4D4]"
-                  required
-                />
-              </div>
-
-              <div className="form-control">
-                <select className="select select-ghost w-full bg-[#D4D4D4]">
-                  <option className="text-[#6D6A75]" disabled defaultValue>
-                    Select Property Type
-                  </option>
-                  <option>Apartment</option>
-                  <option>House</option>
-                  <option>Villa</option>
-                </select>
-              </div>
-
-              <div className="form-control">
-                <select className="select select-ghost w-full bg-[#D4D4D4]">
-                  <option disabled defaultValue>
-                    Select Rooms
-                  </option>
-                  <option>1 Bedroom</option>
-                  <option>2 Bedrooms</option>
-                  <option>3+ Bedrooms</option>
-                </select>
-              </div>
-
-              <div className="form-control mt-6">
-                <button className="btn bg-primaryColor font-light text-lg text-white rounded-full h-14 flex items-center justify-center gap-2">
-                  <CiSearch className="text-2xl" /> Search
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
