@@ -23,7 +23,6 @@ const Navbar = () => {
       <Link to={"/"}>
         <img src={assets.logo_blue} className="w-16" alt="" />
       </Link>
-
       <ul className="hidden sm:flex gap-7 text-sm text-gray-700">
         <NavLink
           to="/"
@@ -50,7 +49,6 @@ const Navbar = () => {
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
       </ul>
-
       <div className="flex items-center gap-6">
         <div
           className="group relative cursor-pointer"
@@ -74,29 +72,26 @@ const Navbar = () => {
 
           {/* Dropdown Menu */}
           {token && dropdownVisible && (
-            <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10">
-              <div className="flex flex-col gap-2 w-40 py-3 px-5 bg-white text-gray-500 rounded text-base text-nowrap font-normal">
-                <NavLink
-                  to="/profile"
-                  className="cursor-pointer hover:text-black"
-                >
-                  My Profile
-                </NavLink>
-                <NavLink
-                  to="/my-tour-bookings"
-                  className="cursor-pointer hover:text-black"
-                >
-                  Tour Bookings
-                </NavLink>
-                <NavLink
-                  to="/wish-list"
-                  className="cursor-pointer hover:text-black"
-                >
-                  Wish List
-                </NavLink>
+            <div className="absolute right-0 pt-4 z-10">
+              <div className="flex flex-col gap-2 w-40 py-3 px-5 bg-white text-gray-500 rounded text-base font-normal">
+                {["/profile", "/my-tour-bookings", "/wish-list"].map(
+                  (path, idx) => (
+                    <NavLink
+                      key={idx}
+                      to={path}
+                      className="cursor-pointer hover:text-black"
+                      onClick={() => setDropdownVisible(false)}
+                    >
+                      {path.replace("/", "").replace("-", " ").toUpperCase()}
+                    </NavLink>
+                  )
+                )}
                 <p
                   className="cursor-pointer hover:text-black text-base"
-                  onClick={logout}
+                  onClick={() => {
+                    logout;
+                    setDropdownVisible(false);
+                  }}
                 >
                   Logout
                 </p>
@@ -112,7 +107,6 @@ const Navbar = () => {
           alt=""
         />
       </div>
-
       {/* Sidebar menu for small screen */}
       <div
         className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white z-10 transition-all ${
@@ -128,10 +122,10 @@ const Navbar = () => {
               key={item}
               onClick={() => {
                 setVisible(false);
-                handleNavClick(`/${item}`);
+                handleNavClick(item === "home" ? "/" : `/${item}`);
               }}
               className="py-2 pl-6 border"
-              to={`/${item}`}
+              to={item === "home" ? "/" : `/${item}`}
             >
               {item.toUpperCase()}
             </NavLink>

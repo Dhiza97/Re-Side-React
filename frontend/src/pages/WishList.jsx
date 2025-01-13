@@ -15,7 +15,7 @@ const WishList = () => {
   }
 
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-screen">
+    <div className="px-4 pb-10 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-screen">
       <h1 className="text-2xl text-primaryColor my-10">MY WISHLIST</h1>
       {properties.length > 0 ? (
         <PropertyCard properties={properties} currency={currency} />

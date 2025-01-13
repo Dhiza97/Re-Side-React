@@ -8,11 +8,11 @@ const PropertyCard = ({ properties, currency }) => {
     <div className="property-list grid grid-cols-1 md:grid-cols-3 gap-4">
       {properties && properties.length > 0 ? (
         properties.map((property, index) => (
-          <motion.div 
-          key={property._id}
-          initial={{ opacity: 0}}
-          animate={{ opacity: [0, 1] }}
-          transition={{ duration: 0.5, delay: index/8 }}
+          <motion.div
+            key={property._id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1] }}
+            transition={{ duration: 0.5, delay: index / 8 }}
           >
             <Link
               to={`/property/${property._id}`}
@@ -31,30 +31,39 @@ const PropertyCard = ({ properties, currency }) => {
                 />
                 <div
                   className={`badge badge-outline absolute bottom-3 left-4 bg-white ${
-                    property.purchaseType.toLowerCase() === "rent"
+                    property.purchaseType?.toLowerCase() === "rent"
                       ? "border-primaryColor text-primaryColor"
                       : "border-green-500 text-green-500"
                   }`}
                 >
                   {property.purchaseType
-                    .toLowerCase()
-                    .split(" ")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}
+                    ? property.purchaseType
+                        .toLowerCase()
+                        .split(" ")
+                        .map(
+                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                        )
+                        .join(" ")
+                    : "Unknown"}
                 </div>
               </div>
               <div className="mt-2 flex flex-col gap-2">
                 <p className="font-semibold">
-                  {currency} {property.price.toLocaleString()}
+                  {currency}{" "}
+                  {property.price
+                    ? property.price.toLocaleString()
+                    : "Price Not Available"}
                 </p>
-                <p className="text-base">{property.propertyName}</p>
+                <p className="text-base">{property.propertyName || "Unnamed Property"}</p>
                 <p className="text-xs font-light text-[#808080]">
-                  {property.address}, {property.city}, {property.state}
+                  {property.address || "Address not available"},{" "}
+                  {property.city || "City not available"},{" "}
+                  {property.state || "State not available"}
                 </p>
                 <div className="flex gap-4">
                   <div className="flex gap-2 items-center">
                     <img className="w-5" src={assets.icon_bed} alt="Bed Icon" />
-                    <p className="text-xs">{property.bedroom} Beds</p>
+                    <p className="text-xs">{property.bedroom || 0} Beds</p>
                   </div>
                   <div className="flex gap-2 items-center">
                     <img
@@ -62,7 +71,7 @@ const PropertyCard = ({ properties, currency }) => {
                       src={assets.icon_bathroom}
                       alt="Bath Icon"
                     />
-                    <p className="text-xs">{property.bathroom} Baths</p>
+                    <p className="text-xs">{property.bathroom || 0} Baths</p>
                   </div>
                 </div>
               </div>

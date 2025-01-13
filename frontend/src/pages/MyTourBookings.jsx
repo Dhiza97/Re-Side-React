@@ -15,18 +15,24 @@ const MyTourBookings = () => {
 
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-screen">
-      <h1 className="text-2xl text-primaryColor my-10">My Tour Bookings</h1>
+      <h1 className="text-2xl text-primaryColor my-10">MY APPOINTMENTS</h1>
       {properties.length > 0 ? (
         properties.map((booking) => (
           <div key={booking._id} className="border p-4 mb-4 flex gap-6">
-            <div>
-              <img className="w-40" src={booking.property.image[0]} alt="" />
-            </div>
+            <img
+              className="w-40"
+              src={
+                booking.property?.image?.length > 0
+                  ? booking.property.image[0]
+                  : "placeholder.jpg"
+              }
+              alt={booking.property?.propertyName || "Property Image"}
+            />
 
             <div className="flex flex-col gap-1">
               <p>
                 <span className="font-medium">Property:</span>{" "}
-                {booking.property.propertyName}
+                {booking.property?.propertyName || "Unknown Property"}
               </p>
               <p>
                 <span className="font-medium">Date:</span>{" "}
