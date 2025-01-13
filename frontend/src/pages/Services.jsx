@@ -5,6 +5,7 @@ import { GiScrollQuill } from "react-icons/gi";
 import { SiSimpleanalytics } from "react-icons/si";
 import { IoSearch } from "react-icons/io5";
 import { FaCcMastercard } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const services = [
   {
@@ -45,54 +46,59 @@ const services = [
   },
 ];
 
-const faqData = [
-  {
-    question: "How do I schedule a property tour?",
-    answer:
-      "You can schedule a tour directly on our website or by contacting our agents.",
-  },
-  {
-    question: "Do you offer support for first-time buyers?",
-    answer:
-      "Yes! We provide personalized assistance to guide first-time buyers through every step.",
-  },
-  {
-    question: "What is the cost of your services?",
-    answer:
-      "Our basic consultation is free. Additional charges may apply depending on the service you need.",
-  },
-];
-
 const Services = () => {
   return (
     <div className="bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-primaryColor text-white py-20 px-5 text-center">
+      <motion.div
+        className="bg-primaryColor text-white py-20 px-5 text-center"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
         <h1 className="text-4xl font-semibold mb-4">Our Services</h1>
         <p className="text-lg sm:text-xl">
           Empowering you with premium real estate solutions tailored for your
           needs.
         </p>
-      </div>
+      </motion.div>
 
       {/* Services Section */}
-      <div className="py-20 px-5 max-w-7xl mx-auto">
-        <h2 className="text-3xl text-center mb-10">What We Offer</h2>
+      <motion.div
+        className="py-20 px-5 max-w-7xl mx-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2 }}
+      >
+        <motion.h2
+          className="text-3xl text-center mb-10"
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          What We Offer
+        </motion.h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 transform transition duration-300"
+              className="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 transform transition duration-100"
+              whileHover={{ scale: 1.1 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
             >
-              <div className="text-4xl mb-4 flex justify-center text-primaryColor ">{service.icon}</div>
+              <div className="text-4xl mb-4 flex justify-center text-primaryColor">
+                {service.icon}
+              </div>
               <h3 className="text-xl font-light text-gray-800 mb-2">
                 {service.title}
               </h3>
               <p className="text-gray-600 text-sm">{service.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
