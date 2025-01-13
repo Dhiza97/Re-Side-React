@@ -20,7 +20,8 @@ const Listings = () => {
     } else {
       const filtered = allProperties.filter(
         (property) =>
-          property.purchaseType.trim().toLowerCase() === type.trim().toLowerCase()
+          property.purchaseType.trim().toLowerCase() ===
+          type.trim().toLowerCase()
       );
       setFilteredProperties(filtered);
     }
@@ -69,7 +70,11 @@ const Listings = () => {
       {/* Properties Section */}
       <div className="mt-5">
         {filteredProperties.length > 0 ? (
-          <PropertyCard properties={paginatedItems} currency={currency} />
+          <PropertyCard
+            key={`${activeFilter}-${currentPage}`}
+            properties={paginatedItems}
+            currency={currency}
+          />
         ) : (
           <p className="text-gray-500">No properties available.</p>
         )}
