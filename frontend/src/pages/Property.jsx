@@ -72,7 +72,7 @@ const Property = () => {
       toast.success("Tour booked successfully");
     } catch (error) {
       console.error("Error booking tour:", error);
-      toast.error("Error booking tour");
+      toast.error("Already booked a tour on this property");
     }
   };
 
@@ -214,14 +214,15 @@ const Property = () => {
         <div className="border px-6 py-6 text-sm text-gray-500">
           <div className="grid grid-cols-1 sm:grid-cols-2">
             {/* Agent Info Section */}
-            <div>
-              <p>
+            <div className="flex flex-col gap-3">
+              <p className="sm:text-lg">
                 <strong>Name:</strong>{" "}
                 {property?.agent?.firstName && property?.agent?.lastName
                   ? `${property.agent.firstName} ${property.agent.lastName}`
                   : "N/A"}
               </p>
-              <p>
+
+              <p className="sm:text-lg">
                 <strong>Contact:</strong>{" "}
                 <a
                   href={`mailto:${property?.agent?.email}`}
@@ -231,13 +232,13 @@ const Property = () => {
                 </a>
               </p>
 
-              <p>
+              <p className="sm:text-lg">
                 <strong>Phone:</strong>{" "}
                 <a
                   href={`tel:${property?.agent?.phone}`}
                   className="text-primaryColor underline"
                 >
-                  {property?.agent?.phone || "N/A"}
+                  0{property?.agent?.phone || "N/A"}
                 </a>
               </p>
             </div>
