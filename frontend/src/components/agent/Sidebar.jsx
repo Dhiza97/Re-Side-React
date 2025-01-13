@@ -83,7 +83,7 @@ const Sidebar = () => {
               }`
             }
           >
-            <p>Tour Bookings</p>
+            <p>Appointments</p>
           </NavLink>
         </div>
 

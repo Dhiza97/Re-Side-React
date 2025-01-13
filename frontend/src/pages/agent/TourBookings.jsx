@@ -27,8 +27,8 @@ const TourBookings = () => {
   }
 
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] min-h-screen">
-      <h1 className="text-2xl text-primaryColor my-10">Tour Bookings</h1>
+    <div className="px-4 min-h-screen">
+      <h1 className="text-2xl text-primaryColor my-3">Appointments</h1>
       {properties.length > 0 ? (
         properties.map((booking) => (
           <div key={booking._id} className="border p-4 mb-4">
@@ -54,7 +54,7 @@ const TourBookings = () => {
           </div>
         ))
       ) : (
-        <p className="text-gray-600">No bookings available.</p>
+        <p className="text-gray-600">No appointments available.</p>
       )}
     </div>
   );
