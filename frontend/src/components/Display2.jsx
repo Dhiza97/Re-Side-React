@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const Display2 = () => {
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-around py-5 sm:py-7 gap-4 sm:gap-5">
+    <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-around py-5 sm:py-7 gap-4 sm:gap-5 sm:mt-20">
       <div className="flex items-center justify-center gap-4 bg-white p-4 sm:p-6 rounded-full shadow-lg w-full sm:w-[400px]">
         <div className="avatar-group -space-x-4 sm:-space-x-6 rtl:space-x-reverse">
           <div className="avatar">
