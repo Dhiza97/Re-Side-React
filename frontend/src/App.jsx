@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
@@ -23,6 +23,7 @@ import MyTourBookings from "./pages/MyTourBookings";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
+  const location = useLocation()
   const hideFooterRoutes = [
     "/login",
     "/register",
