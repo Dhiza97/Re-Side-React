@@ -35,9 +35,9 @@ const Display = () => {
         <div className="hero-content flex flex-col sm:flex-row justify-between w-full gap-10">
           {/* Left */}
           <motion.div 
-          initial={{opacity: 0, translateX: "-100%"}}
-          whileInView={{opacity: 1, translateX: 0}}
-          transition={{duration: 2}}
+          initial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
 
           className="text-left sm:w-1/2 space-y-4">
             <Heading text={"REAL ESTATE"} />
@@ -63,9 +63,9 @@ const Display = () => {
 
           {/* Right */}
           <motion.div
-          initial={{opacity: 0, translateX: "-100%"}}
-          whileInView={{opacity: 1, translateX: 0}}
-          transition={{duration: 2}}
+          initial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
           >
           <Swiper
               loop={true}

@@ -12,7 +12,7 @@ const PropertyCard = ({ properties, currency }) => {
             key={property._id}
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 1] }}
-            transition={{ duration: 0.5, delay: index / 8 }}
+            transition={{ duration: 1, delay: index / 5 }}
           >
             <Link
               to={`/property/${property._id}`}

@@ -70,13 +70,7 @@ const PropertiesCount = () => {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 2 }}
-      style={{ overflowX: "auto" }}
-      className="my-16"
-    >
+    <div className="my-16">
       <div className="flex items-center justify-center mb-16">
         <img className="w-12" src={assets.ellipse_1} alt="" />
       </div>
@@ -89,7 +83,12 @@ const PropertiesCount = () => {
 
       <div className="flex flex-col gap-8 text-center mt-7">
         <div className="flex flex-wrap gap-8 md:flex-row">
-          <div className="relative w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, translateY: "-100%" }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.7, delay: 1 }}
+            className="relative w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden"
+          >
             <img
               className="w-full h-full object-cover object-center"
               src={assets.house_4}
@@ -99,8 +98,14 @@ const PropertiesCount = () => {
               <p className="text-5xl opacity-70">{counts.abuja}</p>
               <p>Lagos, LAG</p>
             </div>
-          </div>
-          <div className="relative w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, translateY: "-100%" }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.7, delay: 1.2 }}
+            className="relative w-40 h-40 md:w-64 md:h-64 rounded-3xl overflow-hidden"
+          >
             <img
               className="w-full h-full object-cover object-center"
               src={assets.house_10}
@@ -110,8 +115,14 @@ const PropertiesCount = () => {
               <p className="text-5xl opacity-70">{counts.kaduna}</p>
               <p>Abuja, ABJ</p>
             </div>
-          </div>
-          <div className="relative w-40 h-40 md:flex-1 md:h-64 rounded-3xl overflow-hidden">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, translateY: "-100%" }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.7, delay: 1.4 }}
+            className="relative w-40 h-40 md:flex-1 md:h-64 rounded-3xl overflow-hidden"
+          >
             <img
               className="w-full h-full object-cover object-center"
               src={assets.house_11}
@@ -121,8 +132,14 @@ const PropertiesCount = () => {
               <p className="text-5xl opacity-70">{counts.imo}</p>
               <p>Kaduna, KD</p>
             </div>
-          </div>
-          <div className="relative w-40 h-40 md:hidden rounded-3xl overflow-hidden">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, translateY: "-100%" }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.7, delay: 1.5 }}
+            className="relative w-40 h-40 md:hidden rounded-3xl overflow-hidden"
+          >
             <img
               className="w-full h-full object-cover object-center"
               src={assets.house_15}
@@ -132,10 +149,16 @@ const PropertiesCount = () => {
               <p className="text-5xl opacity-70">{counts.kogi}</p>
               <p>Imo, IM</p>
             </div>
-          </div>
+          </motion.div>
         </div>
+
         <div className="flex flex-wrap gap-8 md:flex-row">
-          <div className="relative w-40 h-40 md:w-96 md:h-64 rounded-3xl overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, translateY: "-100%" }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.7, delay: 1.5 }}
+            className="relative w-40 h-40 md:w-96 md:h-64 rounded-3xl overflow-hidden"
+          >
             <img
               className="w-full h-full object-cover object-center"
               src={assets.house_12}
@@ -145,8 +168,14 @@ const PropertiesCount = () => {
               <p className="text-5xl opacity-70">{counts.portHarcourt}</p>
               <p>Oyo, OY</p>
             </div>
-          </div>
-          <div className="relative w-40 h-40 md:flex-1 md:h-64 rounded-3xl overflow-hidden">
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, translateY: "-100%" }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.7, delay: 1.5 }}
+            className="relative w-40 h-40 md:flex-1 md:h-64 rounded-3xl overflow-hidden"
+          >
             <img
               className="w-full h-full object-cover object-center"
               src={assets.house_14}
@@ -156,10 +185,10 @@ const PropertiesCount = () => {
               <p className="text-5xl opacity-70">{counts.lagos}</p>
               <p>Ogun, OG</p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
