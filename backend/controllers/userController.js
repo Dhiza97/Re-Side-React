@@ -99,6 +99,43 @@ export const toggleLike = async (req, res) => {
   }
 };
 
+// Get user profile
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error("Get user profile error: ", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// Update user profile
+export const updateUserProfile = async (req, res) => {
+  const { firstName, lastName, email, phone, address, city, state, country, gender, dob } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { firstName, lastName, email, phone, address, city, state, country, gender, dob },
+      { new: true, runValidators: true }
+    ).select('-password'); // Exclude password
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, user: updatedUser });
+  } catch (error) {
+    console.error("Update user profile error: ", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 // Admin Login
 export const adminLogin = async (req, res) => {
   try {

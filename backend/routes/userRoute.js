@@ -1,9 +1,11 @@
 import express from "express";
 import {
   adminLogin,
+  getUserProfile,
   loginUser,
   registerUser,
   toggleLike,
+  updateUserProfile,
 } from "../controllers/userController.js";
 import { authenticate, authorizeClient } from "../middleware/auth.js";
 import User from "../models/userModel.js";
@@ -34,6 +36,12 @@ userRouter.get("/likes", authenticate, authorizeClient, async (req, res) => {
       .json({ message: "Error fetching liked properties", error: err });
   }
 });
+
+// Get user profile
+userRouter.get('/profile', authenticate, authorizeClient, getUserProfile)
+
+// update user profile
+userRouter.put('/profile', authenticate, authorizeClient, updateUserProfile)
 
 // Admin Login Route
 userRouter.post("/admin", adminLogin)
