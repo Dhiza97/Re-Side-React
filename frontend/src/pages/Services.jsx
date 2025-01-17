@@ -82,11 +82,11 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 transform transition duration-100"
+              className="bg-white shadow-lg rounded-lg p-6 text-center hover:cursor-pointer transform transition duration-100"
               whileHover={{ scale: 1.1 }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6 }}
             >
               <div className="text-4xl mb-4 flex justify-center text-primaryColor">
                 {service.icon}
