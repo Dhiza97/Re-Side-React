@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="min-h-screen bg-primaryColor text-white">
+    <div className="fixed top-0 left-0 h-full w-64 bg-primaryColor text-white p-4 pt-32">
       <h2 className="text-lg font-semibold mb-4">Filter Properties</h2>
       <nav className="flex flex-col space-y-2">
         <NavLink
