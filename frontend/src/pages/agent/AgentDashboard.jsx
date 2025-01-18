@@ -7,10 +7,18 @@ import { IoHomeOutline } from "react-icons/io5";
 import { AiOutlineSchedule } from "react-icons/ai";
 import EditModal from "../../components/agent/EditModal";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const AgentDashboard = () => {
-  const { properties, setProperties, currency, api, token, totalAgentBookings, fetchTotalAgentBookings } =
-    useContext(AppContext);
+  const {
+    properties,
+    setProperties,
+    currency,
+    api,
+    token,
+    totalAgentBookings,
+    fetchTotalAgentBookings,
+  } = useContext(AppContext);
   const [totalLikes, setTotalLikes] = useState(0);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -87,29 +95,41 @@ const AgentDashboard = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-primaryColor">
-        <div className="bg-white shadow-md rounded-lg p-4 py-10">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white shadow-md rounded-lg p-4 py-10 cursor-pointer"
+        >
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-normal mb-2">Total Likes</h2>
             <IoIosHeartEmpty className="text-4xl" />
           </div>
           <p className="text-gray-600 text-3xl mt-6">{totalLikes}</p>
-        </div>
+        </motion.div>
 
-        <div className="bg-white shadow-md rounded-lg p-4 py-10">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white shadow-md rounded-lg p-4 py-10 cursor-pointer"
+        >
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-normal mb-2">Total Properties</h2>
             <IoHomeOutline className="text-4xl" />
           </div>
           <p className="text-gray-600 text-3xl mt-6">{properties.length}</p>
-        </div>
+        </motion.div>
 
-        <div className="bg-white shadow-md rounded-lg p-4 py-10">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white shadow-md rounded-lg p-4 py-10 cursor-pointer"
+        >
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-normal mb-2">Total Appointments</h2>
             <AiOutlineSchedule className="text-4xl" />
           </div>
           <p className="text-gray-600 text-3xl mt-6">{totalAgentBookings}</p>
-        </div>
+        </motion.div>
       </div>
 
       <div className="overflow-x-auto mt-10">
@@ -133,55 +153,69 @@ const AgentDashboard = () => {
           </thead>
 
           <tbody>
-            {properties.map((property, index) => {
-              return (
-                <tr key={property._id} className="">
-                  <th>{index + 1}</th>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {property.propertyName}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {property.propertyType
-                      .split(" ")
-                      .map(
-                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join(" ")}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {property.purchaseType
-                      .toLowerCase()
-                      .split(" ")
-                      .map(
-                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join(" ")}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {currency}
-                    {property.price.toLocaleString()}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {property.status
-                      .toLowerCase()
-                      .split(" ")
-                      .map(
-                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join(" ")}
-                  </td>
-                  <td className="flex gap-4 text-lg border border-gray-300">
-                    <p onClick={() => editProperty(property)}>
-                      <FiEdit className="cursor-pointer text-primaryColor" />
-                    </p>
+            {properties.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="text-center">
+                  Loading Properties
+                </td>
+              </tr>
+            ) : (
+              properties.map((property, index) => {
+                return (
+                  <tr key={property?._id} className="">
+                    <th>{index + 1}</th>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {property?.propertyName || "N/A"}
+                    </td>
 
-                    <p onClick={() => deleteProperty(property._id)}>
-                      <RiDeleteBin5Line className="cursor-pointer text-red-600" />
-                    </p>
-                  </td>
-                </tr>
-              );
-            })}
+                    <td className="border border-gray-300 px-4 py-2">
+                      {(property?.propertyType || "N/A")
+                        .toLowerCase()
+                        .split(" ")
+                        .map(
+                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                        )
+                        .join(" ")}
+                    </td>
+
+                    <td className="border border-gray-300 px-4 py-2">
+                      {(property?.purchaseType || "N/A")
+                        .toLowerCase()
+                        .split(" ")
+                        .map(
+                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                        )
+                        .join(" ")}
+                    </td>
+
+                    <td className="border border-gray-300 px-4 py-2">
+                      {currency}
+                      {property?.price ? property.price.toLocaleString() : "0"}
+                    </td>
+
+                    <td className="border border-gray-300 px-4 py-2">
+                      {(property?.status || "N/A")
+                        .toLowerCase()
+                        .split(" ")
+                        .map(
+                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                        )
+                        .join(" ")}
+                    </td>
+
+                    <td className="flex gap-4 text-lg border border-gray-300">
+                      <p onClick={() => editProperty(property)}>
+                        <FiEdit className="cursor-pointer text-primaryColor" />
+                      </p>
+
+                      <p onClick={() => deleteProperty(property._id)}>
+                        <RiDeleteBin5Line className="cursor-pointer text-red-600" />
+                      </p>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>
