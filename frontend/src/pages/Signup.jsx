@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const { navigate, backendUrl } = useContext(AppContext);
@@ -37,7 +38,9 @@ const Signup = () => {
 
     try {
       const url =
-        activeTab === "Agent" ? `${backendUrl}/api/agent/register` : `${backendUrl}/api/user/register`;
+        activeTab === "Agent"
+          ? `${backendUrl}/api/agent/register`
+          : `${backendUrl}/api/user/register`;
 
       const res = await axios.post(url, formData);
       toast.success("Registration successful!");
@@ -295,6 +298,12 @@ const Signup = () => {
               </button>
             )}
           </div>
+
+          <Link to="/login">
+            <p className="text-sm mt-5 underline cursor-pointer">
+              Already have an account? Login
+            </p>
+          </Link>
         </form>
       </div>
     </div>

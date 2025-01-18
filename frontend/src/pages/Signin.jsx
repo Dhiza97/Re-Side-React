@@ -137,10 +137,6 @@ const Signin = () => {
                 />
               </div>
 
-              <p className="text-sm text-right text-primaryColor hover:underline py-2">
-                <a href="">forgot password?</a>
-              </p>
-
               <button
                 type="submit"
                 className="w-full bg-primaryColor text-white py-3 rounded-md font-medium hover:bg-blue-700"
@@ -185,10 +181,6 @@ const Signin = () => {
                   placeholder="Enter your password"
                 />
               </div>
-
-              <p className="text-sm text-right text-primaryColor hover:underline py-2">
-                <a href="">forgot password?</a>
-              </p>
 
               <button
                 type="submit"
