@@ -14,6 +14,7 @@ const AppContextProvider = (props) => {
   const [agent, setAgent] = useState(null);
   const [properties, setProperties] = useState([]);
   const [allProperties, setAllProperties] = useState([]);
+  const [totalAgentBookings, setTotalAgentBookings] = useState(0);
 
   // Create Axios instance
   const api = axios.create({
@@ -137,6 +138,20 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const fetchTotalAgentBookings = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/api/booking/agent/count", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTotalAgentBookings(response.data.totalBookings);
+    } catch (error) {
+      console.error("Error fetching total agent bookings:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Logout function
   const logout = () => {
     localStorage.removeItem("token");
@@ -170,6 +185,8 @@ const AppContextProvider = (props) => {
     isAuthenticated,
     fetchClientBookings,
     fetchAgentBookings,
+    totalAgentBookings,
+    fetchTotalAgentBookings,
   };
 
   return (

@@ -1,6 +1,6 @@
 import express from "express";
 import { authenticate, authorizeClient, authorizeAgent } from "../middleware/auth.js";
-import { bookTour, getAgentBookings, getBookedSlots, getClientBookings, updateBookingStatus } from "../controllers/bookingController.js";
+import { bookTour, getAgentBookings, getBookedSlots, getClientBookings, getTotalAgentBookings, updateBookingStatus } from "../controllers/bookingController.js";
 
 const bookingRouter = express.Router();
 
@@ -18,5 +18,8 @@ bookingRouter.get("/agent", authenticate, authorizeAgent, getAgentBookings);
 
 // Get booked slots for a property
 bookingRouter.get("/property/:propertyId", getBookedSlots)
+
+// Get total agent bookings count
+bookingRouter.get("/agent/count", authenticate, authorizeAgent, getTotalAgentBookings);
 
 export default bookingRouter;

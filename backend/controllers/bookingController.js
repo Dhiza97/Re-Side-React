@@ -79,3 +79,13 @@ export const getBookedSlots = async (req, res) => {
     res.status(400).json({ message: "Error fetching booked slots", error });
   }
 };
+
+// Get total agent bookings count
+export const getTotalAgentBookings = async (req, res) => {
+  try {
+    const totalBookings = await Booking.countDocuments({ agent: req.user.id });
+    res.status(200).json({ totalBookings });
+  } catch (error) {
+    res.status(400).json({ message: "Error fetching total agent bookings", error });
+  }
+};

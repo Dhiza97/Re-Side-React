@@ -9,10 +9,9 @@ import EditModal from "../../components/agent/EditModal";
 import { toast } from "react-toastify";
 
 const AgentDashboard = () => {
-  const { properties, setProperties, currency, api, token } =
+  const { properties, setProperties, currency, api, token, totalAgentBookings, fetchTotalAgentBookings } =
     useContext(AppContext);
   const [totalLikes, setTotalLikes] = useState(0);
-  const [totalAppointments, setTotalAppointments] = useState(67);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -36,7 +35,8 @@ const AgentDashboard = () => {
     };
 
     fetchAgentProperties();
-  }, [api, token, setProperties]);
+    fetchTotalAgentBookings();
+  }, [api, token, setProperties, fetchTotalAgentBookings]);
 
   useEffect(() => {
     // Fetch total likes for the agent's properties
@@ -108,7 +108,7 @@ const AgentDashboard = () => {
             <h2 className="text-2xl font-normal mb-2">Total Appointments</h2>
             <AiOutlineSchedule className="text-4xl" />
           </div>
-          <p className="text-gray-600 text-3xl mt-6">{totalAppointments}</p>
+          <p className="text-gray-600 text-3xl mt-6">{totalAgentBookings}</p>
         </div>
       </div>
 
@@ -142,7 +142,6 @@ const AgentDashboard = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {property.propertyType
-                      .toLowerCase()
                       .split(" ")
                       .map(
                         (word) => word.charAt(0).toUpperCase() + word.slice(1)
