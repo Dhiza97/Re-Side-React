@@ -24,7 +24,6 @@ const Signin = () => {
           : `${backendUrl}/api/user/login`;
 
       const res = await axios.post(url, formData);
-      console.log("Response:", res);
 
       toast.success("Login successful!");
       const { token } = res.data;
