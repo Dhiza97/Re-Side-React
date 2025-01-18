@@ -1,5 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
 
 const Agent = () => {
   return (
@@ -14,13 +15,16 @@ const Agent = () => {
         <div className="text-white mb-6 sm:mb-0  pb-10 sm:p-0">
           <p className="text-3xl font-medium mb-3">Become an Agent.</p>
           <p className="text-xs">
-            Take the next step in your career and <br /> become an agent with us today.
+            Take the next step in your career and <br /> become an agent with us
+            today.
           </p>
         </div>
 
-        <button className="bg-white text-primaryColor rounded-full p-4 w-full sm:w-auto sm:mr-16 whitespace-nowrap">
-          Register Now
-        </button>
+        <Link to={'/register'}>
+          <button className="bg-white text-primaryColor rounded-full p-4 w-full sm:w-auto sm:mr-16 whitespace-nowrap">
+            Register Now
+          </button>
+        </Link>
       </div>
     </div>
   );

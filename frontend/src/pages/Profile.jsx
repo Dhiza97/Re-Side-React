@@ -11,10 +11,7 @@ const Profile = () => {
     lastName: "",
     email: "",
     phone: "",
-    address: {
-      line1: "",
-      line2: "",
-    },
+    address: "",
     gender: "",
     dob: "",
     city: "",
@@ -116,36 +113,65 @@ const Profile = () => {
 
           <p className="font-medium">Address:</p>
           {isEdit ? (
-            <>
-              <input
-                className="bg-gray-50"
-                onChange={(e) =>
-                  setUserData((prev) => ({
-                    ...prev,
-                    address: { ...prev.address, line1: e.target.value },
-                  }))
-                }
-                value={userData?.address?.line1 || ""}
-                type="text"
-              />
-              <br />
-              <input
-                className="bg-gray-50"
-                onChange={(e) =>
-                  setUserData((prev) => ({
-                    ...prev,
-                    address: { ...prev.address, line2: e.target.value },
-                  }))
-                }
-                value={userData?.address?.line2 || ""}
-                type="text"
-              />
-            </>
+            <input
+              className="bg-gray-100 max-w-52"
+              type="text"
+              value={userData?.address || ""}
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, address: e.target.value }))
+              }
+            />
           ) : (
-            <p className="text-gray-500">
-              {userData?.address?.line1 || "Address line 1"}
-              <br /> <br />
-              {userData?.address?.line2 || "Address line 2"}
+            <p className="text-primaryColor">
+              {userData?.address || "Address not available"}
+            </p>
+          )}
+
+          <p className="font-medium">State:</p>
+          {isEdit ? (
+            <input
+              className="bg-gray-100 max-w-52"
+              type="text"
+              value={userData?.state || ""}
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, state: e.target.value }))
+              }
+            />
+          ) : (
+            <p className="text-primaryColor">
+              {userData?.state || "State not available"}
+            </p>
+          )}
+
+          <p className="font-medium">City:</p>
+          {isEdit ? (
+            <input
+              className="bg-gray-100 max-w-52"
+              type="text"
+              value={userData?.city || ""}
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, city: e.target.value }))
+              }
+            />
+          ) : (
+            <p className="text-primaryColor">
+              {userData?.city || "City not available"}
+            </p>
+          )}
+
+          <p className="font-medium">Country:</p>
+          {isEdit ? (
+            <input
+              className="bg-gray-100 max-w-52"
+              type="text"
+              value={userData?.country || ""}
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, country: e.target.value }))
+              }
+            />
+          ) : (
+            <p className="text-primaryColor">
+              {userData?.country || "Country not available"}
             </p>
           )}
         </div>

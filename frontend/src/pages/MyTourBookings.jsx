@@ -35,8 +35,8 @@ const MyTourBookings = () => {
                 {booking.property?.propertyName || "Unknown Property"}
               </p>
 
-              <div className="font-medium">
-                <p>Date & Time:</p>
+              <div>
+                <p className="font-medium">Date & Time:</p>
                 <div className="flex flex-col sm:flex-row gap-3 text-blue-500 mt-1">
                   <p className="text-sm font-light flex-shrink-0 px-2 py-2 rounded-full border text-center">
                     {new Date(booking.date).toDateString()}
