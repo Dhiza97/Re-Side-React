@@ -36,7 +36,7 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
-      <ToastContainer />
+      <ToastContainer autoClose={3000} />
       {/* Show Navbar only for non-agent routes */}
       {!location.pathname.startsWith("/dashboard") && <Navbar />}
       <div>
