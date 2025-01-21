@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import Loader from "../Loader";
 
 const EditModal = ({ property, setShowModal }) => {
-  const { api, loading, setLoading } = useContext(AppContext);
+  const { api } = useContext(AppContext);
+  const [localLoading, setLocalLoading] = useState(false);
   const [propertyData, setPropertyData] = useState({
     propertyName: "",
     propertyType: "",
@@ -74,7 +75,7 @@ const EditModal = ({ property, setShowModal }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLocalLoading(true);
     try {
       const formData = new FormData();
       Object.keys(propertyData).forEach((key) => {
@@ -109,7 +110,7 @@ const EditModal = ({ property, setShowModal }) => {
       console.error(error);
       toast.error("Failed to update property.");
     } finally {
-      setLoading(false);
+      setLocalLoading(false);
     }
   };
 
@@ -124,7 +125,7 @@ const EditModal = ({ property, setShowModal }) => {
           </button>
         </div>
 
-        {loading && <Loader />}
+        {localLoading && <Loader />}
         <form
           onSubmit={onSubmitHandler}
           className="bg-white shadow-md rounded-lg p-6"
