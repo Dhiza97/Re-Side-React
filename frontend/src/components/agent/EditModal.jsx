@@ -386,7 +386,7 @@ const EditModal = ({ property, setShowModal }) => {
               type="submit"
               className="bg-primaryColor hover:bg-blue-700 text-white font-normal py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              {loading ? 'Updating...' : 'Update Property'}
+              {localLoading ? 'Updating...' : 'Update Property'}
             </button>
           </div>
         </form>
