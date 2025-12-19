@@ -72,7 +72,7 @@ const Navbar = () => {
 
           {/* Dropdown Menu */}
           {token && dropdownVisible && (
-            <div className="absolute right-0 pt-4 z-10">
+            <div className="absolute right-0 pt-4 z-[9999]">
               <div className="flex flex-col gap-2 w-40 py-3 px-5 bg-white text-gray-500 rounded text-base font-normal">
                 {["/profile", "/my-tour-bookings", "/wish-list"].map(
                   (path, idx) => (

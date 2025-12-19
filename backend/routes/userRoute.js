@@ -9,6 +9,7 @@ import {
 } from "../controllers/userController.js";
 import { authenticate, authorizeClient } from "../middleware/auth.js";
 import User from "../models/userModel.js";
+import { verifyEmail } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
@@ -17,6 +18,9 @@ userRouter.post("/register", registerUser);
 
 // Sign In User route
 userRouter.post("/login", loginUser);
+
+// Verify email route
+userRouter.get("/verify-email/:token", verifyEmail);
 
 // Toggle like on property
 userRouter.post("/likes", authenticate, authorizeClient, toggleLike);

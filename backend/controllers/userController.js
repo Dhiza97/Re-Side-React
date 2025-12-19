@@ -2,6 +2,8 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Property from "../models/propertyModel.js";
+import crypto from 'crypto';
+import { sendVerificationEmail } from '../utils/nodemailer.js';
 
 // Register a new user (Client)
 export const registerUser = async (req, res) => {
@@ -26,11 +28,21 @@ export const registerUser = async (req, res) => {
       password,
     });
 
+    // Generate verification token
+    const token = crypto.randomBytes(32).toString('hex');
+    newUser.verificationToken = token;
+    newUser.verificationTokenExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+
+    // Send verification email BEFORE saving the user
+    await sendVerificationEmail(email, token);
+
+    // Save the user only if email was sent successfully
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({ message: "User registered successfully. Please check your email to verify your account." });
   } catch (err) {
-    res.status(500).json({ message: "Error registering user", error: err });
+    console.error("Registration error:", err);
+    res.status(500).json({ message: "Error registering user. Please try again.", error: err.message });
   }
 };
 
@@ -43,6 +55,11 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    // Check if email is verified
+    if (!user.isVerified) {
+      return res.status(400).json({ message: "Please verify your email before logging in." });
     }
 
     // Compare password with hashed password
@@ -59,6 +76,31 @@ export const loginUser = async (req, res) => {
     res.status(200).json({ message: "Login successful", token });
   } catch (err) {
     res.status(500).json({ message: "Error logging in", error: err });
+  }
+};
+
+// Verify email
+export const verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    const user = await User.findOne({
+      verificationToken: token,
+      verificationTokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationTokenExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Email verified successfully. You can now log in.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error verifying email', error: err });
   }
 };
 

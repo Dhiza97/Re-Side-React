@@ -21,6 +21,7 @@ import WishList from "./pages/WishList";
 import Profile from "./pages/Profile";
 import MyTourBookings from "./pages/MyTourBookings";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Verification from "./pages/Verification";
 
 const App = () => {
   const location = useLocation()
@@ -56,6 +57,7 @@ const App = () => {
           />
           <Route path="/login" element={<Signin />} />
           <Route path="/register" element={<Signup />} />
+          <Route path="/verify-email/:token" element={<Verification />} />
           <Route path="/wish-list" element={<WishList />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/my-tour-bookings" element={<MyTourBookings />} />
