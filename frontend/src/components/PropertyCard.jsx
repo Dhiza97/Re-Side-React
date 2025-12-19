@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const PropertyCard = ({ properties, currency }) => {
   return (
-    <div className="property-list grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="property-list grid grid-cols-1 md:grid-cols-3 gap-4 text-black">
       {properties && properties.length > 0 ? (
         properties.map((property, index) => (
           <motion.div
