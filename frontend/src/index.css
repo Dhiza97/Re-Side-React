@@ -7,6 +7,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+input {
+  background-color: white
+}
+
 a.active p {
   @apply bg-[#C8D0FA] rounded-full;
 }
