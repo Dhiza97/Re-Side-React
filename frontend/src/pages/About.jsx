@@ -19,7 +19,7 @@ const About = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white">
       {/* Hero Section */}
       <motion.section
         className="relative bg-cover bg-center h-[300px] md:h-[500px]"
@@ -77,7 +77,7 @@ const About = () => {
         variants={staggerContainer}
       >
         <motion.h2
-          className="text-2xl font-semibold text-center mb-8"
+          className="text-2xl font-semibold text-center mb-8 text-black"
           variants={fadeIn}
         >
           Frequently Asked Questions

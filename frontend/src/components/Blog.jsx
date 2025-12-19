@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 const Blog = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, translateY: "-100%" }}
-      whileInView={{ opacity: 1, translateY: 0 }}
-      transition={{ duration: 2 }}
+      initial={{ y: -20, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1, delay: 0.3 }}
       className="bg-primaryColor py-20 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]"
     >
       <div className="text-white text-center">

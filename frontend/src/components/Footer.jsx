@@ -70,7 +70,7 @@ const Footer = () => {
           </p>
           <div className="flex bg-white p-2 rounded-full justify-center sm:justify-start">
             <input
-              className="focus:outline-none focus:ring-0 w-full"
+              className="focus:outline-none focus:ring-0 w-full bg-white text-black"
               type="email"
               placeholder="Email Address"
               size={'30'}

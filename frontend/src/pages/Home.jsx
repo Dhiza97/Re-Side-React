@@ -14,18 +14,18 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] my-16">
+      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] my-16 bg-white">
         <Trustees />
         <WhoWeAre />
         <Latest />
       </div>
       <Services />
-      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] bg-white">
         <PropertiesCount />
         <OurTeam />
       </div>
       <Blog />
-      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] bg-white">
         <Testimonial />
         <Agent />
       </div>

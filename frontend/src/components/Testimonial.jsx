@@ -21,9 +21,9 @@ const Testimonial = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, translateX: "-100%" }}
-      whileInView={{ opacity: 1, translateX: 0 }}
-      transition={{ duration: 2 }}
+      initial={{ y: -20, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1, delay: 0.3 }}
       className="hidden py-16 sm:py-24 lg:py-32 px-4 sm:px-8 md:px-16 lg:px-32 sm:flex flex-col lg:flex-row gap-10"
     >
       {/* Left */}

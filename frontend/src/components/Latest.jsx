@@ -23,9 +23,9 @@ const Latest = () => {
       <div>
         {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, translateY: "-100%" }}
-          whileInView={{ opacity: 1, translateY: 0 }}
-          transition={{ duration: 2 }}
+          initial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
           className="flex flex-col lg:flex-row justify-between items-center"
         >
           <div>
@@ -49,9 +49,9 @@ const Latest = () => {
 
         {/* Properties Section */}
         <motion.div
-          initial={{ opacity: 0, translateY: "-100%" }}
-          whileInView={{ opacity: 1, translateY: 0 }}
-          transition={{ duration: 2 }}
+          iinitial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
           className="mt-5 overflow-x-auto"
         >
           <div className="flex gap-6">

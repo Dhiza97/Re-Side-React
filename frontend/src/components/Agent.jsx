@@ -1,10 +1,16 @@
 import React from "react";
 import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Agent = () => {
   return (
-    <div className="relative flex flex-col-reverse sm:flex-row sm:items-center bg-primaryColor w-full rounded-3xl my-32 px-4 sm:px-8">
+    <motion.div
+      initial={{ y: -20, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1, delay: 0.3 }}
+      className="relative flex flex-col-reverse sm:flex-row sm:items-center bg-primaryColor w-full rounded-3xl my-32 px-4 sm:px-8"
+    >
       <img
         className="w-full sm:w-[15.8rem] sm:mr-16 sm:-mt-8 sm:mb-0 mb-0"
         src={assets.agent}
@@ -20,13 +26,13 @@ const Agent = () => {
           </p>
         </div>
 
-        <Link to={'/register'}>
+        <Link to={"/register"}>
           <button className="bg-white text-primaryColor rounded-full p-4 w-full sm:w-auto sm:mr-16 whitespace-nowrap">
             Register Now
           </button>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex items-center justify-between font-medium px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] shadow-lg">
+    <div className="flex items-center justify-between font-medium px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] shadow-lg bg-white">
       <Link to={"/"}>
         <img src={assets.logo_blue} className="w-16" alt="" />
       </Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
               src={assets.icon_user_circle}
               alt=""
             />
-            <p className="hidden md:flex text-base">
+            <p className="hidden md:flex text-black">
               {token ? "My Account" : "Login/Register"}
             </p>
           </div>
@@ -109,7 +109,7 @@ const Navbar = () => {
       </div>
       {/* Sidebar menu for small screen */}
       <div
-        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white z-10 transition-all ${
+        className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white z-[9999] transition-all ${
           visible ? "w-full" : "w-0"
         }`}
       >
